@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.yaboja.dto.UserDto" alias="UserDto"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="/sqls/chatting_mapper.xml"/>
+		<mapper resource="/sqls/cinema_mapper.xml"/>
+		<mapper resource="/sqls/coin_mapper.xml"/>
+		<mapper resource="/sqls/matching_mapper.xml"/>
+		<mapper resource="/sqls/matchingboard_mapper.xml"/>
+		<mapper resource="/sqls/movie_mapper.xml"/>
+		<mapper resource="/sqls/moviecoment_mapper.xml"/>
+		<mapper resource="/sqls/reviewboard_mapper.xml"/>
+		<mapper resource="/sqls/reviewboardcoment_mapper.xml"/>
+		<mapper resource="/sqls/user_mapper.xml"/>
+	</mappers>
+</configuration>
