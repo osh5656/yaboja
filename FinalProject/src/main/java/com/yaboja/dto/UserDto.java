@@ -2,7 +2,7 @@ package com.yaboja.dto;
 
 public class UserDto {
 
-	 // 사용자번호 
+	// 사용자번호 
     private int userseq;
 
     // 아이디 
@@ -36,13 +36,13 @@ public class UserDto {
     private String useremailcheck;
 
     // 등록영화관1 
-    private int userteather1;
+    private int usertheater1;
 
     // 등록영화관2 
-    private int userteather2;
+    private int usertheater2;
 
     // 등록영화관3 
-    private int userteather3;
+    private int usertheater3;
 
     // 등급 
     private String usergrade;
@@ -135,28 +135,28 @@ public class UserDto {
         this.useremailcheck = useremailcheck;
     }
 
-    public int getUserteather1() {
-        return userteather1;
+    public int getUsertheater1() {
+        return usertheater1;
     }
 
-    public void setUserteather1(int userteather1) {
-        this.userteather1 = userteather1;
+    public void setUsertheater1(int usertheater1) {
+        this.usertheater1 = usertheater1;
     }
 
-    public int getUserteather2() {
-        return userteather2;
+    public int getUsertheater2() {
+        return usertheater2;
     }
 
-    public void setUserteather2(int userteather2) {
-        this.userteather2 = userteather2;
+    public void setUsertheater2(int usertheater2) {
+        this.usertheater2 = usertheater2;
     }
 
-    public int getUserteather3() {
-        return userteather3;
+    public int getUsertheater3() {
+        return usertheater3;
     }
 
-    public void setUserteather3(int userteather3) {
-        this.userteather3 = userteather3;
+    public void setUsertheater3(int usertheater3) {
+        this.usertheater3 = usertheater3;
     }
 
     public String getUsergrade() {
@@ -166,7 +166,6 @@ public class UserDto {
     public void setUsergrade(String usergrade) {
         this.usergrade = usergrade;
     }
-
    
   
 }

@@ -3,6 +3,15 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias type="com.yaboja.dto.ChattingDto" alias="ChattingDto"/>
+		<typeAlias type="com.yaboja.dto.CinemaDto" alias="CinemaDto"/>
+		<typeAlias type="com.yaboja.dto.CoinDto" alias="CoinDto"/>
+		<typeAlias type="com.yaboja.dto.MatchingboardDto" alias="MatchingboardDto"/>
+		<typeAlias type="com.yaboja.dto.MatchingDto" alias="MatchingDto"/>
+		<typeAlias type="com.yaboja.dto.MoviecomentDto" alias="MoviecomentDto"/>
+		<typeAlias type="com.yaboja.dto.MovieDto" alias="MovieDto"/>
+		<typeAlias type="com.yaboja.dto.ReviewboardcomentDto" alias="ReviewboardcomentDto"/>
+		<typeAlias type="com.yaboja.dto.ReviewboardDto" alias="ReviewboardDto"/>
 		<typeAlias type="com.yaboja.dto.UserDto" alias="UserDto"/>
 	</typeAliases>
 	
