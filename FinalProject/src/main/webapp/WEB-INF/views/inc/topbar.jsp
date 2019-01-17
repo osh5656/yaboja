@@ -247,7 +247,7 @@ hr.small {
 				
 				<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
 				<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i>
-				<a class="navbar-brand" href="loginform.jsp" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a>
+				<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a>
 				<a class="navbar-brand" href="joincheck.jsp" style="float: right;">Join</a>
 					
 				

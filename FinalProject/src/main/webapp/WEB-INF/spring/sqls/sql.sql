@@ -24,6 +24,7 @@ CREATE TABLE USERS(
 
 
 
+
 CREATE TABLE CHATTING(
     CHATSEQ        NUMBER            NOT NULL, 
     USERSEQ1       NUMBER            NOT NULL, 

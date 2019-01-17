@@ -33,18 +33,18 @@
 	
 	<div class="container-login" >
 		<div class="wrap-login p-l-55 p-r-55 p-t-80 p-b-30" >
-			<form class="login100-form validate-form">
+			<form action="login.do" class="login100-form validate-form" method="post">
 				<span class="login100-form-title p-b-37">
 					LogIn
 				</span>
 
 				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-					<input class="input100" type="text" name="username" placeholder="username or email">
+					<input class="input100" type="text" name="userid" placeholder="username or email">
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-					<input class="input100" type="password" name="pass" placeholder="password">
+					<input class="input100" type="password" name="userpw" placeholder="password">
 					<span class="focus-input100"></span>
 				</div>
 

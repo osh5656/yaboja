@@ -5,9 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.yaboja.biz.UserBiz;
 import com.yaboja.daoImpl.UserDaoImpl;
+import com.yaboja.dto.UserDto;
 @Service
 public class UserBizImpl implements UserBiz {
 
 	@Autowired
 	UserDaoImpl dao;
+
+	@Override
+	public UserDto getLogin(String userid, String userpw) {
+		// TODO Auto-generated method stub
+		return dao.getLogin(userid,userpw);
+	}
 }
