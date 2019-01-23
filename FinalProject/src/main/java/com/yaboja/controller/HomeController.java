@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yaboja.biz.MatchingboardBiz;
 import com.yaboja.biz.UserBiz;
 import com.yaboja.dto.UserDto;
 
@@ -74,4 +75,5 @@ public class HomeController {
 		
 		return "main";
 	}
+	
 }

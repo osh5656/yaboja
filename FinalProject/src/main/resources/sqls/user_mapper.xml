@@ -6,4 +6,13 @@
   	FROM USERS
   	WHERE USERID = #{userid} AND USERPW = #{userpw}
   </select>
+  
+  <select id="selectOne2" resultType="UserDto">
+  SELECT *
+  FROM USERS
+  WHERE USERSEQ=#{userseq}
+  
+  </select>
+  
+  
 </mapper>

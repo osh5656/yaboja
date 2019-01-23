@@ -12,6 +12,7 @@
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +61,13 @@ function searchclick(){
 	else{
 		alert('확인');
 	}
+	
+function boardlist(){
+	var x = document.getElementsByName("listsize").value;
+	alert(x);
 }
+}
+
 </script>
 
 <body>
@@ -73,7 +80,7 @@ function searchclick(){
 	<!-- Menu Bar -->
 	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
 		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href="match_list.jsp"><strong>Matching
+		<a href=""><strong>Movie Board</strong></a> <a href="matchingboardlist.do"><strong>Matching
 				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
 				Board</strong></a> <a href=""><strong>My Page</strong></a>
 		<div class="nav-underline"></div>
@@ -112,28 +119,33 @@ function searchclick(){
 		<th width ="100px">날 짜</th>
 		
 	</tr>
-	<tr align = "center">
-		<td>김민엽</td>
-		<td><a href ="match_detail.jsp">같이 영화보아아아아요</a></td>
-		<td>남</td>
-		<td>20초</td>
-		<td>역삼cgv</td>
-		<td>완벽한타인</td>
-		<td>201919</td>
-	</tr>
-	<tr align = "center">
-		<td>이창환</td><td>a</td><td>b</td><td>c</td>
-		<td>2</td><td>a</td><td>b</td>
-	</tr>
-	<tr align = "center">
-		<td>최강일</td><td>A</td><td>B</td><td>C</td>
-		<td>A</td><td>B</td><td>C</td>
-	</tr>
-	<tr align = "center">
-		<td>최진선</td><td>A</td><td>B</td><td>C</td>
-		<td>A</td><td>B</td><td>C</td>
-	</tr>
-</table>
+	
+	<c:choose>
+		<c:when test="${empty matchingboardlist1 }">
+			<h3>----등록된 매칭글이 없습니다----</h3>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="i" begin="0" end="${listsize }">
+					
+				<tr align = "center">
+					<td><c:out value="${matchingboardlist2[i].username }" /></td> 
+					<td><a href ="matchingboardselectone.do?userseq=${matchingboardlist2[i].userseq }"><c:out value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
+					<td><c:out value="${matchingboardlist2[i].usersex }" /></td>
+					<td><c:out value="${matchingboardlist2[i].userage }" /></td>
+					<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
+					<td><c:out value="${matchingboardlist3[i].movietitle }" /></td>
+					<td><c:out value="${matchingboardlist1[i].matchingboarddate }"/></td>
+					
+			</tr>
+			</c:forEach>
+			
+		</c:otherwise>
+	
+	</c:choose>
+<%
+
+%>
+</table> 
 <nav aria-label="..." style="text-align: center;">
       <ul class="pagination" id="pasing">페이징</ul>
    </nav>

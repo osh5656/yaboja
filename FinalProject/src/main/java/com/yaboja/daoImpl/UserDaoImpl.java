@@ -26,4 +26,18 @@ public class UserDaoImpl implements UserDao {
 		}
 		return res;
 	}
+
+	public UserDto selectOne(int userseq) {
+		// TODO Auto-generated method stub
+		UserDto dto = null;
+		try {
+			dto = sqlSession.selectOne(namespace+"selectOne2",userseq);
+		} catch (Exception e) {
+			System.out.println("selectOne2 에러");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	
 }

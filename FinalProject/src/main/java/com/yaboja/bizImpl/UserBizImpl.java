@@ -17,4 +17,10 @@ public class UserBizImpl implements UserBiz {
 		// TODO Auto-generated method stub
 		return dao.getLogin(userid,userpw);
 	}
+
+	@Override
+	public UserDto selectOne(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.selectOne(userseq);
+	}
 }

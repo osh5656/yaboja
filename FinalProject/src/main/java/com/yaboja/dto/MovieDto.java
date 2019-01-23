@@ -30,8 +30,27 @@ public class MovieDto {
 
     // 이미지URL 
     private String image;
+    
+    
 
-    public int getMovieseq() {
+    public MovieDto() {
+    	super();
+    }
+    public MovieDto(int movieseq, String genre, String movietitle, Date movieopendate, String moviestate,
+			String director, String actor, int userng, String image) {
+		super();
+		this.movieseq = movieseq;
+		this.genre = genre;
+		this.movietitle = movietitle;
+		this.movieopendate = movieopendate;
+		this.moviestate = moviestate;
+		this.director = director;
+		this.actor = actor;
+		this.userng = userng;
+		this.image = image;
+	}
+
+	public int getMovieseq() {
         return movieseq;
     }
 

@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="movie">
   
+  <select id="match_selectOne" resultType="MovieDto">
+   SELECT *
+   FROM MOVIE
+   WHERE MOVIESEQ=#{movieseq}
+  </select>
+  
 </mapper>

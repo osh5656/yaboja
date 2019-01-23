@@ -8,11 +8,24 @@ public class CinemaDto {
     // 영화관 
     private String cinema;
 
-    // 위도 
+	// 위도 
     private String latitude;
 
     // 경도 
     private String longitude;
+    
+    //생성자
+    public CinemaDto(int cinemaseq, String cinema, String latitude, String longitude) {
+		super();
+		this.cinemaseq = cinemaseq;
+		this.cinema = cinema;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+    
+    public CinemaDto() {
+    	
+    }
 
     public int getCinemaseq() {
         return cinemaseq;
@@ -45,4 +58,6 @@ public class CinemaDto {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+    
+    
 }
