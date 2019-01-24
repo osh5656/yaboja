@@ -1,6 +1,7 @@
 package com.yaboja.bizImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,17 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 	public MatchingboardDto selectOne(int matchingboard) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int insert(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.insert(map);
+	}
+
+	@Override
+	public MatchingboardDto userOne(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.userOne(userseq);
 	}
 }

@@ -1,5 +1,18 @@
+<%@page import="com.yaboja.dto.MovieDto"%>
+<%@page import="com.yaboja.dto.CinemaDto"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+	UserDto userDto = (UserDto)session.getAttribute("dto");
+	Date date = new Date();
+	List<CinemaDto> cinemaList = (List)request.getAttribute("cinemaList");
+	List<MovieDto> movieList = (List)request.getAttribute("movieList");
+%>
 <!DOCTYPE html>
 <!-- <html lang="en"> -->
 
@@ -57,7 +70,7 @@ function inputConfirm(){
 	else{
 		//모든사항 누락 없을 시에
 		alert('정상적으로 매칭게시글이 입력되었습니다.');
-		location.href='match_list.jsp';
+		document.forms['myForm'].submit();
 	}
 }
 </script>	
@@ -90,11 +103,11 @@ function inputConfirm(){
 	<div class = "container" >
 	<h1 style="color:black; font-weight: bold;">매칭글 작성하기</h1>
 	<br>
-	<form id="" method ="post" action ="" name ="">
+	<form id="" method ="post" name ="myForm" action="matchingboard_insert.do">
 	<table border ="1" class= "table table-bordered">
 		<tr align ="center">
 			<th width ="70px">이름</th>
-			<td width ="120px">김민엽</td>
+			<td width ="120px"><%=userDto.getUsername() %></td>
 			<td rowspan ="2" width="120px"><div style="width=150px; height=200px;">사진</div></td>
 			<td width ="100px">
 			<label for= "theater" style="float:left">영화관 선택</label>
@@ -103,20 +116,22 @@ function inputConfirm(){
 		</tr>
 		<tr align ="center">
 			<th>연령대</th>
-			<td>20후반</td>
+			<td><%=userDto.getUserage() %></td>
 			<td>
-				<select id = "theater" name ="theater" size='1'>
+				<select id = "theater" name ="cinema" size='1'>
 					<option value="서울">--- 서울 ---</option>
-					<option value="강남CGV">강남CGV</option>
-					<option value="역삼CGV">역삼CGV</option>
-					<option value="사당CGV">사당CGV</option>
-					<option value="잠실CGV">잠실CGV</option>
-					<option value="문정CGV">문정CGV</option>
-					<option value="경기">--- 경기 ---</option>
-					<option value="범계CGV">범계CGV</option>
+<%
+					for(int i = 0 ; i < cinemaList.size() ; i++){
+						
+%>
+					<option value="<%=cinemaList.get(i).getCinema() %>"><%=cinemaList.get(i).getCinema() %></option>
+<%
+					}
+%>
+					
 				</select>
 			</td>
-			<td>20190106</td>
+			<td><%=(date.getYear()+1900)+"-"+((String.valueOf((date.getMonth()+1)).length())<=1?("0"+(date.getMonth()+1)):(date.getMonth()+1)+"")+"-"+date.getDate() %></td>
 			
 		
 		</tr>
@@ -129,11 +144,13 @@ function inputConfirm(){
 			</td>
 			<td>
 				<select id = "moviename" name ="moviename" size='1'>
-					<option value="아쿠아맨">아쿠아맨</option>
-					<option value="도어락">도어락</option>
-					<option value="분노의 질주">분노의 질주</option>
-					<option value="언니">언니</option>
-					<option value="완벽한 타인">완벽한타인</option>
+<%
+					for(int i = 0 ; i < movieList.size() ; i++){			
+%>
+					<option value="<%=movieList.get(i).getMovietitle()%>"><%=movieList.get(i).getMovietitle()%></option>
+<%
+					}
+%>
 				</select>
 			</td>
 		</tr>
@@ -143,8 +160,7 @@ function inputConfirm(){
 		</tr>
 		<tr align ="center">
 			<td colspan = "5">
-				<textarea rows="30" cols="100%" >내용을 입력하세요
-				</textarea>
+				<textarea rows="8" cols="90" style="resize: none;" name="matchingboardcontent">내용을 입력하세요.</textarea>
 			</td>
 			
 		</tr>

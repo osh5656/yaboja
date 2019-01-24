@@ -102,7 +102,7 @@ function boardlist(){
   <input onclick ="searchclick()" type="button" value="검색" class="btn btn default" />
 <!--   <input type= "submit" value ="검색" class="btn btn default" onclick ='searchclick()'> -->
 
-<input type="button" value="매칭만들기" class="btn btn default" onclick = "location.href='match_insert.jsp'"/>
+<input type="button" value="매칭만들기" class="btn btn default" onclick = "location.href='matchingForm.do'"/>
 
 
 </div>

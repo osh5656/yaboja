@@ -1,5 +1,7 @@
 package com.yaboja.bizImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,17 @@ public class CinemaBizImpl implements CinemaBiz{
 	public CinemaDto selectOne(int cinemaseq) {
 		// TODO Auto-generated method stub
 		return dao.selectOne(cinemaseq);
+	}
+
+	@Override
+	public List<CinemaDto> selectList() {
+		// TODO Auto-generated method stub
+		return dao.selectList();
+	}
+
+	@Override
+	public int getCinemaSeq(String cinema) {
+		// TODO Auto-generated method stub
+		return dao.getCinemaSeq(cinema);
 	}
 }

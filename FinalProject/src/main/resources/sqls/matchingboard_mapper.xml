@@ -22,8 +22,15 @@
   <!-- 시간되면 matchingboardseq로 바꾸기 -->
   
   </select>
+  <select id="userOne" parameterType="int" resultType="MatchingboardDto">
+  	SELECT *
+  	FROM MATCHINGBOARD
+  	WHERE USERSEQ = #{userseq}
+  </select>
   
-  
+  <insert id="insert" parameterType="map">
+  	INSERT INTO MATCHINGBOARD VALUES(MATCHINGBOARDSQ.NEXTVAL,TO_NUMBER(#{movieseq}),TO_NUMBER(#{userseq}),#{matchingboardtitle},#{matchingboardcontent},SYSDATE,TO_NUMBER(#{cinemaseq}))
+  </insert>
   
   
   

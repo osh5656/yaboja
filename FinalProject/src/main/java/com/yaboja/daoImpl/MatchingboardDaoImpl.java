@@ -1,6 +1,7 @@
 package com.yaboja.daoImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,29 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@Override
+	public int insert(Map<String, String> map) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(namespace+"insert",map);
+		} catch(Exception e) {
+			System.out.println("insert 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public MatchingboardDto userOne(int userseq) {
+		MatchingboardDto matchingboarddto = null;
+		try {
+			matchingboarddto = sqlSession.selectOne(namespace+"userOne",userseq);
+		} catch(Exception e) {
+			System.out.println("userOne 에러");
+			e.printStackTrace();
+		}
+		return matchingboarddto;
 	}
 }
