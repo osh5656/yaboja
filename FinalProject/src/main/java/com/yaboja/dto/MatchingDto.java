@@ -17,10 +17,10 @@ public class MatchingDto {
     private String matchingstate;
 
     // 작성자알림 
-    private String writernotice;
+    private int writernotice;
 
     // 신청자알림 
-    private String applicantnotice;
+    private int applicantnotice;
 
     // 날짜 
     private Date matchingdate;
@@ -28,67 +28,69 @@ public class MatchingDto {
     // 선택 체 
     private String selectedapplicant;
 
-    public int getMatchingseq() {
-        return matchingseq;
-    }
+	public int getMatchingseq() {
+		return matchingseq;
+	}
 
-    public void setMatchingseq(int matchingseq) {
-        this.matchingseq = matchingseq;
-    }
+	public void setMatchingseq(int matchingseq) {
+		this.matchingseq = matchingseq;
+	}
 
-    public int getMatchingwriter() {
-        return matchingwriter;
-    }
+	public int getMatchingwriter() {
+		return matchingwriter;
+	}
 
-    public void setMatchingwriter(int matchingwriter) {
-        this.matchingwriter = matchingwriter;
-    }
+	public void setMatchingwriter(int matchingwriter) {
+		this.matchingwriter = matchingwriter;
+	}
 
-    public int getMatchingapplicant() {
-        return matchingapplicant;
-    }
+	public int getMatchingapplicant() {
+		return matchingapplicant;
+	}
 
-    public void setMatchingapplicant(int matchingapplicant) {
-        this.matchingapplicant = matchingapplicant;
-    }
+	public void setMatchingapplicant(int matchingapplicant) {
+		this.matchingapplicant = matchingapplicant;
+	}
 
-    public String getMatchingstate() {
-        return matchingstate;
-    }
+	public String getMatchingstate() {
+		return matchingstate;
+	}
 
-    public void setMatchingstate(String matchingstate) {
-        this.matchingstate = matchingstate;
-    }
+	public void setMatchingstate(String matchingstate) {
+		this.matchingstate = matchingstate;
+	}
 
-    public String getWriternotice() {
-        return writernotice;
-    }
+	public int getWriternotice() {
+		return writernotice;
+	}
 
-    public void setWriternotice(String writernotice) {
-        this.writernotice = writernotice;
-    }
+	public void setWriternotice(int writernotice) {
+		this.writernotice = writernotice;
+	}
 
-    public String getApplicantnotice() {
-        return applicantnotice;
-    }
+	public int getApplicantnotice() {
+		return applicantnotice;
+	}
 
-    public void setApplicantnotice(String applicantnotice) {
-        this.applicantnotice = applicantnotice;
-    }
+	public void setApplicantnotice(int applicantnotice) {
+		this.applicantnotice = applicantnotice;
+	}
 
-    public Date getMatchingdate() {
-        return matchingdate;
-    }
+	public Date getMatchingdate() {
+		return matchingdate;
+	}
 
-    public void setMatchingdate(Date matchingdate) {
-        this.matchingdate = matchingdate;
-    }
+	public void setMatchingdate(Date matchingdate) {
+		this.matchingdate = matchingdate;
+	}
 
-    public String getSelectedapplicant() {
-        return selectedapplicant;
-    }
+	public String getSelectedapplicant() {
+		return selectedapplicant;
+	}
 
-    public void setSelectedapplicant(String selectedapplicant) {
-        this.selectedapplicant = selectedapplicant;
-    }
+	public void setSelectedapplicant(String selectedapplicant) {
+		this.selectedapplicant = selectedapplicant;
+	}
+
+    
 }

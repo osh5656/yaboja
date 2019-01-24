@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yaboja.biz.CinemaBiz;
+import com.yaboja.biz.MatchingBiz;
 import com.yaboja.biz.MatchingboardBiz;
 import com.yaboja.biz.MovieBiz;
 import com.yaboja.biz.UserBiz;
 import com.yaboja.dto.CinemaDto;
+import com.yaboja.dto.MatchingDto;
 import com.yaboja.dto.MatchingboardDto;
 import com.yaboja.dto.MovieDto;
 import com.yaboja.dto.UserDto;
@@ -40,6 +42,8 @@ public class MatchingboardController {
 	private MovieBiz movieBiz;
 	@Autowired
 	private CinemaBiz cinemaBiz;
+	@Autowired
+	private MatchingBiz matchingBiz;
 	
 	
 
@@ -140,15 +144,45 @@ public class MatchingboardController {
 		
 		response.sendRedirect("matchingboardlist.do");
 	}
-	
-	@RequestMapping(value ="/")
-	public String insert(Model model, int userseq) {
-		return null;
-	}
-	@RequestMapping(value = "/matchSuccess.do")
-	public String match(Model model) {
+	@RequestMapping(value = "/matching_insert.do")
+	public void match(Model model, HttpServletResponse response,HttpSession session,HttpServletRequest request) throws IOException {
+		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+		int matchingwriter = Integer.parseInt(request.getParameter("userseq"));
+		response.setContentType("text/html; charset=UTF-8");
+		MatchingDto dto = null;
+		dto = matchingBiz.selectOne(userseq);
+		if(dto != null) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 신청한 매칭이 있습니다.');history.back();</script>");
+			out.close();
+		}else {
+			MatchingDto matchingDto = new MatchingDto();
+			matchingDto.setMatchingwriter(matchingwriter);
+			matchingDto.setMatchingapplicant(userseq);
+			
+			int res = matchingBiz.insert(matchingDto);
+			if(res > 0) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('매칭 신청 성공');</script>");
+				response.sendRedirect("mypage_match_to.do");
+				out.close();
+				
+			} else {
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('매칭 신청 실패');history.back();</script>");
+				out.close();
+			}
+		}
 		
+	}
+	
+	@RequestMapping(value="/mypage_match_to.do", method=RequestMethod.GET)
+	public String getMypage_match_to() {
 		return "mypage_match_to";
 	}
+	
+	
+	
+	
 	
 }

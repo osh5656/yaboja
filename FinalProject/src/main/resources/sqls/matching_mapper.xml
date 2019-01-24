@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="matching">
-  
+
+	<insert id="insert" parameterType="MatchingDto">
+		INSERT INTO MATCHING VALUES(MATCHINGSEQ.NEXTVAL,#{matchingwriter},#{matchingapplicant},'P',0,0,SYSDATE,'N')
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="MatchingDto">
+		SELECT *
+		FROM MATCHING
+		WHERE MATCHINGAPPLICANT = #{userseq}
+	</select>
 </mapper>
