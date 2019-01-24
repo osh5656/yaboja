@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,9 @@ public class MatchingboardController {
 	private CinemaBiz cinemaBiz;
 	
 	
+
+	
+
 	@RequestMapping(value = "/matchingboardlist.do")
 	public String list(Model model, HttpSession session) {
 //		UserDto dto = (UserDto)session.getAttribute("dto"); //userdto에   세션값 받아오기
@@ -75,17 +82,24 @@ public class MatchingboardController {
 	}
 	
 	@RequestMapping(value = "/matchingboardselectone.do")
-	public String detail(Model model, int matchingboard, HttpSession session) { //값을 담을 model 과 구분할 변수 id 를 파라미터로 담는다.
-		MatchingboardDto matchingboarddto =matchingboardBiz.selectOne(matchingboard);
-//		List<UserDto> userdto = new ArrayList<UserDto>();
-//		List<MatchingboardDto> matchingboarddto = new ArrayList<MatchingboardDto>();
-//		List<MovieDto> moviedto = new ArrayList<MovieDto>();
-//		List<CinemaDto> cinemadto = new ArrayList<CinemaDto>();
+	public String detail(Model model, int matchingboard, HttpSession session, HttpServletRequest request) { //값을 담을 model 과 구분할 변수 id 를 파라미터로 담는다.
+		System.out.println("//"+matchingboard);
+		MatchingboardDto matchingboarddto =matchingboardBiz.selectOne(Integer.parseInt(request.getParameter("matchingboard")));
+		UserDto userdto = userBiz.selectOne(matchingboarddto.getUserseq());
+		CinemaDto cinemadto = cinemaBiz.selectOne(matchingboarddto.getCinemaseq());
+		MovieDto moviedto = movieBiz.selectOne(matchingboarddto.getMovieseq());
 		
-		System.out.println("user정보:"+matchingboarddto.getUserseq());
+//		System.out.println("user정보:"+matchingboarddto.getUserseq());
+		model.addAttribute("matchingboarddetail1", matchingboarddto);
+		model.addAttribute("matchingboarddetail2", userdto);
+		model.addAttribute("matchingboarddetail3", moviedto);
+		model.addAttribute("matchingboarddetail4", cinemadto);
+
+
 		
 		return "match_detail";
 	}
+
 	
 	@RequestMapping(value="/matchingForm.do")
 	public String getMatchingForm(Model model, HttpServletResponse response, HttpSession session) throws IOException {
@@ -131,4 +145,10 @@ public class MatchingboardController {
 	public String insert(Model model, int userseq) {
 		return null;
 	}
+	@RequestMapping(value = "/matchSuccess.do")
+	public String match(Model model) {
+		
+		return "mypage_match_to";
+	}
+	
 }

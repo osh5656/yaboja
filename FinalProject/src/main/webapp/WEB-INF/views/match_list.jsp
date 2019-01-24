@@ -13,6 +13,8 @@
 
 <title>야보자</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -129,7 +131,7 @@ function boardlist(){
 					
 				<tr align = "center">
 					<td><c:out value="${matchingboardlist2[i].username }" /></td> 
-					<td><a href ="matchingboardselectone.do?userseq=${matchingboardlist2[i].userseq }"><c:out value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
+					<td><a href ="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }"><c:out value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
 					<td><c:out value="${matchingboardlist2[i].usersex }" /></td>
 					<td><c:out value="${matchingboardlist2[i].userage }" /></td>
 					<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
