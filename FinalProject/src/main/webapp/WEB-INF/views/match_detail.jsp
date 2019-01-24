@@ -52,7 +52,10 @@ body { font-family:'HY나무M'; }
 		//if coin>0
 		if(confirm("매칭신청 하시겠습니까? . 상대방 수락시 1코인이 차감되며, 신청중에는 다른신청을 할 수 없습니다")){
 			//매칭페이지로 ㄱㄱ
-			location.href='matchSuccess.do';
+			var userseq = document.getElementById('userseq').value;
+			alert(userseq);
+			location.href='matching_insert.do?userseq='+userseq;
+			
 		}else{
 			alert('신청이 취소되었습니다.');
 		}
@@ -85,7 +88,7 @@ body { font-family:'HY나무M'; }
 	<%@ include file="inc/moviesidebar.jsp"%>
 	
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
-	
+	<input type="hidden" id="userseq" value="${ matchingboarddetail1.userseq}"/>
 	<div class ="container">
 	<br><br>
 	<h1 style="color:black; font-weight: bold;">작성자 프로필</h1>
