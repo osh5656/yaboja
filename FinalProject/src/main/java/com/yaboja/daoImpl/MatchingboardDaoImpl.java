@@ -31,13 +31,14 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 		return res;
 	}
 	
+	@Override
 	public MatchingboardDto selectOne(int matchingboard) {
 		
 		MatchingboardDto res = null;
 		try {
 			res = sqlSession.selectOne(namespace+"selectOne",matchingboard);
 		} catch (Exception e) {
-			System.out.println("selectOne 에러");
+			System.out.println("matchingboard selectOne 에러");
 			e.printStackTrace();
 		}
 		return res;

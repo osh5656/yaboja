@@ -23,6 +23,6 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 	@Override
 	public MatchingboardDto selectOne(int matchingboard) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectOne(matchingboard);
 	}
 }
