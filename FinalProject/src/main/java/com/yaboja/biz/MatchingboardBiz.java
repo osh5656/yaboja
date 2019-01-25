@@ -11,4 +11,5 @@ public interface MatchingboardBiz {
 	public MatchingboardDto selectOne(int userseq);
 	public int insert(Map<String,String> map);
 	public MatchingboardDto userOne(int userseq);
+	public int update(Map<String,String> map);
 }

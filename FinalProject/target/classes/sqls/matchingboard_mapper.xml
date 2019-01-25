@@ -32,6 +32,10 @@
   	INSERT INTO MATCHINGBOARD VALUES(MATCHINGBOARDSQ.NEXTVAL,TO_NUMBER(#{movieseq}),TO_NUMBER(#{userseq}),#{matchingboardtitle},#{matchingboardcontent},SYSDATE,TO_NUMBER(#{cinemaseq}))
   </insert>
   
+  <update id="update" parameterType="map">
+  	UPDATE MATCHINGBOARD SET MOVIESEQ = TO_NUMBER(#{movieseq}),MATCHINGBOARDTITLE = #{matchingboardtitle}, MATCHINGBOARDCONTENT = #{matchingboardcontent}, CINEMASEQ = TO_NUMBER(#{cinemaseq})  WHERE MATCHINGBOARD = TO_NUMBER(#{matchingboard}) 
+  </update>
+  
   
   
 </mapper>

@@ -38,4 +38,10 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 		// TODO Auto-generated method stub
 		return dao.userOne(userseq);
 	}
+
+	@Override
+	public int update(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.update(map);
+	}
 }

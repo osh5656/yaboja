@@ -136,7 +136,7 @@ function boardlist(){
 					<td><c:out value="${matchingboardlist2[i].userage }" /></td>
 					<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
 					<td><c:out value="${matchingboardlist3[i].movietitle }" /></td>
-					<td><c:out value="${matchingboardlist1[i].matchingboarddate }"/></td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${matchingboardlist1[i].matchingboarddate }"/></td>
 					
 			</tr>
 			</c:forEach>

@@ -53,7 +53,6 @@ body { font-family:'HY나무M'; }
 		if(confirm("매칭신청 하시겠습니까? . 상대방 수락시 1코인이 차감되며, 신청중에는 다른신청을 할 수 없습니다")){
 			//매칭페이지로 ㄱㄱ
 			var userseq = document.getElementById('userseq').value;
-			alert(userseq);
 			location.href='matching_insert.do?userseq='+userseq;
 			
 		}else{
@@ -139,7 +138,7 @@ body { font-family:'HY나무M'; }
 
 	</table>	
 		<div align ="center">
-		<button class ="btn btn default" onclick ="location.href='match_update.jsp'">수정</button><!-- 작성자만 -->
+		<button class ="btn btn default" onclick ="location.href='match_update.do?matchingboard=${matchingboarddetail1.matchingboard }'">수정</button><!-- 작성자만 -->
 		<button class ="btn btn default" onclick ="location.href='matchingboardlist.do'">목록</button></div>
 	
 		<br>

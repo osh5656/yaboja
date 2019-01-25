@@ -181,8 +181,51 @@ public class MatchingboardController {
 		return "mypage_match_to";
 	}
 	
+	@RequestMapping(value="/match_update.do", method=RequestMethod.GET)
+	public String getMatchingBoardUpdate(Model model, HttpServletRequest request) {
+		String matchingboard = request.getParameter("matchingboard");
+		MatchingboardDto matchingboarddto = matchingboardBiz.selectOne(Integer.parseInt(matchingboard));
+		UserDto userdto = userBiz.selectOne(matchingboarddto.getUserseq());
+		CinemaDto cinemadto = cinemaBiz.selectOne(matchingboarddto.getCinemaseq());
+		MovieDto moviedto = movieBiz.selectOne(matchingboarddto.getMovieseq());
+		List<CinemaDto> cinemaList = cinemaBiz.selectList();
+		List<MovieDto> movieList = movieBiz.selectList();
+				
+		model.addAttribute("matchingboarddto",matchingboarddto);
+		model.addAttribute("userdto",userdto);
+		model.addAttribute("cinemadto",cinemadto);
+		model.addAttribute("movieddto",moviedto);
+		model.addAttribute("cinemaList", cinemaList);
+		model.addAttribute("movieList",movieList);
+
+		
+		return "match_update";
+	}
 	
-	
-	
-	
+	@RequestMapping(value="/matchingboard_update.do", method=RequestMethod.POST)
+	public void matchingBoardUpdate(HttpServletResponse response,String cinema,String title,String moviename, String matchingboardcontent,String matchingboard) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		String matchingboardseq = String.valueOf(matchingboard);
+		String movieseq = String.valueOf(movieBiz.getMovieSeq(moviename));
+		String cinemaseq = String.valueOf(cinemaBiz.getCinemaSeq(cinema));
+		Map<String, String> map  = new HashMap<String, String>();
+		map.put("matchingboard",matchingboardseq);
+		map.put("movieseq",movieseq);
+		map.put("matchingboardtitle", title);
+		map.put("matchingboardcontent",matchingboardcontent);
+		map.put("cinemaseq", cinemaseq);
+		
+		int res = matchingboardBiz.update(map);
+		if(res > 0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('글 수정 성공');location.href='matchingboardlist.do'</script>");
+			out.close();
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('글 수정 실패');history.back();</script>");
+			out.close();
+		}
+		
+		
+	}
 }

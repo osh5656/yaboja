@@ -68,4 +68,17 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 		}
 		return matchingboarddto;
 	}
+
+	@Override
+	public int update(Map<String, String> map) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"update",map);
+		} catch(Exception e) {
+			System.out.println("update 에러");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 }

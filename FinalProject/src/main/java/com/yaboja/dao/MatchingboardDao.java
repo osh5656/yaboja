@@ -12,5 +12,6 @@ public interface MatchingboardDao {
 	public MatchingboardDto selectOne(int matchingboard);
 	public int insert(Map<String,String> map);
 	public MatchingboardDto userOne(int userseq);
+	public int update(Map<String,String> map);
 }
 
