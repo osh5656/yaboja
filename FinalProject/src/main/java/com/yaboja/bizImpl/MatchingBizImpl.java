@@ -23,4 +23,10 @@ public class MatchingBizImpl implements MatchingBiz {
 		// TODO Auto-generated method stub
 		return dao.selectOne(userseq);
 	}
+
+	@Override
+	public int delete(int matchingseq) {
+		// TODO Auto-generated method stub
+		return dao.delete(matchingseq);
+	}
 }

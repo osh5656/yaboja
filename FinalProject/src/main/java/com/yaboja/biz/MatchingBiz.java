@@ -6,4 +6,6 @@ public interface MatchingBiz {
 
 	public int insert(MatchingDto dto);
 	public MatchingDto selectOne(int userseq);
+	public int delete(int matchingseq);
+
 }

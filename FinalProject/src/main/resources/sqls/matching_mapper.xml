@@ -11,4 +11,8 @@
 		FROM MATCHING
 		WHERE MATCHINGAPPLICANT = #{userseq}
 	</select>
+	
+	<delete id="delete" parameterType = "int">
+		DELETE FROM MATCHING WHERE MATCHINGSEQ=#{matchingseq}
+	</delete>
 </mapper>

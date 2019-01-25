@@ -12,6 +12,8 @@
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,18 +40,23 @@
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
 
+<script type="text/javascript">
 
+function deletecheck() {
+	if(confirm("신청한 매칭을 삭제하시겠습니까?")){
+		var matchingseq = document.getElementById('matchingseq').value;
+		location.href='matchingdelete.do?matchingseq='+matchingseq;
 
-
-
-
-
-
-
+		alert('삭제되었습니다');
+		
+	}else{
+		alert('잘해보세요');
+	}
+}
+</script>
 </head>
 
 <body>
-
 
 	<!-- Navigation -->
 	<%@ include file="inc/topbar.jsp"%>
@@ -70,6 +77,7 @@
 	<!-- 마이페이지 부분 소스는 여기부터 작성!! -->
 	</br>
 	</br>
+	<input type="hidden" id="matchingseq" value="${ matchingdto.matchingseq}"/>
 	<div class="container">
 		<div>
 			<h1>마이페이지_매칭관리</h1>
@@ -78,62 +86,25 @@
 		<div>
 			<h3>신청한 매칭</h3>
 		</div>
-		<div>
-			<h3>-----------------------------------------------2019-01-11----------------------------------------------------------</h3>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${empty matchingboardlist1 }"> --%>
+		<div align ="center">
+			<h3>-----------------------------------------<fmt:formatDate pattern =" yyyy-MM-dd " value ="${matchingdto.matchingdate}" />-----------------------------------------</h3>
 		</div>
 		</br>
 		<table border="1" class="table table-hover">
 			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
+				<td style="width: 88px;" rowspan="2"><c:out value="${writerUser.userprofile }" /></td>
+				<td><c:out value="${writerUser.username }" /></td>
 				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
+					type="button" value="취소" onclick="deletecheck()" class="btn btn-default"></td>
 			</tr>
 			<tr>
-				<td>게시글 명</td>
+				<td><c:out value="${matchingboarddto.matchingboardtitle }" /></td>
 			</tr>
 		</table>
 		</br>
 
-
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-		</br>
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-
-		</br>
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-
-		<div align="center">< 1 2 3 4 5 6 7 8 9 10 ></div>
 	</div>
 
 

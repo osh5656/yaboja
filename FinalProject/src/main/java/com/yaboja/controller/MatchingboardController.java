@@ -177,7 +177,26 @@ public class MatchingboardController {
 	}
 	
 	@RequestMapping(value="/mypage_match_to.do", method=RequestMethod.GET)
-	public String getMypage_match_to() {
+	public String getMypage_match_to(Model model,HttpSession session) {
+		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+		MatchingDto matchingdto = matchingBiz.selectOne(userseq);
+		System.out.println("/////"+matchingdto.getMatchingwriter());
+		UserDto writerUser = userBiz.selectOne(matchingdto.getMatchingwriter());
+		System.out.println("////"+writerUser.getUsername());
+		MatchingboardDto matchingboarddto = matchingboardBiz.selectOne(matchingdto.getMatchingwriter());
+		
+		model.addAttribute("writerUser", writerUser);
+		model.addAttribute("matchingboarddto", matchingboarddto);
+		model.addAttribute("matchingdto", matchingdto);
+		
+		return "mypage_match_to";
+	}
+	
+	
+	@RequestMapping(value="/matchingdelete.do", method=RequestMethod.GET)
+	public String matchingdelete(Model model,HttpSession session,int matchingseq) {
+		int res = matchingBiz.delete(matchingseq);
+		
 		return "mypage_match_to";
 	}
 	
