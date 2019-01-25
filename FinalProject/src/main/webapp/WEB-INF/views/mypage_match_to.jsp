@@ -75,23 +75,28 @@ function deletecheck() {
 	<%@ include file="inc/mypagesidebar.jsp"%>
 
 	<!-- 마이페이지 부분 소스는 여기부터 작성!! -->
-	</br>
-	</br>
+	<br/>
+	<br/>
 	<input type="hidden" id="matchingseq" value="${ matchingdto.matchingseq}"/>
 	<div class="container">
 		<div>
 			<h1>마이페이지_매칭관리</h1>
 		</div>
-		</br> </br>
+		<br/> <br/>
 		<div>
 			<h3>신청한 매칭</h3>
 		</div>
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${empty matchingboardlist1 }"> --%>
+		
+		<c:choose>
+			<c:when test="${empty matchingdto }">
+			<br/>
+			<h4>------------------------------신청한 매칭이 없습니다------------------------------</h4>
+			</c:when>
+			<c:otherwise>
 		<div align ="center">
 			<h3>-----------------------------------------<fmt:formatDate pattern =" yyyy-MM-dd " value ="${matchingdto.matchingdate}" />-----------------------------------------</h3>
 		</div>
-		</br>
+		<br/>
 		<table border="1" class="table table-hover">
 			<tr>
 				<td style="width: 88px;" rowspan="2"><c:out value="${writerUser.userprofile }" /></td>
@@ -103,6 +108,9 @@ function deletecheck() {
 				<td><c:out value="${matchingboarddto.matchingboardtitle }" /></td>
 			</tr>
 		</table>
+		</c:otherwise>
+		</c:choose>
+		
 		</br>
 
 	</div>
