@@ -7,4 +7,5 @@ public interface MatchingDao {
 	
 	public int insert(MatchingDto dto);
 	public MatchingDto selectOne(int userseq);
+	public int delete(int matchingseq);
 }

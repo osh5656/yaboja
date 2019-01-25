@@ -37,4 +37,18 @@ public class MatchingDaoImpl implements MatchingDao {
 		}
 		return dto;
 	}
+
+	@Override
+	public int delete(int matchingseq) {
+		int res = 0;
+		
+			try {
+				res = sqlSession.delete(namespace+"delete", matchingseq);
+			} catch (Exception e) {
+				System.out.println("matchingdelet 에러");
+				e.printStackTrace();
+			}
+		
+		return res;
+	}
 }

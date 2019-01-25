@@ -84,7 +84,7 @@ function boardlist(){
 		<!-- 메뉴바 -->
 		<a href=""><strong>Movie Board</strong></a> <a href="matchingboardlist.do"><strong>Matching
 				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
-				Board</strong></a> <a href=""><strong>My Page</strong></a>
+				Board</strong></a> <a href="mypage_match_to.do"><strong>My Page</strong></a>
 		<div class="nav-underline"></div>
 	</nav>
 	

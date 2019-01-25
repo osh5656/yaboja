@@ -1,9 +1,9 @@
-DROP TABLE USERS;
+
 DROP TABLE CHATTING;
 DROP TABLE MATCHING;
 
 
-
+DROP TABLE CINEMA;
 CREATE TABLE CINEMA
 (
     CINEMASEQ    NUMBER           NOT NULL, 
@@ -21,8 +21,10 @@ INSERT INTO CINEMA
 VALUES(2,'역삼CGV','100','100');
 INSERT INTO CINEMA
 VALUES(3,'서초CGV','300','300');
-SELECT * FROM CINEMA;
+INSERT INTO CINEMA
+VALUES(4,'화천CGV','333','300');
 
+DROP TABLE USERS;
 CREATE TABLE USERS(
     USERSEQ           NUMBER            NOT NULL, 
     USERID            VARCHAR2(200)     NULL, 
@@ -81,24 +83,6 @@ ALTER TABLE CHATTING
     ADD CONSTRAINT FK_CHATTING_USERSEQ2_USERS_USE FOREIGN KEY (USERSEQ2)
         REFERENCES USERS (USERSEQ);
 
-<<<<<<< HEAD
-CREATE TABLE MATCHINGBOARD(
-    MATCHINGBOARD           NUMBER           NOT NULL, 
-    MOVIESEQ                NUMBER           NOT NULL, 
-    USERSEQ                 NUMBER           NOT NULL, 
-    MATCHINGBOARDTITLE      VARCHAR2(200)    NOT NULL, 
-    MATCHINGBOARDCONTENT    VARCHAR2(200)    NOT NULL, 
-    MATCHINGBOARDDATE       DATE             NOT NULL, 
-    CINEMASEQ               NUMBER           NOT NULL, 
-    CONSTRAINT MATCHINGBOARD_PK PRIMARY KEY (MATCHINGBOARD)
-   
-);
-SELECT * FROM MATCHINGBOARD;
-DROP TABLE MATCHINGBOARD;
-=======
-        
-        
->>>>>>> branch 'marchingbranch' of https://github.com/osh5656/yaboja.git
 
 
 
@@ -212,7 +196,11 @@ INSERT INTO MOVIE VALUES(2,'아쿠아맨','6.8','코미디','112분','2019-01-15
 INSERT INTO USERS VALUES(1,'user1','1234','유저1','유저사진','남','20대후','경기도','aaa@naver.com','hash','1',1,2,3,'일반');
 INSERT INTO USERS VALUES(2,'user2','1234','유저2','유저사진2','여','20대초','경기도','aaa@naver.com','hash','1',1,2,3,'일반');
 INSERT INTO USERS VALUES(3,'user3','1234','유저삼','유저사진삼','여','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
-
+INSERT INTO USERS VALUES(4,'user4','1234','유저사사','유저사진삼','여','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(5,'user5','1234','유저5','유저사진삼','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(6,'user6','1234','유저6','유저사진6','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(7,'user7','1234','유저7','유저사진6','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(8,'user8','1234','유저8','유저사진8','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
 
 
 
