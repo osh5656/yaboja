@@ -55,7 +55,9 @@ public class HomeController {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
 	public String getMain() {
+		
 		return "main";
+		
 	}
 	
 	@RequestMapping(value = "/loginform.do", method = RequestMethod.GET)
@@ -78,5 +80,6 @@ public class HomeController {
 		
 		return "main";
 	}
+
 	
 }

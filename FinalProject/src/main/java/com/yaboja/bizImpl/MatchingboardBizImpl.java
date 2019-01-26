@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yaboja.biz.MatchingboardBiz;
 import com.yaboja.dao.MatchingboardDao;
 import com.yaboja.daoImpl.MatchingboardDaoImpl;
+import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MatchingboardDto;
 @Service
 public class MatchingboardBizImpl implements MatchingboardBiz {
@@ -39,9 +40,23 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 		return dao.userOne(userseq);
 	}
 
+
 	@Override
 	public int update(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return dao.update(map);
+	}
+
+	//목록 + 페이징
+	@Override
+	public List<MatchingboardDto> listPage(Criteria cri){
+		System.out.println("글 목록 페이징 2 단계 성공 MatchingboardBizlmpl");
+		return dao.listPage(cri);
+	}
+	//게시물 총 개수
+	@Override
+	public int listCount() {
+		System.out.println("게시물 총 계수 2 단계 성공 MatchingboardBizlmpl");
+		return dao.listCount();
 	}
 }

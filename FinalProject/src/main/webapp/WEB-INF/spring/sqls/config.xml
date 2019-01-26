@@ -13,6 +13,8 @@
 		<typeAlias type="com.yaboja.dto.ReviewboardcomentDto" alias="ReviewboardcomentDto"/>
 		<typeAlias type="com.yaboja.dto.ReviewboardDto" alias="ReviewboardDto"/>
 		<typeAlias type="com.yaboja.dto.UserDto" alias="UserDto"/>
+		<typeAlias type="com.yaboja.dto.PageMaker" alias = "PageMaker"/>
+		<typeAlias type="com.yaboja.dto.Criteria" alias = "Criteria"/>
 	</typeAliases>
 	
 	<mappers>
