@@ -66,7 +66,8 @@
 		<a href=""><strong>Movie Board</strong></a> 
 		<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
 		<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
-		<a href=""><strong>Q&A Board</strong></a> 
+		<!-- 추가 1 -->
+		<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
 		<a href="myPage.jsp"><strong>My Page</strong></a>
 		<div class="nav-underline"></div>
 	</nav>
