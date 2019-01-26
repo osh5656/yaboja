@@ -107,23 +107,50 @@ public class MatchingboardController {
 	
 	@RequestMapping(value="/matchingForm.do")
 	public String getMatchingForm(Model model, HttpServletResponse response, HttpSession session) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		MatchingboardDto matchingboarddto = null;
+		MatchingDto matchingdto = null;
 		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
 		matchingboarddto = matchingboardBiz.userOne(userseq);
-		if(matchingboarddto != null) {
-			response.setContentType("text/html; charset=UTF-8");
+		matchingdto = matchingBiz.selectOne(userseq);
+		
+		if(matchingboarddto == null) {
+			if(matchingdto == null) {
+				List<CinemaDto> cinemaList = cinemaBiz.selectList();
+				List<MovieDto> movieList = movieBiz.selectList();
+				model.addAttribute("cinemaList", cinemaList);
+				model.addAttribute("movieList",movieList);
+				
+				return "match_insert";
+			}else {
+				if(matchingdto.getMatchingstate().equals("P")) {
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('이미 신청 중인 매칭이 있습니다.');history.back();</script>");
+					out.close();
+					return null;
+				}else if(matchingdto.getMatchingstate().equals("S")) {
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('이미 진행 중인 매칭이 있습니다.');history.back();</script>");
+					out.close();
+					return null;
+				}else if(matchingdto.getMatchingstate().equals("E")) {
+					List<CinemaDto> cinemaList = cinemaBiz.selectList();
+					List<MovieDto> movieList = movieBiz.selectList();
+					model.addAttribute("cinemaList", cinemaList);
+					model.addAttribute("movieList",movieList);
+					return "match_insert";
+				}
+			}
+			
+		}else if(matchingboarddto != null){
+			
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 작성한 글이 있습니다.');history.back();</script>");
+			out.println("<script>alert('이미 작성한 매칭이 있습니다.');history.back();</script>");
 			out.close();
 			return null;
-		}else {
-			List<CinemaDto> cinemaList = cinemaBiz.selectList();
-			List<MovieDto> movieList = movieBiz.selectList();
-			model.addAttribute("cinemaList", cinemaList);
-			model.addAttribute("movieList",movieList);
-			
-			return "match_insert";
 		}
+		
+		return null;
 
 	}
 	
@@ -138,7 +165,7 @@ public class MatchingboardController {
 		map.put("userseq", String.valueOf(((UserDto)session.getAttribute("dto")).getUserseq()));
 		map.put("matchingboardtitle", title);
 		map.put("matchingboardcontent",matchingboardcontent);
-		map.put("cinemaseq", cinemaseq);
+		map.put("cinemaseq", cinemaseq); 
 		int res = matchingboardBiz.insert(map);
 		
 		
@@ -151,11 +178,7 @@ public class MatchingboardController {
 		response.setContentType("text/html; charset=UTF-8");
 		MatchingDto dto = null;
 		dto = matchingBiz.selectOne(userseq);
-		if(dto != null) {
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 신청한 매칭이 있습니다.');history.back();</script>");
-			out.close();
-		}else {
+		if(dto == null || dto.getMatchingstate().equals("E")) {
 			MatchingDto matchingDto = new MatchingDto();
 			matchingDto.setMatchingwriter(matchingwriter);
 			matchingDto.setMatchingapplicant(userseq);
@@ -163,8 +186,7 @@ public class MatchingboardController {
 			int res = matchingBiz.insert(matchingDto);
 			if(res > 0) {
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('매칭 신청 성공');</script>");
-				response.sendRedirect("mypage_match_to.do");
+				out.println("<script>alert('매칭 신청 성공');location.href='mypage_match_to.do';</script>");
 				out.close();
 				
 			} else {
@@ -172,7 +194,16 @@ public class MatchingboardController {
 				out.println("<script>alert('매칭 신청 실패');history.back();</script>");
 				out.close();
 			}
+		}else if(dto.getMatchingstate().equals("P")){
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('신청 중인 매칭이 있습니다.');history.back();</script>");
+			out.close();
+		}else if(dto.getMatchingstate().equals("S")) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('진행 중인 매칭이 있습니다.');history.back();</script>");
+			out.close();
 		}
+		
 		
 	}
 	
@@ -180,10 +211,10 @@ public class MatchingboardController {
 	public String getMypage_match_to(Model model,HttpSession session) {
 		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
 		MatchingDto matchingdto = matchingBiz.selectOne(userseq);
-		System.out.println("/////"+matchingdto.getMatchingwriter());
+		//System.out.println("/////"+matchingdto.getMatchingwriter());
 		UserDto writerUser = userBiz.selectOne(matchingdto.getMatchingwriter());
-		System.out.println("////"+writerUser.getUsername());
-		MatchingboardDto matchingboarddto = matchingboardBiz.selectOne(matchingdto.getMatchingwriter());
+		//System.out.println("////"+writerUser.getUsername());
+		MatchingboardDto matchingboarddto = matchingboardBiz.userOne(matchingdto.getMatchingwriter());
 		
 		model.addAttribute("writerUser", writerUser);
 		model.addAttribute("matchingboarddto", matchingboarddto);

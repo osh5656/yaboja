@@ -111,7 +111,7 @@ function deletecheck() {
 		</c:otherwise>
 		</c:choose>
 		
-		</br>
+		<br/>
 
 	</div>
 

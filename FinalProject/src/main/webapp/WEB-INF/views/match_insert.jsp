@@ -160,7 +160,7 @@ function inputConfirm(){
 		</tr>
 		<tr align ="center">
 			<td colspan = "5">
-				<textarea rows="8" cols="90" style="resize: none;" name="matchingboardcontent">내용을 입력하세요.</textarea>
+				<textarea class="form-control" rows="8" cols="90" style="resize: none;" name="matchingboardcontent">내용을 입력하세요.</textarea>
 			</td>
 			
 		</tr>
