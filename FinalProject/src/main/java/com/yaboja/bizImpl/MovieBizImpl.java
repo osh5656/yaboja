@@ -34,11 +34,11 @@ public class MovieBizImpl implements MovieBiz {
 
 		int res = 0;
 		Crawler crawler = new Crawler();
-		//List<MovieDto> crawlMovies = crawler.getNaverMovie();
-		List<MovieDto> crawlMovies = new ArrayList<MovieDto>();
+		List<MovieDto> crawlMovies = crawler.getNaverMovie();
+		/*List<MovieDto> crawlMovies = new ArrayList<MovieDto>();
 		crawlMovies.add(new MovieDto("해리포터4","1","2","3","4","상영작","6","7","8","9"));
 		crawlMovies.add(new MovieDto("해리포터5","1","2","3","4","상영작","6","7","8","9"));
-		crawlMovies.add(new MovieDto("해리포터6","1","2","3","4","상영작","6","7","8","9"));
+		crawlMovies.add(new MovieDto("해리포터6","1","2","3","4","상영작","6","7","8","9"));*/
 		
 		List<MovieDto> dbMovies = dao.selectPresentMovies();
 
