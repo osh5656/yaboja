@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="movie">
-  
+
+	<select id="selectPresentMovie" resultType="MovieDto">
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIESTATE='상영작'
+	</select>
+	
+	<select id="selectEndMovie" resultType="MovieDto">
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIESTATE='종영작'
+	</select>
+
+	<select id="selectOne" resultType="MovieDto"
+		parameterType="String">
+		
+	</select>
+	
+	<insert id="insert" parameterType="MovieDto">
+	
+      INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,#{movieTitle},#{rating},#{genre},#{time},#{pupDate},#{movieState},#{director},#{actor},#{imgUrl},#{code})
+    </insert>
+    
+    <insert id="insertAll" parameterType="java.util.List">
+    	<selectKey keyProperty="tech_no" resultType="int" order="BEFORE">
+			SELECT MOVIE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+    INSERT ALL    
+    <foreach collection="list" item="item" separator=" " index="index">    
+       INTO MOVIE (MOVIESEQ,MOVIETITLE,RATING,GENRE,TIME,PUPDATE,MOVIESTATE,DIRECTOR,ACTOR,IMGURL,CODE) VALUES(#{tech_no}+#{index},#{item.movieTitle}, #{item.rating}, #{item.genre},#{item.time}, #{item.pupDate}, #{item.movieState}, #{item.director}, #{item.actor}, #{item.imgUrl}, #{item.code})
+    </foreach>
+    select * from dual   
+    
+	</insert>
+	<update id="alter" parameterType="map">
+		alter sequence MOVIE_SEQ increment by ${str}
+	</update>
+	
+	<update id="updateToEnd" parameterType="java.util.List">
+		UPDATE MOVIE
+		SET MOVIESTATE='종영작'
+		WHERE MOVIETITLE IN
+		<foreach collection="list" item="item" open="(" separator="," close=")" >  
+		#{item.movieTitle}
+		</foreach>
+	</update>
+	
+	
 </mapper>

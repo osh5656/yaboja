@@ -12,6 +12,7 @@
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +43,35 @@
 
 	
 	
+<script type="text/javascript">
 
+function loadMovie(){
+	
+$.ajax({
+		
+		url: "loadMovie.do",
+		cache: false,
+		success: function(text){
+			
+			if(text.trim()=="ok"){
+				document.getElementById("ok").innerHTML="ok"
+			}
+			
+		},
+		error:function(){
+			
+		}
+    });
+	
+}
+
+String.prototype.trim = function () { //trim
+	
+    return this.replace(/^\s+|\s+$/g, "");
+
+}
+
+</script>
 
 
 
@@ -52,7 +81,7 @@
 
 
 	<!-- Navigation -->
-	<%@ include file="inc/topbar.jsp"%>
+	<%@ include file="../inc/topbar.jsp"%>
 
 
 	<!-- Menu Bar -->
@@ -65,18 +94,28 @@
 	</nav>
 	
 	<!-- moviesidebar -->
-	<%@ include file="inc/moviesidebar2.jsp"%>
+	<%@ include file="../inc/moviesidebar2.jsp"%>
 	
 	
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
 	
 	<!-- Movie List -->
+	<br/>
+	<br/>
 	
-	<%@ include file="inc/movielist.jsp"%>
+	<h3 class="text-center">종영작</h3>
+	
+	<%@ include file="../inc/movielist.jsp"%>
+	
+	
+	<center>
+	<input type="button" value="개봉작 저장" onClick="loadMovie();"/>
+	<p id="ok"></p>
+	</center>
 	
 
 	<!-- Footer -->
-	<%@ include file="inc/footer.jsp"%>
+	<%@ include file="../inc/footer.jsp"%>
 
 	
 
