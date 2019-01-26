@@ -270,10 +270,10 @@ public class MatchingboardController {
 	
 	
 	@RequestMapping(value="/matchingdelete.do", method=RequestMethod.GET)
-	public String matchingdelete(Model model,HttpSession session,int matchingseq) {
+	public void matchingdelete(Model model,HttpSession session,int matchingseq,HttpServletResponse response) throws IOException {
 		int res = matchingBiz.delete(matchingseq);
 		
-		return "mypage_match_to";
+		response.sendRedirect("mypage_match_to.do");
 	}
 	
 	@RequestMapping(value="/match_update.do", method=RequestMethod.GET)
