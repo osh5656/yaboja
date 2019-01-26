@@ -183,11 +183,24 @@ public class MatchingboardController {
 		System.out.println("/////"+matchingdto.getMatchingwriter());
 		UserDto writerUser = userBiz.selectOne(matchingdto.getMatchingwriter());
 		System.out.println("////"+writerUser.getUsername());
-		MatchingboardDto matchingboarddto = matchingboardBiz.selectOne(matchingdto.getMatchingwriter());
+		MatchingboardDto matchingboarddto = matchingboardBiz.userOne(matchingdto.getMatchingwriter());
 		
+		
+		
+		MatchingboardDto boarddto = matchingboardBiz.selectOne(userseq);
+		List<MatchingDto> matchingList = matchingBiz.getMatchingApplicant(userseq);
+		List<UserDto> userList = new ArrayList<UserDto>();
+		for(int i = 0 ; i < matchingList.size() ; i++) {
+			userList.add(userBiz.selectOne(matchingList.get(i).getMatchingapplicant()));
+		}
 		model.addAttribute("writerUser", writerUser);
 		model.addAttribute("matchingboarddto", matchingboarddto);
 		model.addAttribute("matchingdto", matchingdto);
+		
+		model.addAttribute("boarddto",boarddto);
+		model.addAttribute("matchingList",matchingList);
+		model.addAttribute("userList",userList);
+		
 		
 		return "mypage_match_to";
 	}

@@ -1,5 +1,8 @@
 package com.yaboja.daoImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,5 +53,17 @@ public class MatchingDaoImpl implements MatchingDao {
 			}
 		
 		return res;
+	}
+
+	@Override
+	public List<MatchingDto> getMatchingApplicant(int userseq) {
+		List<MatchingDto> list = new ArrayList<MatchingDto>();
+		try {
+			list = sqlSession.selectList(namespace+"getMatchingApplicant",userseq);
+		} catch(Exception e) {
+			System.out.println("getMatchingApplicant 에러");
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

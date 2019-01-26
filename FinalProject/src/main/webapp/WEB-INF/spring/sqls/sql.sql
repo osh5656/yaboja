@@ -201,6 +201,9 @@ INSERT INTO USERS VALUES(5,'user5','1234','유저5','유저사진삼','남','20�
 INSERT INTO USERS VALUES(6,'user6','1234','유저6','유저사진6','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
 INSERT INTO USERS VALUES(7,'user7','1234','유저7','유저사진6','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
 INSERT INTO USERS VALUES(8,'user8','1234','유저8','유저사진8','남','20대중','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(10,'user10','1234','유저건호10','유저사진10','남','20','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(11,'user11','1234','유저세현11','유저사진11','남','20','서울','aaa@naver.com','hash','1',1,2,3,'일반');
+INSERT INTO USERS VALUES(12,'user12','1234','유저강일12','유저사진12','여','30','서울','aaa@naver.com','hash','1',1,2,3,'일반');
 
 
 

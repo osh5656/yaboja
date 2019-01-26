@@ -1,5 +1,7 @@
 package com.yaboja.bizImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,11 @@ public class MatchingBizImpl implements MatchingBiz {
 	public int delete(int matchingseq) {
 		// TODO Auto-generated method stub
 		return dao.delete(matchingseq);
+	}
+
+	@Override
+	public List<MatchingDto> getMatchingApplicant(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.getMatchingApplicant(userseq);
 	}
 }
