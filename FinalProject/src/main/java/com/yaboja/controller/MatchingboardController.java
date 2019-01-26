@@ -212,13 +212,34 @@ public class MatchingboardController {
 		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
 		MatchingDto matchingdto = matchingBiz.selectOne(userseq);
 		//System.out.println("/////"+matchingdto.getMatchingwriter());
-		UserDto writerUser = userBiz.selectOne(matchingdto.getMatchingwriter());
-		//System.out.println("////"+writerUser.getUsername());
-		MatchingboardDto matchingboarddto = matchingboardBiz.userOne(matchingdto.getMatchingwriter());
+		UserDto writerUser = null;
+		MatchingboardDto matchingboarddto = null;
+		if(matchingdto != null) {
+			writerUser = userBiz.selectOne(matchingdto.getMatchingwriter());
+			matchingboarddto = matchingboardBiz.userOne(matchingdto.getMatchingwriter());
+		}
 		
+
+		//System.out.println("////"+writerUser.getUsername());
+
+		//System.out.println("////"+writerUser.getUsername());
+		
+		
+		
+		MatchingboardDto boarddto = matchingboardBiz.userOne(userseq);
+		List<MatchingDto> matchingList = matchingBiz.getMatchingApplicant(userseq);
+		List<UserDto> userList = new ArrayList<UserDto>();
+		for(int i = 0 ; i < matchingList.size() ; i++) {
+			userList.add(userBiz.selectOne(matchingList.get(i).getMatchingapplicant()));
+		}
 		model.addAttribute("writerUser", writerUser);
 		model.addAttribute("matchingboarddto", matchingboarddto);
 		model.addAttribute("matchingdto", matchingdto);
+		
+		model.addAttribute("boarddto",boarddto);
+		model.addAttribute("matchingList",matchingList);
+		model.addAttribute("userList",userList);
+		
 		
 		return "mypage_match_to";
 	}

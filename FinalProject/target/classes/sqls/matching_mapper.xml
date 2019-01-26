@@ -15,4 +15,10 @@
 	<delete id="delete" parameterType = "int">
 		DELETE FROM MATCHING WHERE MATCHINGSEQ=#{matchingseq}
 	</delete>
+	
+	<select id="getMatchingApplicant" parameterType="int" resultType="MatchingDto">
+		SELECT *
+		FROM MATCHING
+		WHERE MATCHINGWRITER = #{userseq}
+	</select>
 </mapper>
