@@ -85,11 +85,12 @@ public class MatchingboardController {
 		model.addAttribute("matchingboardlist4", cinemainfo);
 		model.addAttribute("listsize", listsize);
 		
+		//페이징 기능 추가
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(matchingboardBiz.listCount());
 		model.addAttribute("pageMaker", pageMaker);
-
+        //페이징 기능 추가
 //		model.addAttribute("matchingboardlist4", cinemaBiz.selectOne(list.get(0).getCinemaseq()));
 		return "match_list";
 	
