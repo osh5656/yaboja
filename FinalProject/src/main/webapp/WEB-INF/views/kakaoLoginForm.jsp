@@ -51,7 +51,7 @@
                     $(".hiddenLabel1").prop("hidden", true);
                     $(".hiddenLabel2").prop("hidden", false);
                     $(".hiddenLabel3").prop("hidden", true);
-//                     $("#id").prop("readonly", "readonly");
+                    $("#id").prop("readonly", "readonly");
 					$('#password').focus();
                 } else if (data == '1') {
                     $(".hiddenLabel1").prop("hidden", true);
@@ -63,14 +63,11 @@
         });
     }
     
-    //비밀번호,이메일 등등 제출 버튼전  확인
-    function lastCheck(){
+    //비밀번호 확인
+    function checkpw(){
     	var pw = document.getElementById("password").value;
         var pwck = document.getElementById("passwordcheck").value;
  
-        var hash=document.getElementById("hashCheck").value;
-             	
-        
         if (pw != pwck) {
         	$('#pwsame').prop("hidden", false);
         	$('#password').focus();
@@ -78,8 +75,6 @@
         }else{
         	$('#pwsame').prop("hidden", true);
         }
-        
-        
     }
     
     //이메일 인증
@@ -170,12 +165,6 @@
     }
 </script>
 
-<script type="text/javascript">
-	function check(){
-		alert("중복 검사를 해주세요.");
-	}
-</script>
-
 </head>
 
 <body>
@@ -191,7 +180,7 @@
 	<br>
 	<br>
 	<br>
-	<h1 align="center">회원가입</h1>
+	<h1 align="center">추가 정보 입력(카카오)</h1>
 	<br>
 	<br>
 
@@ -200,60 +189,18 @@
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<hr>
-				
-				
-				
-				
-				<form name="joinform" id="fileUploadForm" action="join.do" method="post" enctype="multipart/form-data" >
+				<form name="joinform" id="fileUploadForm"  action="kakaoJoin.do" method="post" enctype="multipart/form-data">
 <!-- id -->
-					<div class="row control-group" >
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>ID</label>
-							<div style="display: -webkit-box;">
-								<input type="text" class="form-control" placeholder="ID" name="userid" id="id" required="required"  onblur ="checkId();" >
-	
-								<!-- id체크 했는지 -->
-<!-- 								<button type="button" class="btn btn-default" id="idCheckButton" onclick="checkId(); " >중복확인</button> -->
-								<p class="help-block text-danger"></p>
-							</div>
-							<!-- 중복체크 표시글 -->
-							<br class="hiddenLabel1" hidden="">
-							<label style="color: red;" class="hiddenLabel1" hidden="">ID를 입력해주세요.</label>
-							<br class="hiddenLabel2" hidden="">
-							<label style="color: blue;" class="hiddenLabel2" hidden="">사용 가능한 ID입니다.</label>
-							<br class="hiddenLabel3" hidden="">
-							<label style="color: red;" class="hiddenLabel3" hidden="">이미 존재하는 ID입니다.</label>							
-							
-						</div>
-					</div>
-<!-- password -->
-					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Password</label> 
-							<input type="password" class="form-control" placeholder="Password" id="password"  name="userpw" required="required">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-<!-- passwordchk -->
-					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Password Check</label> 
-							<input type="password" class="form-control" placeholder="Password Check" id="passwordcheck" required="required">
-							<p class="help-block text-danger"></p>
-						<label id="pwsame" hidden="" style="color:red;">비밀번호가 틀렸습니다. 다시 입력해 주세요</label>
-						
-						</div>
-						
-					</div>
+					<input type="text" name="userid" value="${map.userid }" hidden="" >
+
 <!-- name -->
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
 							<label>Name</label> 
-							<input type="text" class="form-control" placeholder="Name" name="username" required="required">
+							<input type="text" class="form-control" placeholder="Name" name="username" value="${map.username }">
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
-<!-- profile -->
 					
  <!-- profile -->
 					<div class="row control-group">
@@ -263,24 +210,34 @@
 								<input type="file" class="form-control" id="fileUpload" name="fileUpload" required="required">
 								<input type="text" id="userprofile" name="userprofile" hidden="">
 								<p class="help-block text-danger"></p>
-								<button type="button" class="btn btn-default" onclick="fileSubmit();" >선택</button>								
+								<button type="button" class="btn btn-default" onclick="fileSubmit();" >업로드</button>								
 							</div>
 						</div>
 						
 					</div>
 						
 <!-- sex -->
-					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Sex</label>
-							<p class="help-block text-danger"></p>
-							<label class="radio-inline"><input type="radio" name="usersex" checked="checked" value="male">Male</label> 
-							<label class="radio-inline"><input type="radio" name="usersex" value="femail">Femail</label>
-						</div>
+					<c:choose>
+						<c:when test="${empty map.usersex }">
+							<div class="row control-group">
+								<div class="form-group col-xs-12 floating-label-form-group controls">
+								<label>Sex</label>
+								<p class="help-block text-danger"></p>
+								<label class="radio-inline"><input type="radio" name="usersex" checked="checked" value="male">Male</label> 
+								<label class="radio-inline"><input type="radio" name="usersex" value="femail">Femail</label>
+							</div>
 					</div>
+						</c:when>
+						<c:otherwise>
+							<input type="text" name="usersex" value="${map.usersex }" hidden=""  >
+						</c:otherwise>
+					</c:choose>
+					
 <!-- age -->
-					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
+					<c:choose>
+						<c:when test="${empty map.userage }">
+							<div class="row control-group">
+							<div class="form-group col-xs-12 floating-label-form-group controls">
 							<label>Age</label>
 							<p class="help-block text-danger"></p>
 							<label class="radio-inline"><input type="radio" name="userage" checked="checked" value="10">10</label> 
@@ -288,8 +245,16 @@
 							<label class="radio-inline"><input type="radio" name="userage" value="30">30</label> 
 							<label class="radio-inline"><input type="radio" name="userage" value="40">40</label> 
 							<label class="radio-inline"><input type="radio" name="userage" value="50">50</label>
-						</div>
-					</div>
+							</div>
+							</div>						
+						</c:when>
+						<c:otherwise>
+							<input type="text" name="userage" value="${map.userage }" hidden="" >
+						</c:otherwise>
+					
+					</c:choose>
+
+					
 <!-- address -->
 					<div class="row control-group">
 						<div class="form-group col-xs-11 floating-label-form-group controls">
@@ -302,26 +267,7 @@
 						</div>
 					</div>
 <!-- email -->
-					<div class="row control-group">
-						<div class="form-group col-xs-11 floating-label-form-group controls">
-							<label>Email</label> 
-							<div style="display: -webkit-box;">
-								<input type="email" class="form-control" placeholder="Email Address" id="email" name="useremail" required="required">
-								<button type="button" class="btn btn-default" onclick="sendMail();">이메일 인증</button>
-								<p class="help-block text-danger"></p>
-								
-							</div>
-								<input type="text" id="emailHash" hidden="" value="">
-							<div id="emailchk" style="display: -webkit-box;">
-								<input type="text" id="emailchk_input" class="form-control" placeholder="인증번호" required="required">
-								<input type="text" id="hashCheck" hidden="" value="false">
-								<button type="button" id="emailchk_buttton" class="btn btn-default" onclick="hashChk();">확인</button>
-							</div>	
-							<label id="emailmsg1" hidden="" style="color:blue;">인증번호가 전송되었습니다.</label>
-							<label id="emailmsg2" hidden="" style="color:blue;">인증이 완료되었습니다.</label>
-						</div>
-						
-					</div>
+					<input type="text" name="useremail" value="${map.useremail }" hidden="" >
 <!-- cinema 1-->
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
@@ -383,7 +329,7 @@
 					<div id="success"></div>
 					<div class="row">
 						<div class="form-group col-xs-12">
-							<button type="submit" class="btn btn-default" class="signupbtn"  style="margin-left: 40%;" onclick="lastCheck();">제출</button>
+							<button type="submit" class="btn btn-default" class="signupbtn"  style="margin-left: 40%;" onclick="checkpw();">제출</button>
 							<button type="reset" class="btn btn-default" style="">초기화</button>
 						</div>
 					</div>
@@ -392,9 +338,7 @@
 		</div>
 	</div>
 	<!-- Footer -->
-
-
-<hr>
+	<hr>
 	<br>
 	<%@ include file="inc/footer.jsp"%>
 

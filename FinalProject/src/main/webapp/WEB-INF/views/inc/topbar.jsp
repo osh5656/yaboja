@@ -1,7 +1,9 @@
 
+<%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -243,13 +245,25 @@ hr.small {
 <!-- 					<span class="sr-only">Toggle navigation</span> Menu <i -->
 <!-- 						class="fa fa-bars"></i> -->
 <!-- 				</button> -->
-				<a class="navbar-brand" href="index.jsp">Movie Matching</a>
+				<a class="navbar-brand" href="main.do">Movie Matching</a>
 				
-				<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
-				<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i>
-				<a class="navbar-brand" href="loginform.jsp" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a>
-				<a class="navbar-brand" href="joincheck.jsp" style="float: right;">Join</a>
+			
+				
+				<%
+				UserDto dto=(UserDto)session.getAttribute("dto"); 
+				if(dto==null){%>
+					<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a>
+					<a class="navbar-brand" href="joincheck.do" style="float: right;">Join</a><%
+				}else{%>
+					<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
+					<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i>
+					<a class="navbar-brand" href="logout.do"  style="float: right;">Logout</a>
+					<a class="navbar-brand" href="joincheck.do" style="float: right;"><%=dto.getUsername()%>님 </a>
+				
 					
+				<%}%>
+					
+				
 				
 			</div>
 

@@ -30,6 +30,25 @@
 	rel='stylesheet' type='text/css'>
 
 
+<script type="text/javascript">
+
+	function check(){
+	
+		var result1=document.getElementById("check1").checked;
+		var result2=document.getElementById("check2").checked;
+
+		//미 체크 시
+		if(!(result1&&result2)){
+			alert("이용약관 및 개인정보 수집에 동의해주세요.");
+		}else{
+			location.href='joinform.do';
+		}
+		
+	}
+	
+	
+</script>
+
 </head>
 
 <body>
@@ -303,7 +322,7 @@
                 </textarea></td>
 						</tr>
 						<tr style="float: right;">
-							<td><input type="checkbox">이용약관에 동의합니다.<br> <br>
+							<td><input type="checkbox" id="check1">이용약관에 동의합니다.<br> <br>
 								<br> <br></td>
 						</tr>
 						<tr>
@@ -418,7 +437,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
                 </textarea></td>
 						</tr>
 						<tr style="float: right;">
-							<td><input type="checkbox">개인정보 수집 및 이용에 대한 안내에
+							<td><input type="checkbox" id="check2">개인정보 수집 및 이용에 대한 안내에
 								동의합니다.</td>
 						</tr>
 					</table>
@@ -437,7 +456,9 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 		<!-- 		</a> -->
 
 
-		<button type="submit" class="btn btn-default" onclick="location.href='joinform.jsp'">Continue</button>
+<!-- 		<button type="submit" class="btn btn-default" onclick="location.href='joinform.jsp'">Continue</button> -->
+		
+		<button type="submit" class="btn btn-default" onclick="check();">Continue</button>
 		<button type="submit" class="btn btn-default" onclick="location.href='index.jsp'">Back</button>
 		<br>
 		<br>

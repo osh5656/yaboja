@@ -33,45 +33,48 @@
 	
 	<div class="container-login" >
 		<div class="wrap-login p-l-55 p-r-55 p-t-80 p-b-30" >
-			<form class="login100-form validate-form">
+			<form class="login100-form validate-form" action="login.do" method="post">
 				<span class="login100-form-title p-b-37">
 					LogIn
 				</span>
 
 				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-					<input class="input100" type="text" name="username" placeholder="username or email">
+					<input class="input100" type="text" name="userid" placeholder="Id">
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-					<input class="input100" type="password" name="pass" placeholder="password">
+					<input class="input100" type="password" name="userpw" placeholder="password">
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="container-login100-form-btn">
-					<button class="login100-form-btn">
+					<button type="submit" class="login100-form-btn">
 						Log In
 					</button>
 				</div>
 
 				<div class="text-center p-t-57 p-b-20">
 					<span class="txt1">
-						Or login with
+						
+						카카오톡->전체설정->개인/보안->카카오계정->내정보관리 <br>사용자 정보 입력
+						
 					</span>
 				</div>
 
 				<div class="flex-c p-b-112">
-					<a href="#" class="login100-social-item">
-						<i class="fa fa-facebook-f"></i>
-					</a>
+<!-- 					<a href="#" class="login100-social-item"> -->
+<!-- 						<i class="fa fa-facebook-f"></i> -->
+<!-- 					</a> -->
 
-					<a href="#" class="login100-social-item">
-						<img src="img/icon-google.png" alt="GOOGLE">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=f4bfa5f6b9448b69cd517b0762b28f21&redirect_uri=http://localhost:8787/controller/kakaologin.do&response_type=code&scope=account_email,age_range,gender" class="login100-social-item">
+						<img src="img/kakao.png" alt="kakao" style="width: 45px; cursor: pointer;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=f4bfa5f6b9448b69cd517b0762b28f21&redirect_uri=http://localhost:8787/controller/kakaologin.do&response_type=code&scope=account_email,age_range,gender'">
 					</a>
+					
 				</div>
-
+				
 				<div class="text-center">
-					<a href="#" class="txt2 hov1">
+					<a href="joincheck.do" class="txt2 hov1">
 						Sign Up
 					</a>
 				</div>
