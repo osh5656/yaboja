@@ -246,7 +246,6 @@ hr.small {
 <!-- 						class="fa fa-bars"></i> -->
 <!-- 				</button> -->
 				<a class="navbar-brand" href="main.do">Movie Matching</a>
-				
 			
 				
 				<%
@@ -259,7 +258,6 @@ hr.small {
 					<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i>
 					<a class="navbar-brand" href="logout.do"  style="float: right;">Logout</a>
 					<a class="navbar-brand" href="joincheck.do" style="float: right;"><%=dto.getUsername()%>님 </a>
-				
 					
 				<%}%>
 					

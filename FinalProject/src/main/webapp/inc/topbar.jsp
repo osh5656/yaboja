@@ -247,6 +247,7 @@ hr.small {
 <!-- 				</button> -->
 				<a class="navbar-brand" href="main.do">Movie Matching</a>
 				
+
 			
 				
 				<%
@@ -260,6 +261,7 @@ hr.small {
 					<a class="navbar-brand" href="logout.do"  style="float: right;">Logout</a>
 					<a class="navbar-brand" href="joincheck.do" style="float: right;"><%=dto.getUsername()%>님 </a>
 				
+
 					
 				<%}%>
 					

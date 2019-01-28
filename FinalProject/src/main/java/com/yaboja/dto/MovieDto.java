@@ -1,23 +1,28 @@
 package com.yaboja.dto;
 
-import java.util.Date;
 
 public class MovieDto {
-
+	
 	// 영화번호 
-    private int movieseq;
+    private int movieSeq;
+    
+    // 영화제목 
+    private String movieTitle;
+    
+    // 관람객평 
+    private String rating;
 
     // 장르 
     private String genre;
-
-    // 영화제목 
-    private String movietitle;
+    
+    // 상영시간
+    private String time;
 
     // 영화개봉날짜 
-    private Date movieopendate;
+    private String pupDate;
 
     // 영화체크(예정/상영/종영) 
-    private String moviestate;
+    private String movieState;
 
     // 영화감독 
     private String director;
@@ -25,81 +30,146 @@ public class MovieDto {
     // 출연배우 
     private String actor;
 
-    // 관람객평 
-    private int userng;
-
     // 이미지URL 
-    private String image;
+    private String imgUrl;
+    
+    // 네이버 영화 코드
+    private String code;
 
-    public int getMovieseq() {
-        return movieseq;
-    }
+	public MovieDto() {
+		super();
+	}
 
-    public void setMovieseq(int movieseq) {
-        this.movieseq = movieseq;
-    }
+	public MovieDto(int movieSeq, String movieTitle, String rating, String genre, String time, String pupDate,
+			String movieState, String director, String actor, String imgUrl, String code) {
+		super();
+		this.movieSeq = movieSeq;
+		this.movieTitle = movieTitle;
+		this.rating = rating;
+		this.genre = genre;
+		this.time = time;
+		this.pupDate = pupDate;
+		this.movieState = movieState;
+		this.director = director;
+		this.actor = actor;
+		this.imgUrl = imgUrl;
+		this.code = code;
+	}
+	
+	
 
-    public String getGenre() {
-        return genre;
-    }
+	public MovieDto(String movieTitle, String rating, String genre, String time, String pupDate, String movieState,
+			String director, String actor, String imgUrl, String code) {
+		super();
+		this.movieTitle = movieTitle;
+		this.rating = rating;
+		this.genre = genre;
+		this.time = time;
+		this.pupDate = pupDate;
+		this.movieState = movieState;
+		this.director = director;
+		this.actor = actor;
+		this.imgUrl = imgUrl;
+		this.code = code;
+	}
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
+	public int getMovieSeq() {
+		return movieSeq;
+	}
 
-    public String getMovietitle() {
-        return movietitle;
-    }
+	public void setMovieSeq(int movieSeq) {
+		this.movieSeq = movieSeq;
+	}
 
-    public void setMovietitle(String movietitle) {
-        this.movietitle = movietitle;
-    }
+	public String getMovieTitle() {
+		return movieTitle;
+	}
 
-    public Date getMovieopendate() {
-        return movieopendate;
-    }
+	public void setMovieTitle(String movieTitle) {
+		this.movieTitle = movieTitle;
+	}
 
-    public void setMovieopendate(Date movieopendate) {
-        this.movieopendate = movieopendate;
-    }
+	public String getRating() {
+		return rating;
+	}
 
-    public String getMoviestate() {
-        return moviestate;
-    }
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
 
-    public void setMoviestate(String moviestate) {
-        this.moviestate = moviestate;
-    }
+	public String getGenre() {
+		return genre;
+	}
 
-    public String getDirector() {
-        return director;
-    }
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
-    public void setDirector(String director) {
-        this.director = director;
-    }
+	public String getTime() {
+		return time;
+	}
 
-    public String getActor() {
-        return actor;
-    }
+	public void setTime(String time) {
+		this.time = time;
+	}
 
-    public void setActor(String actor) {
-        this.actor = actor;
-    }
+	public String getPupDate() {
+		return pupDate;
+	}
 
-    public int getUserng() {
-        return userng;
-    }
+	public void setPupDate(String pupDate) {
+		this.pupDate = pupDate;
+	}
 
-    public void setUserng(int userng) {
-        this.userng = userng;
-    }
+	public String getMovieState() {
+		return movieState;
+	}
 
-    public String getImage() {
-        return image;
-    }
+	public void setMovieState(String movieState) {
+		this.movieState = movieState;
+	}
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public String getActor() {
+		return actor;
+	}
+
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [movieSeq=" + movieSeq + ", movieTitle=" + movieTitle + ", rating=" + rating + ", genre=" + genre
+				+ ", time=" + time + ", pupDate=" + pupDate + ", movieState=" + movieState + ", director=" + director
+				+ ", actor=" + actor + ", imgUrl=" + imgUrl + ", code=" + code + "]";
+	}  
+	
+	
+
+
+
 }

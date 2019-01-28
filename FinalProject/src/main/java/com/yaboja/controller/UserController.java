@@ -288,9 +288,21 @@ public class UserController {
         //id도잇움
         String name = properties.path("nickname").asText();
         String email = kakao_account.path("email").asText();
-        String age=kakao_account.path("age_range").asText();
-        age=age.substring(0, 2);
-        String sex=kakao_account.path("gender").asText();
+        String age="";
+        if(kakao_account.path("has_age_range").asText()=="false") {
+        	age="";
+        }else {
+        	age=kakao_account.path("age_range").asText();
+        	age=age.substring(0, 2);
+        }
+        String sex="";
+        if(kakao_account.path("has_gender").asText()=="false") {
+        	sex="";
+        }else {
+        	sex=kakao_account.path("gender").asText();
+        }
+        
+  
         
         System.out.println("id : " + id);
         System.out.println("name : " + name);

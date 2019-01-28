@@ -198,7 +198,6 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
 		<!-- 파일업로드 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -229,8 +228,13 @@
     <artifactId>mail</artifactId>
     <version>1.4</version>
 </dependency>
+		<!-- jsoup HTML parser library @ https://jsoup.org/ -->
+		<dependency>
 
-
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.11.2</version>
+		</dependency>
 
 
 	</dependencies>

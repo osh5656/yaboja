@@ -13,6 +13,7 @@ public class UserBizImpl implements UserBiz {
 	UserDaoImpl dao;
 
 	@Override
+
 	public UserDto selectOne(String id) {
 		UserDto dto=dao.selectOne(id);
 		return dto;
@@ -23,5 +24,6 @@ public class UserBizImpl implements UserBiz {
 	}
 	public UserDto login(String userid,String userpw) {
 		return dao.login(userid,userpw);
+
 	}
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,13 +20,13 @@
 
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css"
-   rel="stylesheet" type="text/css">
+	rel="stylesheet" type="text/css">
 <link
-   href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
-   rel='stylesheet' type='text/css'>
+	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
 <link
-   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-   rel='stylesheet' type='text/css'>
+	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
 
 
 
@@ -40,94 +39,95 @@
 <body>
 
 
-   <!-- Navigation -->
-   <%@ include file="inc/topbar.jsp"%>
+	<!-- Navigation -->
+	<%@ include file="inc/topbar.jsp"%>
 
-   <!-- Page Header -->
-   <!-- Set your background image for this header on the line below. -->
-   <header class="intro-header"
-      style="background-image: url('img/home-bg.jpg')">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-               <div class="site-heading">
-                  <h1>Movie Matching</h1>
-                  <hr class="small">
-                  <span class="subheading">Matching with YABOZA </span>
-               </div>
-            </div>
-         </div>
-      </div>
-   </header>
+	<!-- Page Header -->
+	<!-- Set your background image for this header on the line below. -->
+	<header class="intro-header"
+		style="background-image: url('img/home-bg.jpg')">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<div class="site-heading">
+						<h1>Movie Matching</h1>
+						<hr class="small">
+						<span class="subheading">Matching with YABOZA </span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-   <!-- Menu Bar -->
-   <nav class="nav2">
-      <!-- 메뉴바 -->
-      <a href=""><strong>Movie Board</strong></a> 
-      <a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-      <a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
-      <a href=""><strong>Q&A Board</strong></a> 
-      <a href="myPage.jsp"><strong>My Page</strong></a>
-      <div class="nav-underline"></div>
-   </nav>
+	<!-- Menu Bar -->
+	<nav class="nav2">
+		<!-- 메뉴바 -->
+		<a href="movieBoard.do"><strong>Movie Board</strong></a> 
+		<a href=""><strong>Matching Board</strong></a> 
+		<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
+		<a href=""><strong>Q&A Board</strong></a> 
+		<a href="myPage.jsp"><strong>My Page</strong></a>
+		<div class="nav-underline"></div>
+	</nav>
 
-   <!-- Movie List -->
-   
-   <%@ include file="inc/movielist.jsp"%>
-   <!-- Slider -->
-   <%@ include file="inc/slide.jsp"%>
+	<!-- Movie List -->
+	
+	<%@ include file="inc/movielist.jsp"%>
+	<!-- Slider -->
+	<%@ include file="inc/slide.jsp"%>
 
 <br><br>
-   <!-- Main Content -->
-   <div class="container">
+	<!-- Main Content -->
+	<div class="container">
 
 <div class="container mt-5 mb-5">
-   <div class="row">
-      <div class="col-md-6 offset-md-3" style="margin-left: 25%;">
-         <h4>How To Matching?</h4>
-         <ul class="timeline">
-            <li>
-               <a target="_blank" href="https://www.totoprayogo.com/#">영화별 매칭하기</a>
-               <a href="#" class="float-right">21 March, 2014</a>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-            </li>
-            <li>
-               <a href="#">21 000 Job Seekers</a>
-               <a href="#" class="float-right">4 March, 2014</a>
-               <p>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
-            </li>
-            <li>
-               <a href="#">Awesome Employers</a>
-               <a href="#" class="float-right">1 April, 2014</a>
-               <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
-            </li>
-         </ul>
-      </div>
-   </div>
+	<div class="row">
+		<div class="col-md-6 offset-md-3" style="margin-left: 25%;">
+			<h4>How To Matching?</h4>
+			<ul class="timeline">
+				<li>
+					<a target="_blank" href="https://www.totoprayogo.com/#">영화별 매칭하기</a>
+					<a href="#" class="float-right">21 March, 2014</a>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+				</li>
+				<li>
+					<a href="#">21 000 Job Seekers</a>
+					<a href="#" class="float-right">4 March, 2014</a>
+					<p>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+				</li>
+				<li>
+					<a href="#">Awesome Employers</a>
+					<a href="#" class="float-right">1 April, 2014</a>
+					<p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
 
 <!-- <div class="text-muted mt-5 mb-5 text-center small">by : <a class="text-muted" target="_blank" href="http://totoprayogo.com">totoprayogo.com</a></div> -->
 
-   </div>
+	</div>
 
-   <hr>
+	<hr>
 
-   <!-- Footer -->
-   <%@ include file="inc/footer.jsp"%>
+	<!-- Footer -->
+	<%@ include file="inc/footer.jsp"%>
 
-   <!-- jQuery -->
-   <script src="vendor/jquery/jquery.min.js"></script>
+	<!-- jQuery -->
+	<script src="vendor/jquery/jquery.min.js"></script>
 
-   <!-- Bootstrap Core JavaScript -->
-   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-   <!-- Contact Form JavaScript -->
-   <script src="js/jqBootstrapValidation.js"></script>
-   <script src="js/contact_me.js"></script>
+	<!-- Contact Form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
 
-   <!-- Theme JavaScript -->
-   <script src="js/clean-blog.min.js"></script>
+	<!-- Theme JavaScript -->
+	<script src="js/clean-blog.min.js"></script>
 
 </body>
 
 </html>
+
