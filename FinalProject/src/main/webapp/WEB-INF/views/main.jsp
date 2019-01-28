@@ -65,9 +65,9 @@
 		<!-- 메뉴바 -->
 		<a href=""><strong>Movie Board</strong></a> 
 		<a href=""><strong>Matching Board</strong></a> 
-		<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
+		<a href="reviewboard.do"><strong>Review Board</strong></a> 
 		<a href=""><strong>Q&A Board</strong></a> 
-		<a href="myPage.jsp"><strong>My Page</strong></a>
+		<a href="mypage.do"><strong>My Page</strong></a>
 		<div class="nav-underline"></div>
 	</nav>
 

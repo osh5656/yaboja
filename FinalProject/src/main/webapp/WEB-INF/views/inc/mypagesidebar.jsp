@@ -64,8 +64,8 @@ function myAccFunc1() {
   코      인 <i class="fa fa-caret-down"></i>
   </button>
   <div id="demoAcc" class="w3-hide w3-white w3-card">
-    <a href="#" class="w3-bar-item w3-button">결제내역</a>
-    <a href="#" class="w3-bar-item w3-button">결제하기</a>
+    <a href="coin_payment.do" class="w3-bar-item w3-button">결제내역</a>
+    <a href="coin_charge.do" class="w3-bar-item w3-button">결제하기</a>
   </div>
   
   <button class="w3-button w3-block w3-left-align" onclick="myAccFunc1()">
