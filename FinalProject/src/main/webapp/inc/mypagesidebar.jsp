@@ -72,8 +72,8 @@ function myAccFunc1() {
   매칭관리 <i class="fa fa-caret-down"></i>
   </button>
   <div id="demoAcc1" class="w3-hide w3-white w3-card">
-    <a href="#" class="w3-bar-item w3-button">작성한매칭</a>
-    <a href="#" class="w3-bar-item w3-button">신청한매칭</a>
+    <a href="mypage_match_to.do" class="w3-bar-item w3-button">매칭 현황</a>
+    <a href="#" class="w3-bar-item w3-button">진행중인 매칭</a>
   </div>
   
 
