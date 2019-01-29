@@ -82,4 +82,16 @@ public class MovieDaoImpl implements MovieDao {
 		}
 				
 	}
+
+	@Override
+	public MovieDto selectOneMovie(int movieSeq) {
+		MovieDto dto = null;
+		try {
+			dto = sqlSession.selectOne(namespace + "selectOneMovie", movieSeq);
+		} catch (Exception e) {
+			System.out.println("selectOneMovie 에러");
+			e.printStackTrace();
+		}
+		return dto;
+	}
 }

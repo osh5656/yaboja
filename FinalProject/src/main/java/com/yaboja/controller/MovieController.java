@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yaboja.bizImpl.MovieBizImpl;
 import com.yaboja.dto.MovieDto;
+import com.yaboja.util.Crawler;
 
 
 
@@ -50,6 +51,20 @@ public class MovieController {
 		model.addAttribute("list", movies);
 		
 		return "movieBoard/presentMovie";
+	}
+	
+	@RequestMapping(value = "/preMovie.do", method = RequestMethod.GET)
+	public String getPreMovie(Model model) {
+		
+		List<MovieDto> movies = biz.selectPreMovies();
+		
+		for(MovieDto movie : movies) {
+			System.out.println(movie);
+		}		
+		
+		model.addAttribute("list", movies);
+		
+		return "movieBoard/preMovie";
 	}
 	
 	@RequestMapping(value = "/endMovie.do", method = RequestMethod.GET)
@@ -81,6 +96,23 @@ public class MovieController {
 		}	
 		
 		return "ok";
+	}
+	//영화 상세페이지
+	@RequestMapping(value = "/movieInfo.do", method = RequestMethod.GET)
+	public String movieInfo(Model model,String movieSeq) {
+		
+		System.out.println("상세페이지 왔당! 클릭한 영화 번호 : " + movieSeq);
+		
+		MovieDto dto = biz.selectOneMovie(Integer.parseInt(movieSeq));
+		System.out.println(dto);
+		
+		
+		model.addAttribute("dto", biz.selectOneMovie(Integer.parseInt(movieSeq)));
+		Crawler crawler = new Crawler();
+		model.addAttribute("content", crawler.getContent(dto.getCode()));
+		
+		
+		return "movieBoard/movie_info";
 	}
 	
 }

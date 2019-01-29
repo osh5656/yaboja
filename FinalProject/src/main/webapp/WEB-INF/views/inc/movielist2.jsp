@@ -35,23 +35,14 @@
                 	<c:otherwise>
                 		<c:forEach var="i" items="${list }">
                 		
-                <div class="col-md-3 col-sm-6" style="margin-bottom: 10px; width:200px;height:400px; ">
+                <div class="col-md-3 col-sm-6" style="margin-bottom: 10px; width:200px;height:300px; ">
                 	
                     <div class="box15">
                         <img src="${i.imgUrl }" alt="">
-                        <div class="box-content">
-                            <h3 class="title">평점 : ${i.rating }</h3>
-                            <ul class="icon">
-                                <li><a href="#"><i class="fa fa-search"></i></a></li>
-                                
-                            </ul>
-                        </div>                        
+                                               
                     </div><!-- href="https://movie.naver.com/movie/bi/mi/reserve.nhn?code=167651" -->
                     <center><div><a href="movieInfo.do?movieSeq=${i.movieSeq }"><span style="font-size:15px;" >${i.movieTitle }</span></a></div></center>
-                    <div>
-                    	<button class="btn btn-default" onclick="location.href='https://movie.naver.com/movie/bi/mi/reserve.nhn?${i.code}'"><i class="glyphicon glyphicon-facetime-video"></i> 예매하기</button>
-                    	<button class="btn btn-default" onclick="location.href=''"><i class="glyphicon glyphicon-heart"></i> 매칭하러가기</button>
-                    </div>
+                    
                 </div>
 						
 						</c:forEach>

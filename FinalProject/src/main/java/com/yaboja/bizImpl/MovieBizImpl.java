@@ -90,4 +90,21 @@ public class MovieBizImpl implements MovieBiz {
 		return insertMovies;
 	}
 
+	@Override
+	public MovieDto selectOneMovie(int movieSeq) {
+		// TODO Auto-generated method stub
+		MovieDto dto = dao.selectOneMovie(movieSeq);
+		
+		dto.setImgUrl(dto.getImgUrl().replace("?type=m99_141_2", ""));
+		return dto;
+	}
+
+	@Override
+	public List<MovieDto> selectPreMovies() {
+		Crawler crawler = new Crawler();
+		List<MovieDto> preMovies = crawler.getPreMovie();
+		
+		return preMovies;
+	}
+
 }

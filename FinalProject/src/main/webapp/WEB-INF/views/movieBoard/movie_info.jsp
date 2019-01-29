@@ -13,7 +13,7 @@
 <meta name="author" content="">
 
 <title>야보자</title>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -40,9 +40,43 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 
 
+<!-- 별로 표시하기 -->
+		<script>
+		
+		window.onload = function () {
+			 
+			 var innerHtml="";
+				var x=${dto.rating};
+				x=x/2;
 
+				for(var i =0 ; i < 5; i ++) {  
 
+				  if( i <x-1) {
 
+				   innerHtml  +=   "<i class='glyphicon glyphicon-star'></i>" ;  
+
+				  }else{
+
+				     innerHtml  +=  "<i class='glyphicon glyphicon-star-empty'></i>" ;
+
+				 }
+
+				} 
+
+				$('#myspan').html(innerHtml);
+			}			
+		
+		</script>
+		
+<!-- 별로 표시하기 끝-->
+
+<style>
+.actorimage li{display:inline-block; width:160px; height:220px;}
+.actorimage li dl{width:160px; height:60px;}
+.actorimage li .tx_people{width:160px; height:20px;}
+.actorimage li img{width:160px; height:200px;}
+.actorimage li .staff_dir{height:40px; margin-bottom:60px;}
+</style>
 
 
 
@@ -53,7 +87,7 @@
 
 
 	<!-- Navigation -->
-	<%@ include file="inc/topbar.jsp"%>
+	<%@ include file="../inc/topbar.jsp"%>
 
 
 	<!-- Menu Bar -->
@@ -66,43 +100,46 @@
 	</nav>
 
 	<!-- mypagesidebar -->
-	<%@ include file="inc/mypagesidebar.jsp"%>
+	<%@ include file="../inc/moviesidebar2.jsp"%>
 
 	<!-- 마이페이지 부분 소스는 여기부터 작성!! -->
 	</br>
 	</br>
 	<div class="container">
-		<div align="right">
-			<input type="button" name="btn1" value="매칭하러가기" class="btn btn-default" />
-		</div>
-		<h1>아쿠아맨</h1>
-		<h3>AQUAMAN,2018</h3>
+		
+		<h1>${dto.movieTitle }</h1>
+		
+
+		
 		</br>
 
 		<div align="left">
-			<table border="1" class="table table-hover">
+			<table border="1" class="table table-hover" style="font-size:30px;">
 				<tr>
 					<td rowspan="5" style="width: 168px;"><img
-						src="img/aquaman.JPG" width="200" height="300"></td>
-					<td>개요 | 액션, 모험 , SF | 미국,오스트레일리아 | 143분 | 2018.12.19 개봉</td>
+						src="${dto.imgUrl }" width="300" height="450"></td>
+					<td>장르 : ${dto.genre } | 평점 : ${dto.rating } <span id="myspan"></span></td>
 				</tr>
 
 				<tr>
-					<td>감독 제임스 완</td>
+					<td>상영시간 : ${dto.time } | ${dto.pupDate } 개봉</td>
+				</tr>
+				
+				<tr>
+					<td>감독 : ${dto.director}</td>
 				</tr>
 				<tr>
-					<td>출연 제이슨 모모아(아서커리/ 아쿠아맨), 앰버 허드(메라) ...</td>
-				</tr>
-				<tr>
-					<td>등급 [국내]12세 관람가 [해외] PG-13</td>
-				</tr>
-				<tr>
-					<td>흥행 예매율 5위 | 누적관객 4,664,447명</td>
+					<td>출연 : ${dto.actor}</td>
 				</tr>
 
 			</table>
 		</div>
+		<div align="right">
+			<input type="button" name="btn1" value="매칭하러가기" class="btn btn-default" />
+		</div>
 		</br> </br>
+		
+		${content }
 
 		<div>
 			<h1>한줄 평</h1>
@@ -151,7 +188,7 @@
 	</div>
 
 	<!-- Footer -->
-	<%@ include file="inc/footer.jsp"%>
+	<%@ include file="../inc/footer.jsp"%>
 
 
 

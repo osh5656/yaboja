@@ -14,9 +14,10 @@
 		WHERE MOVIESTATE='종영작'
 	</select>
 
-	<select id="selectOne" resultType="MovieDto"
-		parameterType="String">
-		
+	<select id="selectOneMovie" resultType="MovieDto" parameterType="int">
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIESEQ = #{MOVIESEQ}
 	</select>
 	
 	<insert id="insert" parameterType="MovieDto">

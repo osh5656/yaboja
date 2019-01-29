@@ -28,7 +28,7 @@
 	
 
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px; margin-top: 2%;">
-  <a href="" class="w3-bar-item w3-button">개봉예정작</a>
+  <a href="preMovie.do" class="w3-bar-item w3-button">개봉예정작</a>
   <a href="movieBoard.do" class="w3-bar-item w3-button">현재상영작</a>
   <a href="endMovie.do" class="w3-bar-item w3-button">종영작</a>
 	</div>
