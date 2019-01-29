@@ -94,9 +94,6 @@ public class MatchingboardController {
 //		model.addAttribute("matchingboardlist4", cinemaBiz.selectOne(list.get(0).getCinemaseq()));
 		return "match_list";
 	
-		
-		
-		
 
 	
 	}
