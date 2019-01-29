@@ -20,8 +20,8 @@
    </select>
    <update id="userUpdate" parameterType="UserDto">
    UPDATE USERS SET 
-   USERPW = #{userpw}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}
-   WHERE USERID = #{userid} 
+   USERPW = #{userpw}, USERNAME = #{username}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}
+   WHERE USERSEQ = #{userseq} 
    </update>
    <delete id="userDelete">
    DELETE FROM USERS WHERE USERID = #{userid}

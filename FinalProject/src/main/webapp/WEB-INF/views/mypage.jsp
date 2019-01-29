@@ -73,11 +73,12 @@
                   <tr align ="center">
                         <td rowspan="9" width="100px"></td>
                      </tr>
+                    
                      <tr>
                         <th>아이디 ${dto.userid }
                      </tr>
                      <tr>
-                        <th>이름 ${dto.username }
+                        <th>이름<input name="username" value="${dto.username }" /></th>
                      </tr>
                      <tr>
                         <th>이메일 ${dto.useremail }

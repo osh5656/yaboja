@@ -52,7 +52,7 @@ public class CoinController {
 
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "사용");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
 
 		coin_val = ((coin_charge - coin_use) / 500);
 
@@ -97,7 +97,7 @@ public class CoinController {
 
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "사용");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
 
 		coin_val = ((coin_charge - coin_use) / 500);
 
@@ -109,6 +109,7 @@ public class CoinController {
 	}
 
 ////////// 사용//////////
+	/*
 	@RequestMapping(value = "/coin_payment_use_01.do", method = RequestMethod.GET)
 	public String getCoin_payment_use_01(Model model, HttpServletRequest request, @RequestParam int point_val_01) {
 
@@ -116,13 +117,15 @@ public class CoinController {
 
 		return "coin_pass";
 	}
+	*/
 
-	@RequestMapping(value = "/coin_payment_use.do", method = RequestMethod.GET)
+	/*
+	@RequestMapping(value = "/coin_payment_use_01.do", method = RequestMethod.GET)
 	public String getCoin_Payment_use(HttpSession session, HttpServletRequest request, Model model) {
 
 		UserDto userdto = (UserDto) session.getAttribute("dto");
 
-		int point_val_01 = 0;
+		int point_val_01 = 500;
 
 		if (request.getParameter("point_val_01") != null) {
 			point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
@@ -139,5 +142,6 @@ public class CoinController {
 	public String getExample() {
 		return "example";
 	}
+	*/
 
 }

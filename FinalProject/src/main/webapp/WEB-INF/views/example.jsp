@@ -72,11 +72,7 @@
 	
 	
 		
-				<form method="get" action="coin_payment_use_01.do">
-				ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ	
-									<input type="submit" value="500" name="point_val_01" >
-				
-				</form>
+				dddddddddddddddddddddddddddddddddddddd<button onclick="location.href='coin_payment_use_01.do?point_val_01=500'">600</button>
 				
 			
 	</div>
