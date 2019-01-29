@@ -55,4 +55,16 @@ public class MovieDaoImpl implements MovieDao {
 		
 		return res;
 	}
+	
+	@Override
+	public String getMovieTitle(int movieseq) {
+		String movietitle = null;
+		try {
+			movietitle = sqlSession.selectOne(namespace+"getMovieTitle",movieseq);
+		} catch(Exception e) {
+			System.out.println("getMovieTitle 에러");
+			e.printStackTrace();
+		}
+		return movietitle;
+	}
 }

@@ -19,4 +19,10 @@
    WHERE MOVIESEQ=#{movieseq}
   </select>
   
+  <select id="getMovieTitle" parameterType="int" resultType="String">
+  	SELECT MOVIETITLE
+  	FROM MOVIE
+  	WHERE MOVIESEQ = #{movieseq}
+  </select>
+  
 </mapper>

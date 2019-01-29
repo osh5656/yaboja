@@ -11,6 +11,7 @@ public interface MovieDao {
 	public List<MovieDto> selectList();
 	public MovieDto selectOne(int movieseq);
 	public int getMovieSeq(String movietitle);
+	public String getMovieTitle(int movieseq);
 	
 
 }

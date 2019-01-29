@@ -25,8 +25,29 @@ public class MatchingDto {
     // 날짜 
     private Date matchingdate;
 
-    // 선택 체 
+    // 선택 체크
     private String selectedapplicant;
+    
+    private int cinemaseq;
+    
+    private int movieseq;
+
+    
+	public int getCinemaseq() {
+		return cinemaseq;
+	}
+
+	public void setCinemaseq(int cinemaseq) {
+		this.cinemaseq = cinemaseq;
+	}
+
+	public int getMovieseq() {
+		return movieseq;
+	}
+
+	public void setMovieseq(int movieseq) {
+		this.movieseq = movieseq;
+	}
 
 	public int getMatchingseq() {
 		return matchingseq;

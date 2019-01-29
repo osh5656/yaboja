@@ -151,9 +151,9 @@ function deletecheck() {
 						<td style="font-weight: bold;">나이</td>
 						<td><%= userList.get(i).getUserage()%></td>
 						<td rowspan="2" style="width: 98px;" align="center"><input
-							type="button" value="수락" onclick="" class="btn btn-default"></td>
+							type="button" value="수락" onclick="location.href='acceptance.do?matchingapplicant=<%= userList.get(i).getUserseq()%>'" class="btn btn-default"></td>
 						<td rowspan="2" style="width: 98px;" align="center"><input
-							type="button" value="거절" onclick="" class="btn btn-default"></td>
+							type="button" value="거절" onclick="location.href='rejectionOne.do?matchingapplicant=<%= userList.get(i).getUserseq()%>'" class="btn btn-default"></td>
 					</tr>
 					<tr>
 						<td colspan ="6"><%= boarddto.getMatchingboardtitle()%></td>
@@ -164,10 +164,10 @@ function deletecheck() {
 		}
 %>
 		
-		</br>
+		<br/>
 	
 		
-		</br>
+		<br/>
 
 	</div>
 

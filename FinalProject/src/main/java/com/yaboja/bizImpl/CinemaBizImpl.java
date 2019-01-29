@@ -31,4 +31,10 @@ public class CinemaBizImpl implements CinemaBiz{
 		// TODO Auto-generated method stub
 		return dao.getCinemaSeq(cinema);
 	}
+
+	@Override
+	public String getCinema(int cinemaseq) {
+		// TODO Auto-generated method stub
+		return dao.getCinema(cinemaseq);
+	}
 }

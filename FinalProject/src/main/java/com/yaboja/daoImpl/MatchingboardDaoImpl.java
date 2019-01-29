@@ -108,4 +108,28 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 		return sqlSession.selectOne(namespace + "listCount");
 
 	}
+
+	@Override
+	public MatchingboardDto getCinemaSeq(Map<String, String> map) {
+		MatchingboardDto matchingboardDto = null;
+		try {
+			matchingboardDto = sqlSession.selectOne(namespace+"cinemaSeq",map);
+		} catch(Exception e) {
+			System.out.println("getCinemaseq 에러");
+			e.printStackTrace();
+		}
+		return matchingboardDto;
+	}
+
+	@Override
+	public int delete(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.delete(namespace+"delete",userseq);
+		} catch(Exception e) {
+			System.out.println("delete 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
 }

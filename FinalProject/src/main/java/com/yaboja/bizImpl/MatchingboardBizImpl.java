@@ -59,4 +59,16 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 		System.out.println("게시물 총 계수 2 단계 성공 MatchingboardBizlmpl");
 		return dao.listCount();
 	}
+
+	@Override
+	public MatchingboardDto getCinemaSeq(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.getCinemaSeq(map);
+	}
+
+	@Override
+	public int delete(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.delete(userseq);
+	}
 }

@@ -17,4 +17,10 @@
   	FROM CINEMA
   	WHERE CINEMA = #{cinema}
   </select>
+  
+  <select id="getCinema" parameterType="int" resultType="String">
+  	SELECT CINEMA
+  	FROM CINEMA
+  	WHERE CINEMASEQ = #{cinemaseq}
+  </select>
 </mapper>

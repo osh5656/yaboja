@@ -4,17 +4,23 @@ import java.util.Date;
 
 public class MovieDto {
 
-	// 영화번호 
+	 // 영화번호 
     private int movieseq;
-
-    // 장르 
-    private String genre;
 
     // 영화제목 
     private String movietitle;
 
+    // 평점 
+    private String rating;
+
+    // 장르 
+    private String genre;
+
+    // 상영시간 
+    private String time;
+
     // 영화개봉날짜 
-    private Date movieopendate;
+    private String pupdate;
 
     // 영화체크(예정/상영/종영) 
     private String moviestate;
@@ -25,45 +31,18 @@ public class MovieDto {
     // 출연배우 
     private String actor;
 
-    // 관람객평 
-    private int userng;
-
     // 이미지URL 
-    private String image;
-    
-    
+    private String imgurl;
 
-    public MovieDto() {
-    	super();
-    }
-    public MovieDto(int movieseq, String genre, String movietitle, Date movieopendate, String moviestate,
-			String director, String actor, int userng, String image) {
-		super();
-		this.movieseq = movieseq;
-		this.genre = genre;
-		this.movietitle = movietitle;
-		this.movieopendate = movieopendate;
-		this.moviestate = moviestate;
-		this.director = director;
-		this.actor = actor;
-		this.userng = userng;
-		this.image = image;
-	}
+    // 네이버코드 
+    private String code;
 
-	public int getMovieseq() {
+    public int getMovieseq() {
         return movieseq;
     }
 
     public void setMovieseq(int movieseq) {
         this.movieseq = movieseq;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getMovietitle() {
@@ -74,12 +53,36 @@ public class MovieDto {
         this.movietitle = movietitle;
     }
 
-    public Date getMovieopendate() {
-        return movieopendate;
+    public String getRating() {
+        return rating;
     }
 
-    public void setMovieopendate(Date movieopendate) {
-        this.movieopendate = movieopendate;
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPupdate() {
+        return pupdate;
+    }
+
+    public void setPupdate(String pupdate) {
+        this.pupdate = pupdate;
     }
 
     public String getMoviestate() {
@@ -106,19 +109,19 @@ public class MovieDto {
         this.actor = actor;
     }
 
-    public int getUserng() {
-        return userng;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setUserng(int userng) {
-        this.userng = userng;
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
-    public String getImage() {
-        return image;
+    public String getCode() {
+        return code;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -2,6 +2,8 @@ package com.yaboja.daoImpl;
 
 import java.util.List;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -52,5 +54,18 @@ public class CinemaDaoImpl implements CinemaDao {
 			e.printStackTrace();
 		}
 		return cinemaseq;
+	}
+
+	@Override
+	public String getCinema(int cinemaseq) {
+		String cinema = null;
+		
+		try {
+			cinema = sqlSession.selectOne(namespace+"getCinema",cinemaseq);
+		} catch(Exception e) {
+			System.out.println("getCinema 에러");
+			e.printStackTrace();
+		}
+		return cinema;
 	}
 }

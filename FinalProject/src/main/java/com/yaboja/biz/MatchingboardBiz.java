@@ -14,6 +14,8 @@ public interface MatchingboardBiz {
 	public int insert(Map<String,String> map);
 	public MatchingboardDto userOne(int userseq);
 	public int update(Map<String,String> map);
+	public MatchingboardDto getCinemaSeq(Map<String,String> map);
+	public int delete(int userseq);
 
 	//목록 + 페이징
 	public List<MatchingboardDto> listPage(Criteria cri);

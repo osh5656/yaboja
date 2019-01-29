@@ -31,4 +31,10 @@ public class MovieBizImpl implements MovieBiz {
 		// TODO Auto-generated method stub
 		return dao.getMovieSeq(movietitle);
 	}
+
+	@Override
+	public String getMovieTitle(int movieseq) {
+		// TODO Auto-generated method stub
+		return dao.getMovieTitle(movieseq);
+	}
 }

@@ -198,6 +198,12 @@ public class MatchingboardController {
 			throws IOException {
 		int userseq = ((UserDto) session.getAttribute("dto")).getUserseq();
 		int matchingwriter = Integer.parseInt(request.getParameter("userseq"));
+		String cinema = request.getParameter("cinema");
+		String movietitle = request.getParameter("movietitle");
+		
+		int cinemaseq = cinemaBiz.getCinemaSeq(cinema);
+		int movieseq = movieBiz.getMovieSeq(movietitle);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		MatchingDto dto = null;
 		dto = matchingBiz.selectOne(userseq);
@@ -207,6 +213,8 @@ public class MatchingboardController {
 			MatchingDto matchingDto = new MatchingDto();
 			matchingDto.setMatchingwriter(matchingwriter);
 			matchingDto.setMatchingapplicant(userseq);
+			matchingDto.setMovieseq(movieseq);
+			matchingDto.setCinemaseq(cinemaseq);
 
 			int res = matchingBiz.insert(matchingDto);
 			if (res > 0) {
@@ -336,6 +344,88 @@ public class MatchingboardController {
 		pageMaker.setTotalCount(matchingboardBiz.listCount());
 		model.addAttribute("pageMaker", pageMaker);
 	}
-
+	
+	@RequestMapping(value="/acceptance.do", method = RequestMethod.GET)
+	public void acceptance(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+		int matchingapplicant = Integer.parseInt(request.getParameter("matchingapplicant"));
+		int matchingwriter = ((UserDto)session.getAttribute("dto")).getUserseq();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("matchingwriter", String.valueOf(matchingwriter));
+		map.put("matchingapplicant", String.valueOf(matchingapplicant));
+		
+		int res1 = matchingBiz.acceptance(map);
+		int res2 = matchingBiz.rejection(map);
+		if(res1 > 0 ){
+			matchingboardBiz.delete(userseq);
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('매칭 수락 성공');location.href='mypage_match_success.do';</script>");
+			out.close();
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('매칭 수락 실패');history.back();</script>");
+			out.close();
+		}
+	}
+	@RequestMapping(value="rejectionOne.do",method=RequestMethod.GET)
+	public void rejectionOne(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		int matchingapplicant = Integer.parseInt(request.getParameter("matchingapplicant"));
+		int matchingwriter = ((UserDto)session.getAttribute("dto")).getUserseq();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("matchingwriter", String.valueOf(matchingwriter));
+		map.put("matchingapplicant", String.valueOf(matchingapplicant));
+		
+		int res = matchingBiz.rejectionOne(map);
+		if(res > 0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('거절되었습니다.');location.href='mypage_match_to.do';</script>");
+			out.close();
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('데이터베이스 오류');history.back();</script>");
+			out.close();
+		}
+		
+		
+		
+	}
+	@RequestMapping(value="mypage_match_success.do",method=RequestMethod.GET)
+	public String mypageMatchSuccess(Model model, HttpSession session) {
+		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+		MatchingDto matchingDto = null;
+		matchingDto = matchingBiz.matchSuccess(userseq);
+		if(matchingDto != null) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("matchingwriter", String.valueOf(matchingDto.getMatchingwriter()));
+			map.put("matchingapplicant", String.valueOf(matchingDto.getMatchingapplicant()));
+			MatchingboardDto matchingboardDto = matchingboardBiz.getCinemaSeq(map);
+		
+			
+			String cinema = cinemaBiz.getCinema(matchingDto.getCinemaseq());
+			MovieDto movieDto = movieBiz.selectOne(matchingDto.getMovieseq());
+			UserDto userDto = null;
+			if(userseq == matchingDto.getMatchingwriter()) {
+				userDto = userBiz.selectOne(matchingDto.getMatchingapplicant());
+			}else {
+				userDto = userBiz.selectOne(matchingDto.getMatchingwriter());
+			}
+			
+			model.addAttribute("userDto",userDto);
+			model.addAttribute("matchingDto",matchingDto);
+			model.addAttribute("cinema",cinema);
+			model.addAttribute("imgurl",movieDto.getImgurl());
+		}
+		
+		return "mypage_match_Success";
+	}
+	@RequestMapping(value="/chat.do",method = RequestMethod.GET)
+	public String chat(HttpServletRequest request, Model model) {
+		String userseq2 = request.getParameter("userseq2");
+		model.addAttribute("userseq2",userseq2);
+		
+		return "chat";
+	}
 
 }

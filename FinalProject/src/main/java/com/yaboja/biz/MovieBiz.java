@@ -9,5 +9,6 @@ public interface MovieBiz {
 	public MovieDto selectOne(int movieseq);
 	public List<MovieDto> selectList();
 	public int getMovieSeq(String movietitle);
+	public String getMovieTitle(int movieseq);
 
 }

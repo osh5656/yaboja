@@ -9,5 +9,6 @@ public interface CinemaBiz {
 	public CinemaDto selectOne(int cinemaseq);
 	public List<CinemaDto> selectList();
 	public int getCinemaSeq(String cinema);
+	public String getCinema(int cinemaseq);
 
 }

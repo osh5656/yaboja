@@ -53,7 +53,9 @@ body { font-family:'HY나무M'; }
 		if(confirm("매칭신청 하시겠습니까? . 상대방 수락시 1코인이 차감되며, 신청중에는 다른신청을 할 수 없습니다")){
 			//매칭페이지로 ㄱㄱ
 			var userseq = document.getElementById('userseq').value;
-			location.href='matching_insert.do?userseq='+userseq;
+			var cinema = document.getElementById('cinema').innerHTML;
+			var movietitle = document.getElementById('movietitle').innerHTML;
+			location.href='matching_insert.do?userseq='+userseq+'&cinema='+cinema+'&movietitle='+movietitle;
 			
 		}else{
 			alert('신청이 취소되었습니다.');
@@ -122,9 +124,9 @@ body { font-family:'HY나무M'; }
 		</tr>
 		<tr>
 			<td bgcolor="skyblue">영화명</td>
-			<td><c:out value="${matchingboarddetail3.movietitle }" /></td>
+			<td id="movietitle"><c:out value="${matchingboarddetail3.movietitle }" /></td>
 			<td bgcolor="skyblue">영화관</td>
-			<td><c:out value="${matchingboarddetail4.cinema }" /></td>
+			<td id="cinema"><c:out value="${matchingboarddetail4.cinema }" /></td>
 		</tr>
 		<tr>
 			<td bgcolor="skyblue">내용</td>

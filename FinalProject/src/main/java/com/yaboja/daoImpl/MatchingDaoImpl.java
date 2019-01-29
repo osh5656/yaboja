@@ -2,6 +2,7 @@ package com.yaboja.daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,4 +67,55 @@ public class MatchingDaoImpl implements MatchingDao {
 		}
 		return list;
 	}
+
+	@Override
+	public int acceptance(Map<String, String> map) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"acceptance",map);
+		} catch(Exception e) {
+			System.out.println("acceptance 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int rejection(Map<String, String> map) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"rejection",map);
+		} catch(Exception e) {
+			System.out.println("rejection 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int rejectionOne(Map<String, String> map) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"rejectionOne",map);
+		} catch(Exception e) {
+			System.out.println("rejectionOne 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public MatchingDto matchSuccess(int userseq) {
+		MatchingDto matchingDto = null;
+		
+		try {
+			matchingDto = sqlSession.selectOne(namespace+"matchSuccess",userseq);
+		} catch(Exception e) {
+			System.out.println("matchSuccess 에러");
+			e.printStackTrace();
+		}
+		return matchingDto;
+	}
+
+	
 }
