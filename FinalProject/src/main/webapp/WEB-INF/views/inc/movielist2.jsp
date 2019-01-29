@@ -41,8 +41,8 @@
                         <img src="${i.imgUrl }" alt="">
                                                
                     </div><!-- href="https://movie.naver.com/movie/bi/mi/reserve.nhn?code=167651" -->
-                    <center><div><a href="movieInfo.do?movieSeq=${i.movieSeq }"><span style="font-size:15px;" >${i.movieTitle }</span></a></div></center>
-                    
+                    <center><div><span style="font-size:15px;" >${i.movieTitle }</span></div></center>
+                    <center><div><span style="font-size:15px;" >${i.pupDate } 개봉</span></div></center>
                 </div>
 						
 						</c:forEach>

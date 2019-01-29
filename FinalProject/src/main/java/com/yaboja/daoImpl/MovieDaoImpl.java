@@ -31,6 +31,10 @@ public class MovieDaoImpl implements MovieDao {
 			System.out.println("selectPresentMovie 에러");
 			e.printStackTrace();
 		}
+		/*if(res.size()==0 || res==null)
+		{
+			return null;
+		}*/
 		return res;
 	}
 

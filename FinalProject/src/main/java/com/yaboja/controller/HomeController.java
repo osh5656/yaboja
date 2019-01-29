@@ -63,12 +63,16 @@ public class HomeController {
 		
 		List<MovieDto> movies = biz.selectPresentMovies();
 		
-		movies = movies.subList(0, 10);
-		for(MovieDto movie : movies) {
-			System.out.println(movie);
-		}		
+		if(movies.size()!=0) {
+			movies = movies.subList(0, 10);
+			for(MovieDto movie : movies) {
+				System.out.println(movie);
+			}		
+			
+			model.addAttribute("list", movies);
+			
+		}
 		
-		model.addAttribute("list", movies);
 				
 		return "main";
 	}

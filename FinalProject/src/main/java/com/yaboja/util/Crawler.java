@@ -45,7 +45,7 @@ public class Crawler {
 		ArrayList<MovieDto> movies = new ArrayList<MovieDto>();
 		setMovies(movies, "예정작");
 		setImgUrlAndCode(movies,"예정작");
-		//setEtc(movies,"예정작");// 장르, 개봉일, 감독, 상영시간, 배우
+		setEtc(movies,"예정작");// 장르, 개봉일, 감독, 상영시간, 배우
 
 		return movies;
 	}
