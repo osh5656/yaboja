@@ -55,6 +55,7 @@ public class ReviewboardController {
 	         userList.add(userBiz.selectOne(String.valueOf(reviewboardList.get(i).getUserseq())));
 	      }
 	      
+	     
 	      model.addAttribute("reviewboardList",reviewboardList);
 	      model.addAttribute("userList",userList);
 	      

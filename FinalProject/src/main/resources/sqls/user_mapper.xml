@@ -7,8 +7,8 @@
    WHERE USERID = #{userid} AND USERPW = #{userpw}
    </select>
    <!-- mypage 시작-->
-   <select id="userOne" parameterType="com.yaboja.dto.UserDto" resultType="com.yaboja.dto.UserDto">
-   SELECT * FROM USERS WHERE USERID = #{userid}
+   <select id="userOne" parameterType="String" resultType="com.yaboja.dto.UserDto">
+   SELECT * FROM USERS WHERE USERSEQ = TO_NUMBER(#{userid})
    </select>
    <update id="userUpdate" parameterType="UserDto">
    UPDATE USERS SET 
