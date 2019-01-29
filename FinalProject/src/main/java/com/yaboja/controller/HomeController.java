@@ -80,6 +80,11 @@ public class HomeController {
 		
 		return "main";
 	}
+	
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	   public String getMypage() {
+	      return "mypage";
+	   }
 
 	
 }

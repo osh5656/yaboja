@@ -68,7 +68,18 @@
 	<%@ include file="inc/mypagesidebar.jsp"%>
 	
 	<!-- 마이페이지 부분 소스는 여기부터 작성!! -->
+	<div class="jumbotron jumbotron-fluid">
 	
+	
+		
+				<form method="get" action="coin_payment_use_01.do">
+				ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ	
+									<input type="submit" value="500" name="point_val_01" >
+				
+				</form>
+				
+			
+	</div>
 	
 	
 

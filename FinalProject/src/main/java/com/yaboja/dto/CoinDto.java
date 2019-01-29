@@ -15,8 +15,18 @@ public class CoinDto {
 
     // 날짜 
     private Date coindate;
+    
+    private String coinstate;
 
-    public int getCoinseq() {
+    public String getCoinstate() {
+		return coinstate;
+	}
+
+	public void setCoinstate(String coinstate) {
+		this.coinstate = coinstate;
+	}
+
+	public int getCoinseq() {
         return coinseq;
     }
 
