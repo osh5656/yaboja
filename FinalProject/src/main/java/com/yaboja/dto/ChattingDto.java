@@ -3,8 +3,7 @@ package com.yaboja.dto;
 import java.util.Date;
 
 public class ChattingDto {
-
-	 // 채팅번호 
+	// 채팅번호 
     private int chatseq;
 
     // 사용자1 
@@ -17,10 +16,10 @@ public class ChattingDto {
     private String chatcontent;
 
     // 날짜 
-    private Date chatdate;
+    private Date chattime;
 
     // 수신확인 
-    private String chatcheck;
+    private int chatread;
 
     public int getChatseq() {
         return chatseq;
@@ -54,19 +53,19 @@ public class ChattingDto {
         this.chatcontent = chatcontent;
     }
 
-    public Date getChatdate() {
-        return chatdate;
+    public Date getChattime() {
+        return chattime;
     }
 
-    public void setChatdate(Date chatdate) {
-        this.chatdate = chatdate;
+    public void setChattime(Date chattime) {
+        this.chattime = chattime;
     }
 
-    public String getChatcheck() {
-        return chatcheck;
+    public int getChatread() {
+        return chatread;
     }
 
-    public void setChatcheck(String chatcheck) {
-        this.chatcheck = chatcheck;
+    public void setChatread(int chatread) {
+        this.chatread = chatread;
     }
 }

@@ -1,5 +1,14 @@
+<%@page import="com.yaboja.dto.MatchingboardDto"%>
+<%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+	UserDto userDto = (UserDto)session.getAttribute("dto");
+	MatchingboardDto matchingboardDto = (MatchingboardDto)request.getAttribute("matchingboarddto");
+	MatchingboardDto mymatchingboardDto = (MatchingboardDto)request.getAttribute("mymatchingboarddto");
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,6 +59,8 @@ body { font-family:'HY나무M'; }
 <script type="text/javascript">
 	function matchingcheck(){
 		//if coin>0
+// 		var x =document.getElementById('mymatchingboard').value;
+		
 		if(confirm("매칭신청 하시겠습니까? . 상대방 수락시 1코인이 차감되며, 신청중에는 다른신청을 할 수 없습니다")){
 			//매칭페이지로 ㄱㄱ
 			var userseq = document.getElementById('userseq').value;
@@ -60,12 +71,13 @@ body { font-family:'HY나무M'; }
 		}else{
 			alert('신청이 취소되었습니다.');
 		}
+		
+		
 		//coin=0
 // 		alert('매칭에 필요한 코인이 부족합니다. 충전화면으로 이동합니다.' );
 // 		location.href='mypage_coin.jsp'
-		
-		
 	}
+
 </script>	
 </head>
 
@@ -90,6 +102,7 @@ body { font-family:'HY나무M'; }
 	
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
 	<input type="hidden" id="userseq" value="${ matchingboarddetail1.userseq}"/>
+	<input type = "hidden" id ="mymatchingboard" value ="${mymatchingboarddto }"/>
 	<div class ="container">
 	<br><br>
 	<h1 style="color:black; font-weight: bold;">작성자 프로필</h1>
@@ -132,15 +145,32 @@ body { font-family:'HY나무M'; }
 			<td bgcolor="skyblue">내용</td>
 			<td colspan="3"><c:out value="${matchingboarddetail1.matchingboardcontent }" />
 							<br>
-							<div align ="right"><button onclick="matchingcheck()" class ="btn btn default">매칭신청하기</button></div>
+<%
+int user = userDto.getUserseq();
+int boarduser = matchingboardDto.getUserseq();
+
+	if(user != boarduser){
 							
+%>									
+							<div align ="right"><button onclick="matchingcheck()" class ="btn btn default">매칭신청하기</button></div>
+<%
+	}
+%>						
 							</td>
 							
 		</tr>
 
 	</table>	
 		<div align ="center">
+<%
+
+	if(user == boarduser){
+		
+%>		
 		<button class ="btn btn default" onclick ="location.href='match_update.do?matchingboard=${matchingboarddetail1.matchingboard }'">수정</button><!-- 작성자만 -->
+<%
+	}
+%>		
 		<button class ="btn btn default" onclick ="location.href='matchingboardlist.do'">목록</button></div>
 	
 		<br>
@@ -149,7 +179,6 @@ body { font-family:'HY나무M'; }
 
 	<!-- Footer -->
 	<%@ include file="inc/footer.jsp"%>
-
 	
 
 </body>
