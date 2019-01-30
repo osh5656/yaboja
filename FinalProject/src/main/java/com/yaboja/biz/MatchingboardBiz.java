@@ -21,5 +21,7 @@ public interface MatchingboardBiz {
 	public List<MatchingboardDto> listPage(Criteria cri);
 	//게시물 총 개수
 	public int listCount();
+	
+	public List<MatchingboardDto> selectListByCinema(int cinemaseq);
 
 }

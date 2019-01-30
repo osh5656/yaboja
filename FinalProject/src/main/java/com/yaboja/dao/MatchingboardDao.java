@@ -24,6 +24,8 @@ public interface MatchingboardDao {
 	
 	// 겟시물 총 갯수
 	public int listCount();
+	
+	public List<MatchingboardDto> selectListByCinema(int cinemaseq);
 
 }
 
