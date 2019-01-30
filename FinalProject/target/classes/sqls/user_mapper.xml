@@ -14,5 +14,12 @@
 	SELECT * FROM USERS WHERE USERID=#{userid} AND USERPW=#{userpw}
 </select>
 
+<select id="selectAll" resultType="UserDto">
+	SELECT * FROM USERS
+</select>
+
+<update id="userUpdate" parameterType="UserDto" >
+	UPDATE USERS SET USERGRADE=#{usergrade} WHERE USERSEQ=#{userseq}
+</update> 
 
 </mapper>

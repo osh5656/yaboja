@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,13 +46,14 @@
 	<!-- Menu Bar -->
 	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
 		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> 
+		<a href="movieBoard.do"><strong>Movie Board</strong></a> 
 		<a href=""><strong>Matching Board</strong></a> 
-		<a href="reviewBoard"><strong>Review Board</strong></a> 
+		<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
 		<a href=""><strong>Q&A Board</strong></a> 
-		<a href="myPage"><strong>My Page</strong></a>
+		<a href="adminPreferences.do"><strong>preferences</strong></a>
 		<div class="nav-underline"></div>
 	</nav>
+
 
 	<!--adminsidebar -->
 	<%@ include file="inc/adminSidebar.jsp"%>
@@ -65,37 +67,65 @@
 				<input type="submit"value="검색" class="btn btn-default"></input> 
 			</div>
 			<br>
-			<table border="1" class="table">
+			<table border="1" class="table" style="text-align: center;">
 				<thead align="center">
 					<tr>
 						<th>ID
 						<th>NAME
-						<th>GENDER
-						<th>AGE
+						<th style="width: 100px;">GENDER
+						<th style="width: 100px;">AGE
 						<th>ADDRESS
 						<th>E-MAIL
-						<th>처리
+						<th style="width: 100px;">탈퇴
+						<th style="width: 100px;">관리자 권한
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>${userDto.user_id }id</td>
-						<td>${userDto.user_name }name</td>
-						<td>${userDto.user_gender }gender</td>
-						<td>${userDto.user_age }20초</td>
-						<td>${userDto.user_address }서울시 강남구</td>
-						<td>${userDto.user_email }12345@67890</td>
-						<td><button class="btn btn-default">탈퇴</button></td>
-					</tr>
-					<tr>
-						<td>${userDto.user_id }id</td>
-						<td>${userDto.user_name }name</td>
-						<td>${userDto.user_gender }gender</td>
-						<td>${userDto.user_age }20초</td>
-						<td>${userDto.user_address }서울시 강남구</td>
-						<td>${userDto.user_email }12345@67890</td>
-						<td><button class="btn btn-default">탈퇴</button></td>
-					</tr>
+					<c:choose>
+						<c:when test="${empty userList }">
+							<tr>
+								<td colspan="8">사용자가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="i" items="${userList }">
+								<c:if test="${i.usergrade eq 'user' }">
+								<tr>
+									<td>${i.userid }</td>
+									<td>${i.username }</td>
+									<td>${i.usersex }</td>
+									<td>${i.userage }대</td>
+									<td>${i.useraddress }</td>
+									<td>${i.useremail }</td>
+									<td>
+										<input type="button" class="btn btn-default"  onclick="location.href='dropUser.do?userseq=${i.userseq}'" value="탈퇴"></input>
+									</td>
+									<td>
+										<button type="button" class="btn btn-default" onclick="location.href='advanceUser.do?userseq=${i.userseq }'">전환</button>
+									</td>
+
+								</tr>
+								</c:if>
+							</c:forEach>
+							<c:forEach var="i" items="${userList }">
+								<c:if test="${i.usergrade eq 'drop' }">
+								<tr>
+									<td>${i.userid }</td>
+									<td>${i.username }</td>
+									<td>${i.usersex }</td>
+									<td>${i.userage }대</td>
+									<td>${i.useraddress }</td>
+									<td>${i.useremail }</td>									
+									<td style="color : red;">탈퇴한 회원</td>
+									<td style="color : red;">탈퇴한 회원</td>									
+
+
+								</tr>
+								</c:if>
+							</c:forEach>
+						</c:otherwise>	
+					</c:choose>
+
 				</tbody>
 			</table>
 		</form>

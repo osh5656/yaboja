@@ -29,8 +29,8 @@
 
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px; margin-top: 2%;">
   <a href="adminUser.jsp" class="w3-bar-item w3-button">회원관리</a>
-  <a href="adminBoard.jsp" class="w3-bar-item w3-button">게시글관리</a>
-  <a href="#" class="w3-bar-item w3-button">고객센터</a>
+  <a href="adminBoard.jsp" class="w3-bar-item w3-button">영화 관리</a>
+  <a href="#" class="w3-bar-item w3-button">영화관 관리</a>
 	</div>
 
 

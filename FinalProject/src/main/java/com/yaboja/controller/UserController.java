@@ -111,8 +111,23 @@ public class UserController {
 	}
 	//로그아웃
 	@RequestMapping(value="logout.do",method = RequestMethod.GET)
-	public String logout(HttpSession session,Model model) {
+	public String logout(String userpw, HttpSession session,Model model,HttpServletRequest request) {
 		
+		//비밀번호가 "kakao"이면 카카오 로그아웃처리
+		System.out.println(userpw);
+		if(userpw.equals("kakao")) {
+			//사용자정보 (사용자토큰)
+			System.out.println("다시 코드체크 :"+request.getSession().getServletContext().getAttribute("code"));
+			JsonNode jsonToken = (JsonNode) request.getSession().getServletContext().getAttribute("access_token");
+//			System.out.println("//"+jsonToken);
+			//			JsonNode jsonToken = getAccessToken(code);		
+//			System.out.println("access_token : " + jsonToken.get("access_token"));
+			System.out.println("엑세스 토큰 : "+jsonToken.get("access_token"));
+			JsonNode userInfo = kakaoLogout(jsonToken.get("access_token"));
+			System.out.println("사용자정보(카카오)"+userInfo);
+			
+			System.out.println();
+		}
 		session.invalidate();
 		System.out.println("로그아웃!");
 			
@@ -134,7 +149,16 @@ public class UserController {
             out.println("<script>alert('로그인 정보를 확인해주세요.');</script>"); // history.go(-1);</script>
             out.flush();
 			return "main";
-		}else {
+		}else if(dto.getUsergrade().equals("drop")) {
+			System.out.println("로그인 실패!");
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('탈퇴한 회원입니다.');</script>"); // history.go(-1);</script>
+            out.flush();
+			return "main";
+		}
+		
+		else {
 			session.setAttribute("dto", dto);
 			
 			System.out.println("로그인 성공!");
@@ -149,7 +173,6 @@ public class UserController {
 	}	
 	@RequestMapping(value="kakaoLoginForm.do",method = { RequestMethod.GET, RequestMethod.POST } )
 	public String kakaoLoginForm() {
-		System.out.println("/////111/1/1/");
 		return "kakaoLoginForm";
 	}
 	
@@ -259,16 +282,20 @@ public class UserController {
     	return emailHash;
     }
 
-    
+    //카카오 로그인 시작
 	@RequestMapping(value ="kakaologin.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
-	public String kakaologin(@RequestParam("code") String code,Model model, HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+	public String kakaologin(@RequestParam("code") String code,Model model, HttpServletRequest request,HttpServletResponse response, HttpSession session) throws IOException {
+		
 		
 		//로그인 후  코드 get		
 		System.out.println("code : "+code);
+		request.getSession().getServletContext().setAttribute("code", code);
+		System.out.println("application scope : "+request.getSession().getServletContext().getAttribute("code"));
 		System.out.println("---------");
 		
 		//엑세스토큰
-		JsonNode jsonToken = getAccessToken(code);		
+		JsonNode jsonToken = getAccessToken(code);
+		request.getSession().getServletContext().setAttribute("access_token", jsonToken);
 		System.out.println("access_token : " + jsonToken.get("access_token"));
 		System.out.println("----------");
 			
@@ -313,6 +340,7 @@ public class UserController {
         
         //카카오로그인으로 처음 로그인시 추가정보 입력받기
         UserDto dto=userbiz.selectOne(id);
+       
         if(dto==null) {
         	//추가입력폼으로가기
         	Map<String,String> map=new HashMap<String,String>();
@@ -329,8 +357,16 @@ public class UserController {
         	return "kakaoLoginForm";
         }else {
         	//세션에 넣어주기
-        	session.setAttribute("dto", dto);
-        	return "main";
+        	if(dto.getUsergrade().equals("drop")) {
+    			response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('탈퇴한 회원입니다.');</script>"); // history.go(-1);</script>
+                out.flush();
+                return "main";
+        	}else {
+        		session.setAttribute("dto", dto);
+        		return "main";
+        	}
         }
        
               
@@ -340,16 +376,23 @@ public class UserController {
 	}
 	//카카오회원가입 처리
 	@RequestMapping(value=" kakaoJoin.do", method=RequestMethod.POST)
-	public String kakaoJoin(UserDto userdto) {
-		System.out.println("/s/"+userdto);
-		userdto.setUserpw("1");
+	public String kakaoJoin(UserDto userdto,HttpSession session,HttpServletResponse response) throws IOException {
+		
+		userdto.setUserpw("kakao");
 		int res=userbiz.insert(userdto);
+		String id=userdto.getUserid();
+		userdto=userbiz.selectOne(id);
 		
 		if(res>=0) {
-			System.out.println("성공");
+			//성공
+			session.setAttribute("dto",userdto);
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인 성공하였습니다.');</script>"); // history.go(-1);</script>
+            out.flush();
 			return "main";
 		}else {
-			System.out.println("실패");
+			//실패
 			return "main";
 		}
 		
@@ -399,47 +442,42 @@ public class UserController {
 	    return returnNode;
 
 	}
+	//카카오 로그아웃
+	 public static JsonNode kakaoLogout(JsonNode accessToken) {
+		 
+	        final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
+	        
 
-	 public static JsonNode getKakaoUserInfo(JsonNode jsonNode) {
+	        final HttpClient client = HttpClientBuilder.create().build();
+	        final HttpPost post = new HttpPost(RequestUrl);
+	 
+	        // add header
+	        post.addHeader("Authorization", "Bearer " + accessToken);
+//	        post.addHeader("Authorization", "KakaoAK " + "8c89186a433ca2d33527288541e96fef");
+	        JsonNode returnNode = null;
+	 
+	        try {
+	            final HttpResponse response = client.execute(post);
+	            final int responseCode = response.getStatusLine().getStatusCode();
+	 
+	            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+	            System.out.println("Response Code : " + responseCode);
+	 
+	            // JSON 형태 반환값 처리
+	            ObjectMapper mapper = new ObjectMapper();
+	            returnNode = mapper.readTree(response.getEntity().getContent());
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // clear resources
+	        }
+	 
+	        return returnNode;
+	    }
 
-		 final String RequestUrl = "https://kapi.kakao.com/v1/user/me";
-
-
-		    String CLIENT_ID = "f4bfa5f6b9448b69cd517b0762b28f21"; // REST API KEY
-		    String REDIRECT_URI = "http://localhost:8787/controller/kakaologin.do"; // 리다이렉트 URI
-		    JsonNode code = jsonNode; // 로그인 과정중 얻은 토큰 값
-
-		    final HttpClient client = HttpClientBuilder.create().build();
-		    final HttpPost post = new HttpPost(RequestUrl);
-		    
-		    // add header
-		    post.addHeader("Authorization", "Bearer " + jsonNode);
-		   
-		    JsonNode returnNode = null;
-
-		    try {
-		      final HttpResponse response = client.execute(post);
-		      final int responseCode = response.getStatusLine().getStatusCode();
-
-		      System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-		      System.out.println("Response Code : " + responseCode);
-
-		      //JSON 형태 반환값 처리
-		      ObjectMapper mapper = new ObjectMapper();
-		      returnNode = mapper.readTree(response.getEntity().getContent());	      
-
-		    } catch (UnsupportedEncodingException e) {
-		      e.printStackTrace();
-		    } catch (ClientProtocolException e) {
-		      e.printStackTrace();
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    } finally {
-		    }
-		    return returnNode;
-		}
-
-
+	 //카카오 로그인 ->사용자정보가져오기
 	 public static JsonNode getKakaoUserInfo1(JsonNode accessToken) {
 		 
 	        final String RequestUrl = "https://kapi.kakao.com/v2/user/me";

@@ -25,9 +25,9 @@ INCREMENT BY 1;
 
 
 -- UPDATETOEND확인용 더미 데이터
-INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
-INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕2','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
-INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕3','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
+--INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
+--INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕2','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
+--INSERT INTO MOVIE VALUES(MOVIE_SEQ.NEXTVAL,'반지의 제왕3','9.3','판타지','180분','2019.01.22','상영작','김민엽','김민엽','AAA','AAA');
 
 
 SELECT * FROM MOVIE;

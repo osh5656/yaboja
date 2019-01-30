@@ -1,5 +1,7 @@
 package com.yaboja.bizImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,13 @@ public class UserBizImpl implements UserBiz {
 	public UserDto login(String userid,String userpw) {
 		return dao.login(userid,userpw);
 
+	}
+	public List<UserDto> selectAll(){
+		return dao.selectAll();
+	}
+
+	@Override
+	public int updateUser(int userseq, String grade) {
+		return dao.updateUser(userseq,grade);
 	}
 }

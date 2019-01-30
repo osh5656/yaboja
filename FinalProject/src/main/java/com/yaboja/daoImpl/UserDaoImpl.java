@@ -1,6 +1,7 @@
 package com.yaboja.daoImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -55,5 +56,29 @@ public class UserDaoImpl implements UserDao {
 		}
 		return userdto;
 
+	}
+	public List<UserDto> selectAll(){
+		List<UserDto> list=null;
+		
+		try {
+				list=sqlSession.selectList(namespace+"selectAll");
+		} catch (Exception e) {
+			System.out.println("userList 에러 (userDao.selectAll)");
+		}
+		
+		return list;
+	}
+
+	public int updateUser(int userseq, String grade) {
+		int res=0;
+		UserDto dto= new UserDto();
+		dto.setUserseq(userseq);
+		dto.setUsergrade(grade);
+		try {
+			res=sqlSession.update(namespace+"userUpdate", dto);
+		} catch (Exception e) {
+			System.out.println("userUpdate 에러");
+		}
+		return res;
 	}
 }

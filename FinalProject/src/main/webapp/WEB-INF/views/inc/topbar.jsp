@@ -1,14 +1,18 @@
 
 <%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); %>
-<% response.setContentType("text/html; charset=UTF-8"); %> 
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+<%
+	response.setContentType("text/html; charset=UTF-8");
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="utf-8">
-	<title>UTC</title>
+<head>
+<meta charset="utf-8">
+<title>UTC</title>
 
 <style type="text/css">
 a, body {
@@ -24,12 +28,12 @@ a, body {
 	footer .copyright {
 	text-align: center
 }
-body { 
-   	font-family: Lora, 'Times New Roman', serif;     
-/*   	font-size: 20px;   */
-/*   	-webkit-tap-highlight-color: #0085A1   */
- } 
 
+body {
+	font-family: Lora, 'Times New Roman', serif;
+	/*   	font-size: 20px;   */
+	/*   	-webkit-tap-highlight-color: #0085A1   */
+}
 
 .intro-header .page-heading .subheading, .intro-header .post-heading .subheading,
 	.intro-header .site-heading .subheading, .navbar-custom, h1, h2, h3, h4,
@@ -227,10 +231,7 @@ hr.small {
 		font-size: 30px
 	}
 }
-
-
-
-</style>	
+</style>
 
 </head>
 <!---------------------------------------바디 바디 바디----------------------------------->
@@ -240,47 +241,65 @@ hr.small {
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header page-scroll" style="width: 100%;">
-<!-- 				<button type="button" class="navbar-toggle" data-toggle="collapse" -->
-<!-- 					data-target="#bs-example-navbar-collapse-1"> -->
-<!-- 					<span class="sr-only">Toggle navigation</span> Menu <i -->
-<!-- 						class="fa fa-bars"></i> -->
-<!-- 				</button> -->
+				<!-- 				<button type="button" class="navbar-toggle" data-toggle="collapse" -->
+				<!-- 					data-target="#bs-example-navbar-collapse-1"> -->
+				<!-- 					<span class="sr-only">Toggle navigation</span> Menu <i -->
+				<!-- 						class="fa fa-bars"></i> -->
+				<!-- 				</button> -->
 				<a class="navbar-brand" href="main.do">Movie Matching</a>
-			
-				
+
+
 				<%
-				UserDto dto=(UserDto)session.getAttribute("dto"); 
-				if(dto==null){%>
-					<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a>
-					<a class="navbar-brand" href="joincheck.do" style="float: right;">Join</a><%
-				}else{%>
-					<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
-					<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i>
-					<a class="navbar-brand" href="logout.do"  style="float: right;">Logout</a>
-					<a class="navbar-brand" href="joincheck.do" style="float: right;"><%=dto.getUsername()%>님 </a>
-					
-				<%}%>
-					
-				
-				
+					UserDto dto = (UserDto) session.getAttribute("dto");
+					if (dto == null) {
+				%>
+				<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a> <a class="navbar-brand" href="joincheck.do" style="float: right;">Join</a>
+				<%
+					} else {
+				%>
+						
+				<%
+							if (dto.getUsergrade().equals("admin")) {
+				%>				<a class="navbar-brand" href="logout.do" style="float: right;">Logout</a>
+								<a class="navbar-brand" href="joincheck.do" style="float: right;">관리자님 </a>
+
+				<%
+							} else {
+				%>
+								<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
+								<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i> 
+								<%if(dto.getUserpw().equals("kakao")){ %>
+								<a class="navbar-brand" href="logout.do?userpw=<%=dto.getUserpw() %>" style="float: right;">Logout</a>
+								<%}else{ %>
+								<a class="navbar-brand" href="logout.do?userpw=yaboja" style="float: right;">Logout</a>
+								<%} %>
+								<a class="navbar-brand" href="joincheck.do" style="float: right;"><%=dto.getUsername() %>님 </a>
+
+				<%
+							}
+						}
+				%>
+
+
+
 			</div>
 
 
 		</div>
 		<!-- /.container -->
 	</nav>
-	
-	
-		<!-- Modal 1 -->
+
+
+	<!-- Modal 1 -->
 	<div class="modal fade" id="myModal">
- 	<div class="modal-dialog modal-md">		
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<!-- loginform.jsp가 연결된다. -->
 			</div>
 		</div>
 	</div>
 
-	
+
 	<!-- jQuery -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 
@@ -289,6 +308,6 @@ hr.small {
 
 	<!-- Contact Form JavaScript -->
 	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>	
+	<script src="js/contact_me.js"></script>
 </body>
 </html>
