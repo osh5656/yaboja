@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yaboja.biz.MovieBiz;
 import com.yaboja.bizImpl.MovieBizImpl;
 import com.yaboja.dto.MovieDto;
 import com.yaboja.util.Crawler;
@@ -36,6 +37,7 @@ public class MovieController {
 
 	@Autowired
 	private MovieBizImpl biz;
+	
 	
 	MovieDto dto;
 		
@@ -99,7 +101,7 @@ public class MovieController {
 	}
 	//영화 상세페이지
 	@RequestMapping(value = "/movieInfo.do", method = RequestMethod.GET)
-	public String movieInfo(Model model,String movieSeq) {
+	public String movieInfo(Model model,String movieSeq, MovieDto moviedto) {
 		
 		System.out.println("상세페이지 왔당! 클릭한 영화 번호 : " + movieSeq);
 		
@@ -107,9 +109,11 @@ public class MovieController {
 		System.out.println(dto);
 		
 		
+		
 		model.addAttribute("dto", biz.selectOneMovie(Integer.parseInt(movieSeq)));
 		Crawler crawler = new Crawler();
 		model.addAttribute("content", crawler.getContent(dto.getCode()));
+
 		
 		
 		return "movieBoard/movie_info";

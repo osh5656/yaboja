@@ -57,21 +57,25 @@ public class HomeController {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
-	public String getMain(Model model) {
-		
-		
-		
-		List<MovieDto> movies = biz.selectPresentMovies();
-		
-		movies = movies.subList(0, 10);
-		for(MovieDto movie : movies) {
-			System.out.println(movie);
-		}		
-		
-		model.addAttribute("list", movies);
-				
-		return "main";
-	}
+	   public String getMain(Model model) {
+	      
+	      
+	      
+	      List<MovieDto> movies = biz.selectPresentMovies();
+	      
+	      if(movies.size()!=0) {
+	         movies = movies.subList(0, 10);
+	         for(MovieDto movie : movies) {
+	            System.out.println(movie);
+	         }      
+	         
+	         model.addAttribute("list", movies);
+	         
+	      }
+	      
+	            
+	      return "main";
+	   }
 
 	@RequestMapping(value = "/loginform.do", method = RequestMethod.GET)
 	public String getLoginForm() {
