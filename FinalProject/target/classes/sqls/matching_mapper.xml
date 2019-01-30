@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="matching">
-  
+
+   <insert id="insert" parameterType="MatchingDto">
+      INSERT INTO MATCHING VALUES(MATCHINGSEQ.NEXTVAL,#{matchingwriter},#{matchingapplicant},'P',0,0,SYSDATE,'N',#{cinemaseq},#{movieseq})
+   </insert>
+   
+   <select id="selectOne" parameterType="int" resultType="MatchingDto">
+      SELECT *
+      FROM MATCHING
+      WHERE MATCHINGAPPLICANT = #{userseq}
+   </select>
+   
+   <delete id="delete" parameterType = "int">
+      DELETE FROM MATCHING WHERE MATCHINGSEQ=#{matchingseq}
+   </delete>
+   
+   <select id="getMatchingApplicant" parameterType="int" resultType="MatchingDto">
+      SELECT *
+      FROM MATCHING
+      WHERE MATCHINGWRITER = #{userseq} AND MATCHINGSTATE = 'P'
+   </select>
+   
+   <update id="acceptance" parameterType="map">
+      UPDATE MATCHING SET MATCHINGSTATE = 'S', SELECTEDAPPLICANT = 'Y' WHERE MATCHINGWRITER = TO_NUMBER(#{matchingwriter}) AND MATCHINGAPPLICANT = TO_NUMBER(#{matchingapplicant})
+   </update>
+   <update id="rejection" parameterType="map">
+      UPDATE MATCHING SET MATCHINGSTATE = 'E' WHERE MATCHINGWRITER = TO_NUMBER(#{matchingwriter}) AND MATCHINGAPPLICANT != TO_NUMBER(#{matchingapplicant})
+   </update>
+   <update id="rejectionOne" parameterType="map">
+      UPDATE MATCHING SET MATCHINGSTATE = 'E' WHERE MATCHINGWRITER = TO_NUMBER(#{matchingwriter}) AND MATCHINGAPPLICANT = TO_NUMBER(#{matchingapplicant})
+   </update>
+   <select id="matchSuccess" parameterType="int" resultType="MatchingDto">
+      SELECT *
+      FROM MATCHING
+      WHERE (MATCHINGWRITER = #{userseq} OR MATCHINGAPPLICANT = #{userseq}) AND MATCHINGSTATE = 'S'
+   </select>
 </mapper>

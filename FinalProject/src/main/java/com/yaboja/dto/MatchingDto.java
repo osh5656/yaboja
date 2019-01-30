@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MatchingDto {
 
-	// 매칭 번호 
+   // 매칭 번호 
     private int matchingseq;
 
     // 사용자1_작성 
@@ -17,78 +17,101 @@ public class MatchingDto {
     private String matchingstate;
 
     // 작성자알림 
-    private String writernotice;
+    private int writernotice;
 
     // 신청자알림 
-    private String applicantnotice;
+    private int applicantnotice;
 
     // 날짜 
     private Date matchingdate;
 
-    // 선택 체 
+    // 선택 체크
     private String selectedapplicant;
+    
+    private int cinemaseq;
+    
+    private int movieseq;
 
-    public int getMatchingseq() {
-        return matchingseq;
-    }
+    
+   public int getCinemaseq() {
+      return cinemaseq;
+   }
 
-    public void setMatchingseq(int matchingseq) {
-        this.matchingseq = matchingseq;
-    }
+   public void setCinemaseq(int cinemaseq) {
+      this.cinemaseq = cinemaseq;
+   }
 
-    public int getMatchingwriter() {
-        return matchingwriter;
-    }
+   public int getMovieseq() {
+      return movieseq;
+   }
 
-    public void setMatchingwriter(int matchingwriter) {
-        this.matchingwriter = matchingwriter;
-    }
+   public void setMovieseq(int movieseq) {
+      this.movieseq = movieseq;
+   }
 
-    public int getMatchingapplicant() {
-        return matchingapplicant;
-    }
+   public int getMatchingseq() {
+      return matchingseq;
+   }
 
-    public void setMatchingapplicant(int matchingapplicant) {
-        this.matchingapplicant = matchingapplicant;
-    }
+   public void setMatchingseq(int matchingseq) {
+      this.matchingseq = matchingseq;
+   }
 
-    public String getMatchingstate() {
-        return matchingstate;
-    }
+   public int getMatchingwriter() {
+      return matchingwriter;
+   }
 
-    public void setMatchingstate(String matchingstate) {
-        this.matchingstate = matchingstate;
-    }
+   public void setMatchingwriter(int matchingwriter) {
+      this.matchingwriter = matchingwriter;
+   }
 
-    public String getWriternotice() {
-        return writernotice;
-    }
+   public int getMatchingapplicant() {
+      return matchingapplicant;
+   }
 
-    public void setWriternotice(String writernotice) {
-        this.writernotice = writernotice;
-    }
+   public void setMatchingapplicant(int matchingapplicant) {
+      this.matchingapplicant = matchingapplicant;
+   }
 
-    public String getApplicantnotice() {
-        return applicantnotice;
-    }
+   public String getMatchingstate() {
+      return matchingstate;
+   }
 
-    public void setApplicantnotice(String applicantnotice) {
-        this.applicantnotice = applicantnotice;
-    }
+   public void setMatchingstate(String matchingstate) {
+      this.matchingstate = matchingstate;
+   }
 
-    public Date getMatchingdate() {
-        return matchingdate;
-    }
+   public int getWriternotice() {
+      return writernotice;
+   }
 
-    public void setMatchingdate(Date matchingdate) {
-        this.matchingdate = matchingdate;
-    }
+   public void setWriternotice(int writernotice) {
+      this.writernotice = writernotice;
+   }
 
-    public String getSelectedapplicant() {
-        return selectedapplicant;
-    }
+   public int getApplicantnotice() {
+      return applicantnotice;
+   }
 
-    public void setSelectedapplicant(String selectedapplicant) {
-        this.selectedapplicant = selectedapplicant;
-    }
+   public void setApplicantnotice(int applicantnotice) {
+      this.applicantnotice = applicantnotice;
+   }
+
+   public Date getMatchingdate() {
+      return matchingdate;
+   }
+
+   public void setMatchingdate(Date matchingdate) {
+      this.matchingdate = matchingdate;
+   }
+
+   public String getSelectedapplicant() {
+      return selectedapplicant;
+   }
+
+   public void setSelectedapplicant(String selectedapplicant) {
+      this.selectedapplicant = selectedapplicant;
+   }
+
+    
 }

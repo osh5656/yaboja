@@ -1,8 +1,11 @@
 package com.yaboja.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,35 +112,111 @@ public class CoinController {
 	}
 
 ////////// 사용//////////
-	@RequestMapping(value = "/coin_payment_use_01.do", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/coin_payment_use_01.do", method = RequestMethod.GET)
 	public String getCoin_payment_use_01(Model model, HttpServletRequest request, @RequestParam int point_val_01) {
 
 		model.addAttribute("point_val_01", point_val_01);
 
 		return "coin_pass";
-	}
+	}*/
 
 	@RequestMapping(value = "/coin_payment_use.do", method = RequestMethod.GET)
-	public String getCoin_Payment_use(HttpSession session, HttpServletRequest request, Model model) {
+	public String getCoin_Payment_use(HttpSession session, HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
 
+		response.setContentType("text/html; charset=utf-8");
 		UserDto userdto = (UserDto) session.getAttribute("dto");
+		
+		
 
 		int point_val_01 = 0;
+		
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_val = 0;
 
-		if (request.getParameter("point_val_01") != null) {
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "사용");
+
+		coin_val = ((coin_charge - coin_use) / 500);
+
+		
+		if(coin_val < 1) {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('코인 충전해주세요');history.back();</script>");
+			out.close();
+		
+			return null; 
+			
+		}else{
+			if (request.getParameter("point_val_01") != null) {
+		
 			point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
 			coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "사용");
 			System.out.println("사용완료");
+		
 		}
 
 		model.addAttribute("point_val_01", point_val_01);
 
 		return "redirect:coin_payment.do";
+	
+		}
+	}
+	
+	
+	@RequestMapping(value = "/coin_payment_use_user.do", method = RequestMethod.GET)
+	public String getCoin_Payment_use_user(HttpSession session, HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
+
+		response.setContentType("text/html; charset=utf-8");
+		//UserDto userdto = (UserDto) session.getAttribute("dto");
+		UserDto userdto = new UserDto();
+		
+		
+		
+
+		int point_val_01 = 0;
+		
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_val = 0;
+
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "사용");
+
+		coin_val = ((coin_charge - coin_use) / 500);
+
+		
+		
+		if(coin_val < 1) {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('코인 충전해주세요');history.back();</script>");
+			out.close();
+		
+			return null; 
+			
+		}else{
+			if (request.getParameter("point_val_01") != null) {
+		
+			point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
+			coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "사용");
+			System.out.println("사용완료");
+		
+		}
+
+		model.addAttribute("point_val_01", point_val_01);
+
+		return "redirect:coin_payment.do";
+	
+		}
 	}
 
-	@RequestMapping(value = "/example.do", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/example.do", method = RequestMethod.GET)
 	public String getExample() {
 		return "example";
-	}
+	}*/
 
 }

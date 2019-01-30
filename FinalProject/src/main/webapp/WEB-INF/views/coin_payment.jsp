@@ -81,6 +81,8 @@
 					<h2>결제내역</h2>
 					<div class="jumbotron jumbotron-fluid">
 						
+							<button onclick="location.href='coin_payment_use.do?point_val_01=500'">매칭 신청하기</button></th>
+							<button onclick="location.href='coin_payment_use_user.do?point_val_01=500'">상대방 코인 차감하기</button></th>
 							<table>
 								<tr>
 									<th>ID ${user_name }</th>
