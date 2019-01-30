@@ -466,6 +466,9 @@ public class MatchingboardController {
 	@RequestMapping(value="/chat.do",method = RequestMethod.GET)
 	public String chat(HttpServletRequest request, Model model) {
 		String userseq2 = request.getParameter("userseq2");
+		UserDto userDto = userBiz.selectOne(Integer.parseInt(userseq2));
+		
+		model.addAttribute("userDto",userDto);
 		model.addAttribute("userseq2",userseq2);
 		
 		return "chat";

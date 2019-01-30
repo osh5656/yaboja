@@ -29,20 +29,14 @@ public class UserDto {
     // 이메일 
     private String useremail;
 
-    // 이메일(해쉬) 
-    private String useremailhash;
-
-    // 이메일체크 
-    private String useremailcheck;
-
     // 등록영화관1 
-    private int usertheater1;
+    private int usercinema1;
 
     // 등록영화관2 
-    private int usertheater2;
+    private int usercinema2;
 
     // 등록영화관3 
-    private int usertheater3;
+    private int usercinema3;
 
     // 등급 
     private String usergrade;
@@ -119,44 +113,28 @@ public class UserDto {
         this.useremail = useremail;
     }
 
-    public String getUseremailhash() {
-        return useremailhash;
+    public int getUsercinema1() {
+        return usercinema1;
     }
 
-    public void setUseremailhash(String useremailhash) {
-        this.useremailhash = useremailhash;
+    public void setUsercinema1(int usercinema1) {
+        this.usercinema1 = usercinema1;
     }
 
-    public String getUseremailcheck() {
-        return useremailcheck;
+    public int getUsercinema2() {
+        return usercinema2;
     }
 
-    public void setUseremailcheck(String useremailcheck) {
-        this.useremailcheck = useremailcheck;
+    public void setUsercinema2(int usercinema2) {
+        this.usercinema2 = usercinema2;
     }
 
-    public int getUsertheater1() {
-        return usertheater1;
+    public int getUsercinema3() {
+        return usercinema3;
     }
 
-    public void setUsertheater1(int usertheater1) {
-        this.usertheater1 = usertheater1;
-    }
-
-    public int getUsertheater2() {
-        return usertheater2;
-    }
-
-    public void setUsertheater2(int usertheater2) {
-        this.usertheater2 = usertheater2;
-    }
-
-    public int getUsertheater3() {
-        return usertheater3;
-    }
-
-    public void setUsertheater3(int usertheater3) {
-        this.usertheater3 = usertheater3;
+    public void setUsercinema3(int usercinema3) {
+        this.usercinema3 = usercinema3;
     }
 
     public String getUsergrade() {
