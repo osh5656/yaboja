@@ -62,4 +62,10 @@ public class MatchingBizImpl implements MatchingBiz {
 		// TODO Auto-generated method stub
 		return dao.matchSuccess(userseq);
 	}
+
+	@Override
+	public MatchingDto insertCheck(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.insertCheck(userseq);
+	}
 }

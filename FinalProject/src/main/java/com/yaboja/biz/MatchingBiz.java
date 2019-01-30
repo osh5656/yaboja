@@ -15,6 +15,7 @@ public interface MatchingBiz {
 	public int rejection(Map<String, String> map);
 	public int rejectionOne(Map<String,String> map);
 	public MatchingDto matchSuccess(int userseq);
+	public MatchingDto insertCheck(int userseq);
 	
 
 }

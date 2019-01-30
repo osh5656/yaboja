@@ -36,4 +36,9 @@
 		FROM MATCHING
 		WHERE (MATCHINGWRITER = #{userseq} OR MATCHINGAPPLICANT = #{userseq}) AND MATCHINGSTATE = 'S'
 	</select>
+	<select id="insertCheck" parameterType="int" resultType="MatchingDto">
+		SELECT *
+		FROM MATCHING
+		WHERE MATCHINGAPPLICANT = #{userseq} OR MATCHINGWRITER = #{userseq}
+	</select>
 </mapper>
