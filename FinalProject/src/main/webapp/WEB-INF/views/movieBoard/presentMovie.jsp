@@ -112,6 +112,11 @@ String.prototype.trim = function () { //trim
 	<p id="ok"></p>
 	</center>
 	
+	<center>
+	<button type="button"  onClick="location.href='map.do';">지도로 보기</button>
+	<p id="ok"></p>
+	</center>
+	
 
 	<!-- Footer -->
 	<%@ include file="../inc/footer.jsp"%>
