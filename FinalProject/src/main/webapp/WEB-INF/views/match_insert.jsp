@@ -1,5 +1,6 @@
 <%@page import="com.yaboja.dto.MovieDto"%>
 <%@page import="com.yaboja.dto.CinemaDto"%>
+<%@page import="com.yaboja.dto.CoinDto" %>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>

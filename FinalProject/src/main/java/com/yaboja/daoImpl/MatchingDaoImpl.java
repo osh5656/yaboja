@@ -117,5 +117,29 @@ public class MatchingDaoImpl implements MatchingDao {
 		return matchingDto;
 	}
 
+	@Override
+	public MatchingDto insertCheck(int userseq) {
+		MatchingDto matchingDto = null;
+		try {
+			matchingDto = sqlSession.selectOne(namespace+"insertCheck",userseq);
+		}catch(Exception e) {
+			System.out.println("insertCheck 에러");
+			e.printStackTrace();
+		}
+		return matchingDto;
+	}
+
+	@Override
+	public MatchingDto userOne(int userseq) {
+		MatchingDto matchingDto = null;
+		try {
+			matchingDto = sqlSession.selectOne(namespace+"userOne",userseq);
+		} catch(Exception e) {
+			System.out.println("userOne 에러");
+			e.printStackTrace();
+		}
+		return matchingDto;
+	}
+
 	
 }
