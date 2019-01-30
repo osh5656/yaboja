@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,58 +133,41 @@
 				</tr>
 
 			</table>
+	
 		</div>
+		${content }
 		<div align="right">
 			<input type="button" name="btn1" value="매칭하러가기" class="btn btn-default" />
 		</div>
 		</br> </br>
 		
-		${content }
+		
+		<!--  댓글  -->
+   <div class="container">
+      <label for="moviecomentcontent">comment</label>
+      <form name="commentInsertForm">
+         <div class="input-group">
+            <input type="hidden" name="movieSeq"
+               value="${dto.movieSeq}" /> <input type="text"
+               class="form-control" id="moviecomentcontent"
+               name="moviecomentcontent" placeholder="내용을 입력하세요."> <span
+               class="input-group-btn">
+               <button class="btn btn-default" type="button"
+                  name="commentInsertBtn">등록</button>
+            </span>
+         </div>
+      </form>
+   </div>
+   <br />
 
-		<div>
-			<h1>한줄 평</h1>
-		</div>
+   <div class="container">
+      <div class="commentList"></div>
+   </div>
 
-		<div>
-			<form action="" method="post">
-				<input type="hidden" name="" value="" />
-				<table border="1" class="table table-hover">
-					<tr>
-
-						<td><textarea rows="5" cols="120" name=""></textarea></td>
-						<td colspan="2"><input type="submit" value="작성" class= "btn btn-default"  style="height:110px;"></td>
-					</tr>
-
-				</table>
-			</form>
-		</div>
-		<div>
-			<c:choose>
-				<c:when test="${empty list  }">
-					<h3>작성된 댓글이 없습니다.</h3>
-				</c:when>
-				<c:otherwise>
-					<table>
-						<tr>
-							<th>id</th>
-							<th>날짜</th>
-							<th>이름</th>
-							<th>내용</th>
-						</tr>
-
-						<c:forEach var="dto" items="${list }">
-							<tr>
-								<td>${dto.id }</td>
-								<td>${dto.date }</td>
-								<td>${dto.name }</td>
-								<td>${dto.content }</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:otherwise>
-			</c:choose>
-
-		</div>
+   <%@ include file="movie_comment.jsp"%>
+		
+		
+		
 	</div>
 
 	<!-- Footer -->
