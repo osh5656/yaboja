@@ -46,11 +46,15 @@ public class MovieController {
 		
 		List<MovieDto> movies = biz.selectPresentMovies();
 		
-		for(MovieDto movie : movies) {
-			System.out.println(movie);
-		}		
+		if(movies!=null) {
+			for(MovieDto movie : movies) {
+				System.out.println(movie);
+			}		
+			
+			model.addAttribute("list", movies);
+			
+		}
 		
-		model.addAttribute("list", movies);
 		
 		return "movieBoard/presentMovie";
 	}
