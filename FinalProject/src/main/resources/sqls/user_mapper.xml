@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="user">
-  <select id="selectOne" parameterType="com.yaboja.dto.UserDto" resultType="com.yaboja.dto.UserDto">
-  	SELECT *
-  	FROM USERS
-  	WHERE USERID = #{userid} AND USERPW = #{userpw}
-  </select>
-  
+
   <select id="selectOne2" resultType="UserDto">
   SELECT *
   FROM USERS
@@ -14,5 +9,45 @@
   
   </select>
   
-  
+   <select id="selectOne" parameterType="com.yaboja.dto.UserDto" resultType="com.yaboja.dto.UserDto">
+   SELECT *
+   FROM USERS
+   WHERE USERID = #{userid} AND USERPW = #{userpw}
+   </select>
+   <!-- mypage 시작-->
+   <select id="userOne" parameterType="String" resultType="com.yaboja.dto.UserDto">
+   SELECT * FROM USERS WHERE USERSEQ = TO_NUMBER(#{userid})
+   </select>
+   <update id="userUpdate" parameterType="UserDto">
+   UPDATE USERS SET 
+   USERPW = #{userpw}, USERNAME = #{username}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}
+   WHERE USERSEQ = #{userseq} 
+   </update>
+   <delete id="userDelete">
+   DELETE FROM USERS WHERE USERID = #{userid}
+   </delete>
+   <!-- mypage 끝 -->
+
 </mapper>
+<!-- 
+   CREATE SEQUENCE USERS_SEQ;
+
+   CREATE TABLE USERS(
+    USERSEQ           NUMBER            NOT NULL, 
+    USERID            VARCHAR2(200)     NULL, 
+    USERPW            VARCHAR2(200)     NULL, 
+    USERNAME          VARCHAR2(200)     NULL, 
+    USERPROFILE       VARCHAR2(200)     NULL, 
+    USERSEX           VARCHAR2(200)     NULL, 
+    USERAGE           VARCHAR2(200)     NULL, 
+    USERADDRESS       VARCHAR2(200)     NULL, 
+    USEREMAIL         VARCHAR2(200)     NULL,  
+    USERTHEATER1      NUMBER            NULL, 
+    USERTHEATER2      NUMBER            NULL, 
+    USERTHEATER3      NUMBER            NULL, 
+    USERGRADE         VARCHAR2(200)     NULL, 
+    CONSTRAINT USER_PK PRIMARY KEY (USERSEQ)
+   );
+
+   INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL,'2','2','이름2','사진2','성별2','나이2','주소2','이메일2',1,2,3,'사용자2');
+ -->

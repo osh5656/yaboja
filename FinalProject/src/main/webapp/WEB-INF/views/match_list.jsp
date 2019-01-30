@@ -95,11 +95,37 @@ body {
 	<%@ include file="inc/moviesidebar.jsp"%>
 
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
+	
+	
 
 	<div id="context" class="container">
 		<br> <br>
 		<h1 style="color: black; font-weight: bold;">매칭 게시판</h1>
 
+
+<div class="layout-container">
+		<div id="main">
+			<!-- sidebar를 include해준다. -->
+			<div class="form">
+				<div class="container container-fluid"></div>
+				<div class="container container-fluid">
+
+					<div class="jumbotron jumbotron-fluid">
+						<table>
+							<tr>
+								<th>ID : ${user_name }</th>
+							</tr>
+							<tr>
+								<th>COIN : ${coin } (매칭 당 1코인이 차감됩니다.)</th>
+							</tr>
+							
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 		<div align="right">
 
 			<input type="text" name="keyword" placeholder="검색어를 입력하세요"></input> <input

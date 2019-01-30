@@ -69,6 +69,8 @@ function inputConfirm(){
 	//내용, 영화명, 영화관 유효성검사 (else if로 추가)
 	else{
 		//모든사항 누락 없을 시에
+		alert('매칭글 작성시 1코인이 차감됩니다.');
+		
 		alert('정상적으로 매칭게시글이 입력되었습니다.');
 		document.forms['myForm'].submit();
 	}
@@ -103,7 +105,7 @@ function inputConfirm(){
 	<div class = "container" >
 	<h1 style="color:black; font-weight: bold;">매칭글 작성하기</h1>
 	<br>
-	<form id="" method ="post" name ="myForm" action="matchingboard_insert.do">
+	<form id="" method ="post" name ="myForm" action="matchingboard_insert.do?point_val_01=500">
 	<table border ="1" class= "table table-bordered">
 		<tr align ="center">
 			<th width ="70px">이름</th>
@@ -167,6 +169,7 @@ function inputConfirm(){
 		<tr align = "right">
 			
 			<td colspan = "5">
+				
 				<input type ="button" value ="취소" class="btn btn default" onclick = "location.href='match_list.jsp'"/>
 				<input type ="button" value ="글 작성하기" class="btn btn default" class="glyphicon glyphicon-heart" onclick = "inputConfirm()"/>
 			</td>

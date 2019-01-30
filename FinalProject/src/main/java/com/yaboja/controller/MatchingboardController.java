@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yaboja.biz.CinemaBiz;
+import com.yaboja.biz.CoinBiz;
 import com.yaboja.biz.MatchingBiz;
 import com.yaboja.biz.MatchingboardBiz;
 import com.yaboja.biz.MovieBiz;
@@ -49,6 +50,8 @@ public class MatchingboardController {
 	private CinemaBiz cinemaBiz;
 	@Autowired
 	private MatchingBiz matchingBiz;
+	@Autowired
+	private CoinBiz coinBiz;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(MatchingboardController.class);
@@ -59,6 +62,29 @@ public class MatchingboardController {
 		//1.List<MatchingboardDto> list = matchingboardBiz.selectAll();// selectAll()의 값을 matchingdto list에 담음
 		logger.info("글목록페이징 1 단계 성공 controller");
 		System.out.println("////"+cri);
+		
+		
+		//////
+		UserDto userdto = (UserDto) session.getAttribute("dto");
+
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_val = 0;
+
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+
+		coin_val = ((coin_charge - coin_use) / 500);
+
+		
+		model.addAttribute("user_name", userdto.getUsername());
+		model.addAttribute("coin", coin_val);
+		
+		
+		////
+		
+		
 		List<MatchingboardDto> list = matchingboardBiz.listPage(cri);
 		List<UserDto> userinfo = new ArrayList<UserDto>();
 		List<MovieDto> movieinfo = new ArrayList<MovieDto>();
@@ -177,7 +203,7 @@ public class MatchingboardController {
 	}
 
 	@RequestMapping(value = "/matchingboard_insert.do", method = RequestMethod.POST)
-	public void matchingboardInsert(Model model, HttpSession session, HttpServletResponse response, String cinema,
+	public void matchingboardInsert(Model model, HttpSession session, HttpServletResponse response, HttpServletRequest request, String cinema,
 			String title, String moviename, String matchingboardcontent) throws IOException {
 		String movieseq = String.valueOf(movieBiz.getMovieSeq(moviename));
 		String cinemaseq = String.valueOf(cinemaBiz.getCinemaSeq(cinema));
@@ -189,6 +215,22 @@ public class MatchingboardController {
 		map.put("matchingboardcontent",matchingboardcontent);
 		map.put("cinemaseq", cinemaseq); 
 		int res = matchingboardBiz.insert(map);
+		
+		///////////////////////////
+		
+		UserDto userdto = (UserDto) session.getAttribute("dto");
+
+		int point_val_01 = 500;
+
+		if (request.getParameter("point_val_01") != null) {
+			point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
+			coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "매칭");
+			System.out.println("매칭완료");
+		}
+
+		model.addAttribute("point_val_01", point_val_01);
+	
+		//////////////////
 
 		response.sendRedirect("matchingboardlist.do");
 	}
@@ -344,6 +386,7 @@ public class MatchingboardController {
 		pageMaker.setTotalCount(matchingboardBiz.listCount());
 		model.addAttribute("pageMaker", pageMaker);
 	}
+
 	
 	@RequestMapping(value="/acceptance.do", method = RequestMethod.GET)
 	public void acceptance(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
