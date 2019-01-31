@@ -13,14 +13,11 @@
 
 <title>야보자</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- <!-- Theme CSS -->
--->
+ <!-- Theme CSS -->
 <!-- <link href="css/clean-blog.min.css" rel="stylesheet"> -->
 
 <!-- Custom Fonts -->
@@ -40,27 +37,19 @@
 <!-- Content -->
 <link href="css/index_content.css" rel="stylesheet">
 <!-- jQuery -->
-<script src="vendor/jquery/jquery.min.js"></script>
-
-
-<style type="text/css">
-body {
-	font-family: 'HY나무M';
-}
-
-.font-test {
-	font: bold 24pt 'HY나무M';
-}
-</style>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	
+	
 
 
 
 </head>
+
 <body>
 
 
 	<!-- Navigation -->
-	<%@ include file="inc/topbar.jsp"%>
+	<%@ include file="../inc/topbar.jsp"%>
 
 
 	<!-- Menu Bar -->
@@ -88,31 +77,29 @@ body {
 			</nav>		
 		</c:otherwise>
 	</c:choose>
-
-
-
+	
+	<!-- moviesidebar -->
+	<%@ include file="../inc/moviesidebar2.jsp"%>
+	
+	
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
+	
+	<!-- Movie List -->
+	<br/>
+	<br/>
+	<h3 class="text-center">개봉예정작</h3>
+	
+	<%@ include file="../inc/movielist2.jsp"%>
+	
+	
+	
+	
 
-	<div id="context" class="container">
-		<br> <br>
-		<h1 style="color: black; font-weight: bold;">Q&A 게시판</h1>
-	</div>
-	<br>
-
-	<table border=1 class="table table-bordered">
-		<tr align="center">
-			<td align="center"><a href = "http://pf.kakao.com/_Crxhxaj">
-			<img src ="img/kakaotalk.JPG" ></a></td>
-			<td align="center">
-			<a href = "https://www.facebook.com/Yaboja-2045588735742644/?modal=admin_todo_tour">
-			<img src ="img/facebook.JPG">
-			</a>
-			</td>
-		</tr>
-
-	</table>
 	<!-- Footer -->
-	<%@ include file="inc/footer.jsp"%>
+	<%@ include file="../inc/footer.jsp"%>
+
+	
+
 </body>
 
 </html>

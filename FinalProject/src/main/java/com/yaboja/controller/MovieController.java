@@ -16,12 +16,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yaboja.biz.MovieBiz;
 import com.yaboja.bizImpl.MovieBizImpl;
+import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MovieDto;
+import com.yaboja.dto.PageMaker;
+import com.yaboja.util.Crawler;
 
 
 
@@ -36,6 +41,7 @@ public class MovieController {
 	@Autowired
 	private MovieBizImpl biz;
 	
+	
 	MovieDto dto;
 		
 	@RequestMapping(value = "/movieBoard.do", method = RequestMethod.GET)
@@ -43,19 +49,23 @@ public class MovieController {
 		
 		List<MovieDto> movies = biz.selectPresentMovies();
 		
-		for(MovieDto movie : movies) {
-			System.out.println(movie);
-		}		
+		if(movies!=null) {
+			for(MovieDto movie : movies) {
+				System.out.println(movie);
+			}		
+			
+			model.addAttribute("list", movies);
+			
+		}
 		
-		model.addAttribute("list", movies);
 		
 		return "movieBoard/presentMovie";
 	}
 	
-	@RequestMapping(value = "/endMovie.do", method = RequestMethod.GET)
-	public String getEndMovie(Model model) {
+	@RequestMapping(value = "/preMovie.do", method = RequestMethod.GET)
+	public String getPreMovie(Model model) {
 		
-		List<MovieDto> movies = biz.selectEndMovies();
+		List<MovieDto> movies = biz.selectPreMovies();
 		
 		for(MovieDto movie : movies) {
 			System.out.println(movie);
@@ -63,6 +73,24 @@ public class MovieController {
 		
 		model.addAttribute("list", movies);
 		
+		return "movieBoard/preMovie";
+	}
+	
+	@RequestMapping(value = "/endMovie.do", method = RequestMethod.GET)
+	public String getEndMovie(@ModelAttribute("cri") Criteria cri,Model model) {
+		 logger.info("get list page 페이징 1단계");
+		List<MovieDto> movies = biz.listPage(cri);
+		
+		for(MovieDto movie : movies) {
+			System.out.println(movie);
+		}		
+		
+		model.addAttribute("list", movies);
+		
+		 PageMaker pageMaker = new PageMaker();
+		 pageMaker.setCri(cri);
+		 pageMaker.setTotalCount(biz.listCount());
+		 model.addAttribute("pageMaker", pageMaker);
 		return "movieBoard/endMovie";
 	}
 	
@@ -81,6 +109,25 @@ public class MovieController {
 		}	
 		
 		return "ok";
+	}
+	//영화 상세페이지
+	@RequestMapping(value = "/movieInfo.do", method = RequestMethod.GET)
+	public String movieInfo(Model model,String movieSeq, MovieDto moviedto) {
+		
+		System.out.println("상세페이지 왔당! 클릭한 영화 번호 : " + movieSeq);
+		
+		MovieDto dto = biz.selectOneMovie(Integer.parseInt(movieSeq));
+		System.out.println(dto);
+		
+		
+		
+		model.addAttribute("dto", biz.selectOneMovie(Integer.parseInt(movieSeq)));
+		Crawler crawler = new Crawler();
+		model.addAttribute("content", crawler.getContent(dto.getCode()));
+
+		
+		
+		return "movieBoard/movie_info";
 	}
 	
 }

@@ -11,51 +11,63 @@ public class MoviecomentDto {
     private int movieseq;
 
     // 작성자 
-    private String userseq;
+    private int userseq;
 
     // 내용 
     private String moviecomentcontent;
 
     // 날짜 
     private Date moviecomentdate;
+    
+    private String username;
 
     public int getMoviecomentseq() {
         return moviecomentseq;
     }
 
-    public void setMoviecomentseq(int moviecomentseq) {
-        this.moviecomentseq = moviecomentseq;
-    }
+	public int getMovieseq() {
+		return movieseq;
+	}
 
-    public int getMovieseq() {
-        return movieseq;
-    }
+	public void setMovieseq(int movieseq) {
+		this.movieseq = movieseq;
+	}
 
-    public void setMovieseq(int movieseq) {
-        this.movieseq = movieseq;
-    }
+	public int getUserseq() {
+		return userseq;
+	}
 
-    public String getUserseq() {
-        return userseq;
-    }
+	public void setUserseq(int userseq) {
+		this.userseq = userseq;
+	}
 
-    public void setUserseq(String userseq) {
-        this.userseq = userseq;
-    }
+	public String getMoviecomentcontent() {
+		return moviecomentcontent;
+	}
 
-    public String getMoviecomentcontent() {
-        return moviecomentcontent;
-    }
+	public void setMoviecomentcontent(String moviecomentcontent) {
+		this.moviecomentcontent = moviecomentcontent;
+	}
 
-    public void setMoviecomentcontent(String moviecomentcontent) {
-        this.moviecomentcontent = moviecomentcontent;
-    }
+	public Date getMoviecomentdate() {
+		return moviecomentdate;
+	}
 
-    public Date getMoviecomentdate() {
-        return moviecomentdate;
-    }
+	public void setMoviecomentdate(Date moviecomentdate) {
+		this.moviecomentdate = moviecomentdate;
+	}
 
-    public void setMoviecomentdate(Date moviecomentdate) {
-        this.moviecomentdate = moviecomentdate;
-    }
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setMoviecomentseq(int moviecomentseq) {
+		this.moviecomentseq = moviecomentseq;
+	}
+
+   
 }

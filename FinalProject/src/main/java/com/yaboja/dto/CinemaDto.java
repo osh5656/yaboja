@@ -14,14 +14,7 @@ public class CinemaDto {
     // 경도 
     private String longitude;
     
-    //생성자
-    public CinemaDto(int cinemaseq, String cinema, String latitude, String longitude) {
-		super();
-		this.cinemaseq = cinemaseq;
-		this.cinema = cinema;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
+   
     
     public CinemaDto() {
     	
@@ -30,8 +23,20 @@ public class CinemaDto {
     public int getCinemaseq() {
         return cinemaseq;
     }
+    
+    
 
-    public void setCinemaseq(int cinemaseq) {
+    public CinemaDto(int cinemaseq, String cinema, String latitude, String longitude) {
+		super();
+		this.cinemaseq = cinemaseq;
+		this.cinema = cinema;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+
+
+	public void setCinemaseq(int cinemaseq) {
         this.cinemaseq = cinemaseq;
     }
 

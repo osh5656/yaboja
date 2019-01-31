@@ -1,6 +1,7 @@
 package com.yaboja.dto;
 
 
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -71,5 +72,5 @@ public class PageMaker {
 
 		return uriComponents.toUriString();
 	}
-	
+
 }

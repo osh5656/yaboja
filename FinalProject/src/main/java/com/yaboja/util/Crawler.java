@@ -19,9 +19,9 @@ public class Crawler {
 
 		Crawler crawler = new Crawler();
 
-		ArrayList<MovieDto> movies = crawler.getNaverMovie();
-		
-		for(MovieDto movie : movies) {
+		ArrayList<MovieDto> movies = crawler.getPreMovie();
+
+		for (MovieDto movie : movies) {
 			System.out.println(movie);
 		}
 
@@ -29,75 +29,151 @@ public class Crawler {
 
 	public ArrayList<MovieDto> getNaverMovie() {
 		ArrayList<MovieDto> movies = new ArrayList<MovieDto>();
-		
-		
 
-		setMovies(movies);// 제목
-		setImgUrlAndCode(movies);// 이미지,코드
+		setMovies(movies, "상영작");// 제목
+		setImgUrlAndCode(movies,"상영작");// 이미지,코드
 		setRating(movies);// 평점
-		setEtc(movies);// 장르, 개봉일, 감독, 상영시간, 배우
-		
+		setEtc(movies,"상영작");// 장르, 개봉일, 감독, 상영시간, 배우
+
 		setSeqAndState(movies); // seq랑 state 에 일단 더미 데이터 넣어주기
 
 		return movies;
 
 	}
 
-	private void setSeqAndState(ArrayList<MovieDto> movies) {
-		for(int i = 0 ; i < movies.size() ; i++) {
-			movies.get(i).setMovieseq(i);
-			movies.get(i).setMoviestate("상영작");
-		}
-		
+	public ArrayList<MovieDto> getPreMovie() {
+		ArrayList<MovieDto> movies = new ArrayList<MovieDto>();
+		setMovies(movies, "예정작");
+		setImgUrlAndCode(movies,"예정작");
+		setEtc(movies,"예정작");// 장르, 개봉일, 감독, 상영시간, 배우
+
+		return movies;
 	}
 
-	private void setMovies(ArrayList<MovieDto> movies) {
+	private void setSeqAndState(ArrayList<MovieDto> movies) {
+		for (int i = 0; i < movies.size(); i++) {
+			//movies.get(i).setMovieSeq(i);
+			movies.get(i).setMoviestate("상영작");
+		}
+
+	}
+
+	public String getContent(String code) {
 		Document doc;
+		String content = "";
 		// 제목
 		try {
-			doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
-			Elements elements = doc.select(".tit a");
-			System.out.println("현재 상영작 수 " + elements.size() + "개");
-			if (elements.size() > 1) {
+			doc = Jsoup.connect("https://movie.naver.com/movie/bi/mi/basic.nhn?" + code.trim()).get();
+			Elements elements = doc.select(".story_area .h_tx_story");
+
+			if (elements.size() >= 1) {
+
 				for (Element element : elements) {
-					MovieDto movie = new MovieDto();
-					movie.setMovietitle(element.text());
-					movies.add(movie);
+					content += element.html();
+					System.out.println(content);
+
 				}
 			} else {
-				System.out.println("제목 못읽음");
+				System.out.println("줄거리 못읽음");
 			}
+
+			content = "<h2>" + content + "</h2><br></br>";
+
+			String content2 = "";
+
+			elements = doc.select(".story_area .con_tx");
+
+			if (elements.size() >= 1) {
+
+				for (Element element : elements) {
+					content2 += element.html();
+					System.out.println(content);
+
+				}
+			} else {
+				System.out.println("줄거리 못읽음");
+			}
+			content2 = "<div style='font-size:25px'>" + content2 + "</div>";
+
+			content += content2;
+
+			//
+			String content3 = "";
+			elements = doc.select(".people ul");
+
+			if (elements.size() >= 1) {
+
+				for (Element element : elements) {
+					content3 += element.html();
+					System.out.println(content);
+
+				}
+			} else {
+				System.out.println("출연진 이미지 못읽음");
+			}
+			content3 = "<div><ul class='actorimage'>" + content3 + "</ul></div><br/>";
+
+			content += content3;
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		return content;
 	}
 
-	private void setImgUrlAndCode(ArrayList<MovieDto> movies) {
+	private void setImgUrlAndCode(ArrayList<MovieDto> movies, String state) {
 
 		Document doc;
 		// 이미지 및 영화 코드
-		try {
-			doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
-			Elements elements = doc.select(".thumb");
-			System.out.println("현재 상영작 수 " + elements.size() + "개");
-			if (elements.size() > 1 && (elements.size() == movies.size())) {
-				int i = 0;
-				for (Element element : elements) {
+		if (state.equals("상영작")) {
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
+				Elements elements = doc.select(".thumb");
+				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				if (elements.size() > 1 && (elements.size() == movies.size())) {
+					int i = 0;
+					for (Element element : elements) {
 
-					String str = element.html();
-					String imgUrl = getImgUrl(str).trim();
-					String movieCode = getMovieCode(str).trim();
-					movies.get(i).setImgurl(imgUrl);
-					movies.get(i).setCode(movieCode);
-					i++;
+						String str = element.html();
+						String imgUrl = getImgUrl(str).trim();
+						String movieCode = getMovieCode(str).trim();
+						movies.get(i).setImgurl(imgUrl);
+						movies.get(i).setCode(movieCode);
+						i++;
+					}
+				} else {
+					System.out.println("이미지, 코드  못읽음");
 				}
-			} else {
-				System.out.println("이미지, 코드  못읽음");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}else if(state.equals("예정작")){
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
+				Elements elements = doc.select(".thumb");
+				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				if (elements.size() > 1 && (elements.size() == movies.size())) {
+					int i = 0;
+					for (Element element : elements) {
+
+						String str = element.html();
+						String imgUrl = getImgUrl(str).trim();
+						String movieCode = getMovieCode(str).trim();
+						movies.get(i).setImgurl(imgUrl);
+						movies.get(i).setCode(movieCode);
+						i++;
+					}
+				} else {
+					System.out.println("이미지, 코드  못읽음");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 	}
@@ -124,48 +200,90 @@ public class Crawler {
 
 	}
 
-	private void setEtc(ArrayList<MovieDto> movies) {
+	private void setEtc(ArrayList<MovieDto> movies, String state) {
 		Document doc;
 
 		// 장르, 개봉일, 감독, 상영시간, 배우
 
-		try {
-			doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
-			Elements elements = doc.select(".info_txt1");
-			System.out.println("현재 상영작 수 " + elements.size() + "개");
-			if (elements.size() > 1 && (elements.size() == movies.size())) {
-				int i = 0;
-				for (Element element : elements) {
-					String text = element.text();
-					// System.out.println("영화 장르  = " + text);
+		if(state.equals("상영작")) {
+			
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
+				Elements elements = doc.select(".info_txt1");
+				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				if (elements.size() > 1 && (elements.size() == movies.size())) {
+					int i = 0;
+					for (Element element : elements) {
+						String text = element.text();
+						// System.out.println("영화 장르 = " + text);
 
-					String genre = getStr(text, "genre");
-					String time = getStr(text, "time");
-					String pupDate = getStr(text, "pupDate");
-					String director = getStr(text, "director");
-					String actor = getStr(text, "actor");
-					
-					
-					/*System.out.println(genre);
-					System.out.println(time);
-					System.out.println(pupDate);
-					System.out.println(director);
-					System.out.println(actor);*/
-					
-					movies.get(i).setGenre(genre);
-					movies.get(i).setTime(time);
-					movies.get(i).setPupdate(pupDate);
-					movies.get(i).setDirector(director);
-					movies.get(i).setActor(actor);
-					i++;
+						String genre = getStr(text, "genre");
+						String time = getStr(text, "time");
+						String pupDate = getStr(text, "pupDate");
+						String director = getStr(text, "director");
+						String actor = getStr(text, "actor");
+
+						/*
+						 * System.out.println(genre); System.out.println(time);
+						 * System.out.println(pupDate); System.out.println(director);
+						 * System.out.println(actor);
+						 */
+
+						movies.get(i).setGenre(genre);
+						movies.get(i).setTime(time);
+						movies.get(i).setPupdate(pupDate);
+						movies.get(i).setDirector(director);
+						movies.get(i).setActor(actor);
+						i++;
+					}
+				} else {
+					System.out.println("Etc 못 읽음");
+
 				}
-			} else {
-				System.out.println("Etc 못 읽음");
-				
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			
+		}else if(state.equals("예정작")) {
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
+				Elements elements = doc.select(".info_txt1");
+				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				if (elements.size() > 1 && (elements.size() == movies.size())) {
+					int i = 0;
+					for (Element element : elements) {
+						String text = element.text();
+						// System.out.println("영화 장르 = " + text);
+
+						String genre = getStr(text, "genre");
+						String time = getStr(text, "time");
+						String pupDate = getStr(text, "pupDate");
+						String director = getStr(text, "director");
+						String actor = getStr(text, "actor");
+
+						/*
+						 * System.out.println(genre); System.out.println(time);
+						 * System.out.println(pupDate); System.out.println(director);
+						 * System.out.println(actor);
+						 */
+
+						movies.get(i).setGenre(genre);
+						movies.get(i).setTime(time);
+						movies.get(i).setPupdate(pupDate);
+						movies.get(i).setDirector(director);
+						movies.get(i).setActor(actor);
+						i++;
+					}
+				} else {
+					System.out.println("Etc 못 읽음");
+
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
+		
 
 	}
 
@@ -176,7 +294,7 @@ public class Crawler {
 
 		while (m.find()) {
 			str = m.group().replace("src=\"", "");
-			//str = str.replace("?type=m99_141_2", "");
+			// str = str.replace("?type=m99_141_2", "");
 			str = str.replace("\"", "");
 		}
 		return str;
@@ -247,6 +365,49 @@ public class Crawler {
 		}
 
 		return str;
+	}
+
+	private void setMovies(ArrayList<MovieDto> movies, String str) {
+		Document doc;
+		// 제목
+		if (str.equals("상영작")) {
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
+				Elements elements = doc.select(".tit a");
+				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				if (elements.size() > 1) {
+					for (Element element : elements) {
+						MovieDto movie = new MovieDto();
+						movie.setMovietitle(element.text());
+						movies.add(movie);
+					}
+				} else {
+					System.out.println("제목 못읽음");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (str.equals("예정작")) {
+			try {
+				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
+				Elements elements = doc.select(".tit a");
+				System.out.println("개봉 예정작 수 " + elements.size() + "개");
+				if (elements.size() > 1) {
+					for (Element element : elements) {
+						MovieDto movie = new MovieDto();
+						movie.setMovietitle(element.text());
+						movies.add(movie);
+					}
+				} else {
+					System.out.println("제목 못읽음");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

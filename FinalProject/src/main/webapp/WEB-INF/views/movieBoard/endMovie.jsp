@@ -85,13 +85,30 @@ String.prototype.trim = function () { //trim
 
 
 	<!-- Menu Bar -->
-	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href=""><strong>Matching
-				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
-				Board</strong></a> <a href=""><strong>My Page</strong></a>
-		<div class="nav-underline"></div>
-	</nav>
+	<c:choose>
+		<c:when test="${dto.usergrade eq 'admin'}">
+			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+			<!-- 메뉴바 -->
+			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
+			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
+			<a href="adminPreferences.do"><strong>preferences</strong></a>
+			<div class="nav-underline"></div>
+			</nav>		
+		</c:when>
+		<c:otherwise>
+			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+			<!-- 메뉴바 -->
+			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
+			<a href="reviewboard.do"><strong>Review Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
+			<a href="mypage.do"><strong>My Page</strong></a>
+			<div class="nav-underline"></div>
+			</nav>		
+		</c:otherwise>
+	</c:choose>
 	
 	<!-- moviesidebar -->
 	<%@ include file="../inc/moviesidebar2.jsp"%>
@@ -105,7 +122,7 @@ String.prototype.trim = function () { //trim
 	
 	<h3 class="text-center">종영작</h3>
 	
-	<%@ include file="../inc/movielist.jsp"%>
+	<%@ include file="../inc/endmovielist.jsp"%>
 	
 	
 	<center>

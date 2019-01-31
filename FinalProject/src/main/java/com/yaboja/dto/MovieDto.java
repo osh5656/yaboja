@@ -36,8 +36,46 @@ public class MovieDto {
 
     // 네이버코드 
     private String code;
+    
+    
 
-    public int getMovieseq() {
+    public MovieDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public MovieDto(int movieseq, String movietitle, String rating, String genre, String time, String pupdate,
+			String moviestate, String director, String actor, String imgurl, String code) {
+		super();
+		this.movieseq = movieseq;
+		this.movietitle = movietitle;
+		this.rating = rating;
+		this.genre = genre;
+		this.time = time;
+		this.pupdate = pupdate;
+		this.moviestate = moviestate;
+		this.director = director;
+		this.actor = actor;
+		this.imgurl = imgurl;
+		this.code = code;
+	}
+
+	public MovieDto(String movietitle, String rating, String genre, String time, String pupdate, String moviestate,
+			String director, String actor, String imgurl, String code) {
+		super();
+		this.movietitle = movietitle;
+		this.rating = rating;
+		this.genre = genre;
+		this.time = time;
+		this.pupdate = pupdate;
+		this.moviestate = moviestate;
+		this.director = director;
+		this.actor = actor;
+		this.imgurl = imgurl;
+		this.code = code;
+	}
+
+	public int getMovieseq() {
         return movieseq;
     }
 

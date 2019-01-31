@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.yaboja.biz.MatchingboardBiz;
+
+import com.yaboja.biz.MovieBiz;
+
 import com.yaboja.biz.UserBiz;
+import com.yaboja.bizImpl.MovieBizImpl;
+import com.yaboja.dto.MovieDto;
 import com.yaboja.dto.UserDto;
 
 /**
@@ -35,6 +42,9 @@ public class HomeController {
 
 	@Autowired
 	UserBiz userBiz;
+	@Autowired
+	private MovieBizImpl biz;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
@@ -57,13 +67,33 @@ public class HomeController {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
-	public String getMain() {
+
+
+	public String getMain(Model model) {
 		
+		
+		
+		List<MovieDto> movies = biz.selectPresentMovies();
+		
+		if(movies.size()>=10) {
+			movies = movies.subList(0, 10);
+			for(MovieDto movie : movies) {
+				System.out.println(movie);
+			}		
+			
+			model.addAttribute("list", movies);
+			
+		}
+		
+				
+
 		return "main";
+
 		
+
 	}
 
-	
+
 
 	
 

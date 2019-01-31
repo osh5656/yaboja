@@ -224,7 +224,7 @@ public class MatchingboardController {
 		map.put("matchingboardtitle", title);
 		map.put("matchingboardcontent", matchingboardcontent);
 		map.put("cinemaseq", cinemaseq);
-		int res = matchingboardBiz.insert(map);
+		
 
 		///////////////////////////
 
@@ -239,7 +239,7 @@ public class MatchingboardController {
 	      coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
 
-	      coin_use = coinBiz.coin(userdto.getUserseq(), "사용");
+	      coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
 
 	      coin_val = ((coin_charge - coin_use) / 500);
 
@@ -247,7 +247,7 @@ public class MatchingboardController {
 	      if(coin_val < 1) {
 	         
 	         PrintWriter out = response.getWriter();
-	         out.println("<script>alert('코인 충전해주세요');history.back();</script>");
+	         out.println("<script>alert('코인 충전해주세요');location.href='coin_charge.do';</script>");
 	         out.close();
 	    
 	         
@@ -255,16 +255,18 @@ public class MatchingboardController {
 	         if (request.getParameter("point_val_01") != null) {
 	      
 	         point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
-	         coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "사용");
-	         System.out.println("사용완료");
+	         coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "매칭");
+	         System.out.println("매칭완료");
+	         
+	         int res = matchingboardBiz.insert(map);
 	      
 	      }
 
 	      model.addAttribute("point_val_01", point_val_01);
 	
-
-
-		response.sendRedirect("matchingboardlist.do");
+	      PrintWriter out = response.getWriter();
+	         out.println("<script>alert('매칭 게시글이 작성되었습니다.');location.href='matchingboardlist.do';</script>");
+	         out.close();
 	}
 	}
 
@@ -297,53 +299,74 @@ public class MatchingboardController {
 		MatchingDto mymatchingdto = null;
 		mymatchingdto = matchingBiz.insertCheck(userseq);
 		MatchingboardDto mymatchingboarddto = matchingboardBiz.userOne(userseq);
-		
-//		if(matchingdto == null || matchingdto.getMatchingstate().equals("E")) {//매칭테이블이 없거나 매칭결과가 끝났을때 
-		if(mymatchingboarddto == null) { // 작서
-			if(mymatchingdto == null) {
-				int res = matchingBiz.insert(matchingDto);
-				if(res>0) {
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('매칭 신청 성공');location.href='mypage_match_to.do';</script>");
-					out.close();
-				}else {
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('데이터베이스 오류');history.back();</script>");
-					out.close();
-				}
-				
-			}else {
-				if(mymatchingdto.getMatchingstate().equals("P")) {
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('신청 중인 매칭이 있습니다.');history.back();</script>");
-					out.close();
-				}else if(mymatchingdto.getMatchingstate().equals("S")) {
-					PrintWriter out = response.getWriter();
-					out.println("<script>alert('진행 중인 매칭이 있습니다.');history.back();</script>");
-					out.close();
-				}else if(mymatchingdto.getMatchingstate().equals("E")) {
-					int res = matchingBiz.insert(matchingDto);
-					if(res>0) {
-						PrintWriter out = response.getWriter();
-						out.println("<script>alert('매칭 신청 성공');location.href='mypage_match_to.do';</script>");
-						out.close();
-					}else {
-						PrintWriter out = response.getWriter();
-						out.println("<script>alert('데이터베이스 오류');history.back();</script>");
-						out.close();
-					}
-				}
+		int coin_charge = 0;
+	      int coin_use = 0;
+	      int coin_val = 0;
 
-			}
+	      coin_charge = coinBiz.coin(userseq, "충전");
 
-		}else {
+	      coin_use = coinBiz.coin(userseq, "매칭");
 
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('작성한 매칭글 있습니다. 매칭신청을 하려면 작성한매칭글을 삭제해주세요.');history.back();</script>");
-			out.close();
+	      coin_val = ((coin_charge - coin_use) / 500);
 
-		}
-	}
+	      if (coin_val < 1) {
+
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('코인 충전해주세요, 확인버튼을 누르면 코인충전페이지로 이동합니다.');location.href='coin_charge.do';</script>");
+	         out.close();
+
+	      } else {
+
+	         /////
+
+//	      if(matchingdto == null || matchingdto.getMatchingstate().equals("E")) {//매칭테이블이 없거나 매칭결과가 끝났을때 
+	         if (mymatchingboarddto == null) { // 작서
+	            if (mymatchingdto == null) {
+	               int res = matchingBiz.insert(matchingDto);
+	               if (res > 0) {
+	                  PrintWriter out = response.getWriter();
+	                  out.println("<script>alert('매칭 신청 성공');location.href='mypage_match_to.do';</script>");
+	                  out.close();
+	               } else {
+	                  PrintWriter out = response.getWriter();
+	                  out.println("<script>alert('데이터베이스 오류');history.back();</script>");
+	                  out.close();
+	               }
+
+	            } else {
+	               if (mymatchingdto.getMatchingstate().equals("P")) {
+	                  PrintWriter out = response.getWriter();
+	                  out.println("<script>alert('신청 중인 매칭이 있습니다.');history.back();</script>");
+	                  out.close();
+	               } else if (mymatchingdto.getMatchingstate().equals("S")) {
+	                  PrintWriter out = response.getWriter();
+	                  out.println("<script>alert('진행 중인 매칭이 있습니다.');history.back();</script>");
+	                  out.close();
+	               } else if (mymatchingdto.getMatchingstate().equals("E")) {
+	                  int res = matchingBiz.insert(matchingDto);
+	                  if (res > 0) {
+	                     PrintWriter out = response.getWriter();
+	                     out.println("<script>alert('매칭 신청 성공');location.href='mypage_match_to.do';</script>");
+	                     out.close();
+	                  } else {
+	                     PrintWriter out = response.getWriter();
+	                     out.println("<script>alert('데이터베이스 오류');history.back();</script>");
+	                     out.close();
+	                  }
+	               }
+
+	            }
+
+	         } else {
+
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('작성한 매칭글 있습니다. 매칭신청을 하려면 작성한매칭글을 삭제해주세요.');history.back();</script>");
+	            out.close();
+
+	         }
+	      }
+
+	   }
 
 //			MatchingDto matchingDto = new MatchingDto();
 //			matchingDto.setMatchingwriter(matchingwriter);
@@ -515,6 +538,25 @@ public class MatchingboardController {
 
 		int res1 = matchingBiz.acceptance(map);
 		int res2 = matchingBiz.rejection(map);
+		
+	///// 창환 코인 작업 /////////////////
+
+	      int point_val_01 = 0;
+
+	      point_val_01 = 500;
+	      coinBiz.coin_insert(matchingapplicant, point_val_01, "매칭");
+	      System.out.println("매칭완료");
+
+	      int coin_charge = 0;
+	      int coin_use = 0;
+	      int coin_val = 0;
+
+	      coin_charge = coinBiz.coin(matchingapplicant, "충전");
+
+	      coin_use = coinBiz.coin(matchingapplicant, "매칭");
+
+	      coin_val = ((coin_charge - coin_use) / 500);
+		
 		if (res1 > 0) {
 			matchingboardBiz.delete(userseq);
 			PrintWriter out = response.getWriter();
@@ -621,9 +663,9 @@ public class MatchingboardController {
 
 			CinemaDto dto = list.get(i);
 			String imgSrc = null;
-			if (dto.getCinema().contains("CGV")) {
+			if (dto.getCinema().contains("cgv")) {
 				imgSrc = "img/cgv.png";
-			} else if (dto.getCinema().contains("LOTTE")) {
+			} else if (dto.getCinema().contains("lotte")) {
 				imgSrc = "img/lotte.png";
 			}
 

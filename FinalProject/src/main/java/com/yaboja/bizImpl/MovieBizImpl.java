@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.yaboja.biz.MovieBiz;
 import com.yaboja.daoImpl.MovieDaoImpl;
+import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MovieDto;
+
+import com.yaboja.dto.ReviewboardDto;
 
 import com.yaboja.util.Crawler;
 
@@ -41,9 +44,9 @@ public class MovieBizImpl implements MovieBiz {
 		Crawler crawler = new Crawler();
 		List<MovieDto> crawlMovies = crawler.getNaverMovie();
 		/*List<MovieDto> crawlMovies = new ArrayList<MovieDto>();
-		crawlMovies.add(new MovieDto("해리포터4","1","2","3","4","상영작","6","7","8","9"));
-		crawlMovies.add(new MovieDto("해리포터5","1","2","3","4","상영작","6","7","8","9"));
-		crawlMovies.add(new MovieDto("해리포터6","1","2","3","4","상영작","6","7","8","9"));*/
+		crawlMovies.add(new MovieDto(1111111,"해리포터4","1","2","3","4","상영작","6","7","8","9"));
+		crawlMovies.add(new MovieDto(222222,"해리포터5","1","2","3","4","상영작","6","7","8","9"));
+		crawlMovies.add(new MovieDto(333333,"해리포터6","1","2","3","4","상영작","6","7","8","9"));*/
 		
 		List<MovieDto> dbMovies = dao.selectPresentMovies();
 
@@ -118,5 +121,37 @@ public class MovieBizImpl implements MovieBiz {
 		// TODO Auto-generated method stub
 		return dao.getMovieTitle(movieseq);
 	}
+
+
+	@Override
+	public MovieDto selectOneMovie(int movieSeq) {
+		// TODO Auto-generated method stub
+		MovieDto dto = dao.selectOneMovie(movieSeq);
+		
+		dto.setImgurl(dto.getImgurl().replace("?type=m99_141_2", ""));
+		return dto;
+	}
+
+	@Override
+	public List<MovieDto> selectPreMovies() {
+		Crawler crawler = new Crawler();
+		List<MovieDto> preMovies = crawler.getPreMovie();
+		
+		return preMovies;
+	}
+	
+	//목록 + 페이징
+	@Override
+	public List<MovieDto> listPage(Criteria cri){
+		System.out.println("글 목록 페이징 2 단계 성공 MovieBizlmpl");
+		return dao.listPage(cri);
+	}
+	//게시물 총 개수
+	@Override
+	public int listCount() {
+		System.out.println("게시물 총 계수 2 단계 성공 MovieBizlmpl");
+		return dao.listCount();
+	}
+
 
 }
