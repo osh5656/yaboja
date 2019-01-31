@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.yaboja.biz.MovieBiz;
 import com.yaboja.daoImpl.MovieDaoImpl;
+import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MovieDto;
+import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.util.Crawler;
 
 @Service
@@ -105,6 +107,19 @@ public class MovieBizImpl implements MovieBiz {
 		List<MovieDto> preMovies = crawler.getPreMovie();
 		
 		return preMovies;
+	}
+	
+	//목록 + 페이징
+	@Override
+	public List<MovieDto> listPage(Criteria cri){
+		System.out.println("글 목록 페이징 2 단계 성공 MovieBizlmpl");
+		return dao.listPage(cri);
+	}
+	//게시물 총 개수
+	@Override
+	public int listCount() {
+		System.out.println("게시물 총 계수 2 단계 성공 MovieBizlmpl");
+		return dao.listCount();
 	}
 
 }

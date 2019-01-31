@@ -105,7 +105,7 @@ String.prototype.trim = function () { //trim
 	
 	<h3 class="text-center">종영작</h3>
 	
-	<%@ include file="../inc/movielist.jsp"%>
+	<%@ include file="../inc/endmovielist.jsp"%>
 	
 	
 	<center>

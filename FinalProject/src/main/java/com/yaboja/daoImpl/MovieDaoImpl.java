@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 
 import com.yaboja.dao.MovieDao;
+import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MovieDto;
+import com.yaboja.dto.ReviewboardDto;
 
 @Repository
 public class MovieDaoImpl implements MovieDao {
@@ -98,4 +100,27 @@ public class MovieDaoImpl implements MovieDao {
 		}
 		return dto;
 	}
+	
+	// 목록 + 페이징
+		@Override
+		public List<MovieDto> listPage(Criteria cri) {
+
+			List<MovieDto> res = null;
+			try {
+				res = sqlSession.selectList(namespace + "listPage", cri);
+				System.out.println(cri);
+				System.out.println("글 목록 페이징 3 단계 성공 mapper로 이동 ReviewboardDaoImpl");
+			} catch (Exception e) {
+				System.out.println("글목록 페이지 MAPPER 에러");
+				e.printStackTrace();
+			}
+			return res;
+		}
+
+		// 게시물 총 갯수
+		@Override
+		public int listCount() {
+			System.out.println("게시물 총 갯수 구하기 3");
+			return sqlSession.selectOne(namespace + "listCount");
+		}
 }
