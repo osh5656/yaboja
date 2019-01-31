@@ -5,6 +5,7 @@ import java.util.List;
 import com.yaboja.dto.UserDto;
 
 public interface UserDao {
+
 	String namespace="user.";
 	
 
@@ -13,4 +14,18 @@ public interface UserDao {
 	public UserDto login(String userid, String userpw);
 	public List<UserDto> selectAll();
 	public int updateUser(int userseq, String grade);
+
+   
+   public UserDto getLogin(String userid, String userpw);
+   //내정보보기
+   public UserDto selectOne(int userseq);
+   //내정보수정
+   public int update(UserDto dto);
+   //회원탈퇴
+   public int delete(String userid);
+   
+   public UserDto selectOne1(String userid);
+      
+   
 }
+

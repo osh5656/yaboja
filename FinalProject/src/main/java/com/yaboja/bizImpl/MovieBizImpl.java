@@ -1,6 +1,8 @@
 package com.yaboja.bizImpl;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.yaboja.biz.MovieBiz;
 import com.yaboja.daoImpl.MovieDaoImpl;
 import com.yaboja.dto.MovieDto;
+
 import com.yaboja.util.Crawler;
+
 
 @Service
 public class MovieBizImpl implements MovieBiz {
@@ -18,6 +22,7 @@ public class MovieBizImpl implements MovieBiz {
 	MovieDaoImpl dao;
 
 	@Override
+
 	public List<MovieDto> selectPresentMovies() {
 
 		return dao.selectPresentMovies();
@@ -58,7 +63,7 @@ public class MovieBizImpl implements MovieBiz {
 		for (MovieDto dbDto : dbMovies) {
 			int i = 0;// 상영작이 크롤링한 상영작에 없는지 확인하기 위한 변수
 			for (MovieDto crawlDto : crawlMovies) {
-				if ((dbDto.getMovieTitle().equals(crawlDto.getMovieTitle()))) {
+				if ((dbDto.getMovietitle().equals(crawlDto.getMovietitle()))) {
 					i++;
 					break;
 				}
@@ -79,7 +84,7 @@ public class MovieBizImpl implements MovieBiz {
 		for (MovieDto crawlDto : crawlMovies) {
 			int i = 0;// 크롤링한 영화가 디비에 있는지 없는지 확인하기 위한 변수
 			for (MovieDto dbDto : dbMovies) {
-				if (!(crawlDto.getMovieTitle().equals(dbDto.getMovieTitle()))) {
+				if (!(crawlDto.getMovietitle().equals(dbDto.getMovietitle()))) {
 					i++;
 				}
 			}
@@ -88,6 +93,30 @@ public class MovieBizImpl implements MovieBiz {
 			}
 		}
 		return insertMovies;
+	}
+
+
+	public MovieDto selectOne(int movieseq) {
+		
+		return dao.selectOne(movieseq) ;
+	}
+
+	@Override
+	public List<MovieDto> selectList() {
+		// TODO Auto-generated method stub
+		return dao.selectList();
+	}
+
+	@Override
+	public int getMovieSeq(String movietitle) {
+		// TODO Auto-generated method stub
+		return dao.getMovieSeq(movietitle);
+	}
+
+	@Override
+	public String getMovieTitle(int movieseq) {
+		// TODO Auto-generated method stub
+		return dao.getMovieTitle(movieseq);
 	}
 
 }

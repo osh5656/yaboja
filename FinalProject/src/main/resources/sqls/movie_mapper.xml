@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="movie">
 
+
 	<select id="selectPresentMovie" resultType="MovieDto">
 		SELECT *
 		FROM MOVIE
@@ -48,5 +49,30 @@
 		</foreach>
 	</update>
 	
-	
+
+  
+  <select id="selectList" resultType="MovieDto">
+  	SELECT *
+  	FROM MOVIE
+  </select>
+  
+  <select id="getMovieSeq" parameterType="String" resultType="int">
+  	SELECT MOVIESEQ
+  	FROM MOVIE
+  	WHERE MOVIETITLE = #{movietitle}
+  </select>
+  
+  <select id="match_selectOne" resultType="MovieDto">
+   SELECT *
+   FROM MOVIE
+   WHERE MOVIESEQ=#{movieseq}
+  </select>
+  
+  <select id="getMovieTitle" parameterType="int" resultType="String">
+  	SELECT MOVIETITLE
+  	FROM MOVIE
+  	WHERE MOVIESEQ = #{movieseq}
+  </select>
+  
+
 </mapper>

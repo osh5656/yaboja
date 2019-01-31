@@ -1,5 +1,15 @@
+<%@page import="com.yaboja.dto.UserDto"%>
+<%@page import="com.yaboja.dto.MatchingDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	MatchingDto matchingDto = (MatchingDto)request.getAttribute("matchingDto");
+	UserDto userDto = (UserDto)request.getAttribute("userDto");
+	String cinema = (String)request.getAttribute("cinema");
+	UserDto user = (UserDto)session.getAttribute("dto");
+	String imgurl = (String)request.getAttribute("imgurl");
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,14 +76,20 @@
 	<div class="container">
 	<h1 style="color:black; font-weight: bold;">진행중매칭</h1>
 	<div style="color:black; background-color:silver; padding:20px; margin:10px">
-
+<%
+	if(matchingDto == null){
+%>
+		<h4 style="color: blue;">진행중인 매칭이 없습니다.</h4>	
+<%
+	}else{
+%>
 <table border = "1" class ="table table-bordered">
 	<tr align="center">
 		<td style="width:150px; height:20px;">
 		<h3 style="font-weight: bold;">★</h3>
 		</td>
 		<td>
-		<h3 style="font-weight: bold;">♥ 강남CGV ♥</h3>
+		<h3 style="font-weight: bold;">♥ <%= cinema%> ♥</h3>
 		</td>
 		<td style="width:150px; height:20px;">
 		<h3 style="font-weight: bold;">★</h3>
@@ -81,46 +97,49 @@
 	</tr>
 	<tr align = "center"  valign="bottom">	
 		<td style="width:150px; height:200px;">	
-			<img src = "img/lch.PNG" width ="150px" height="200px"/> <!-- 본인 사진사이즈 설정 -->
+			<img src = "<%= user.getUserprofile()%>" width ="150px" height="200px"/> <!-- 본인 사진사이즈 설정 -->
 		</td>	
 		<td style="width:150px; height:200px;">	
 <!-- 			<span style = "font-size : 20px;"></span><br> -->
-			<img src = "img/home-bg-1.jpg"  width ="150px" height="200px"/>
+			<img src = "<%= imgurl%>"  width ="150px" height="200px"/>
 		</td>
 		<td>
-			<img src = "img/osh.PNG" width ="150px" height="200px"/> <!-- 매칭상대 사진사이즈 설정 -->
+			<img src = "<%= userDto.getUserprofile()%>" width ="150px" height="200px"/> <!-- 매칭상대 사진사이즈 설정 -->
 		</td>
 	</tr>
 	<tr align ="center" valign ="middle">
 		<td>
-			김민엽
+			<%= user.getUsername()%>
 		</td>
 		<td rowspan="3">
-			<button class= "btn btn default">채팅방입장하기</button>
+			<button class= "btn btn default" onclick="location.href='chat.do?userseq2=<%=userDto.getUserseq()%>'">채팅방입장하기</button>
 		</td>
 		<td>
-			오세현
-		</td>
-	</tr>
-	<tr align ="center">
-		<td>
-			20대후반
-		</td>
-	
-		<td>
-			30대초반
+			<%= userDto.getUsername()%>
 		</td>
 	</tr>
 	<tr align ="center">
 		<td>
-			남
+			<%= user.getUserage()%>
 		</td>
 	
 		<td>
-			여
+			<%= userDto.getUserage()%>
+		</td>
+	</tr>
+	<tr align ="center">
+		<td>
+			<%= user.getUsersex()%>
+		</td>
+	
+		<td>
+			<%= userDto.getUsersex()%>
 		</td>
 	</tr>
 </table>
+<%
+	}
+%>
 </div>
 </div>
 	

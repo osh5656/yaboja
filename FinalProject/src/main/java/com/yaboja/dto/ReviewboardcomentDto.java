@@ -11,15 +11,25 @@ public class ReviewboardcomentDto {
     private int reviewboardseq;
 
     // 작성자 
-    private String userseq;
+    private String username;
 
     // 내용 
     private String reviewboardcomentcontent;
 
     // 날짜 
     private Date reviewboardcomentdate;
+    
+    private int userseq;
 
-    public int getReviewboardcomentseq() {
+    public int getUserseq() {
+		return userseq;
+	}
+
+	public void setUserseq(int userseq) {
+		this.userseq = userseq;
+	}
+
+	public int getReviewboardcomentseq() {
         return reviewboardcomentseq;
     }
 
@@ -35,15 +45,16 @@ public class ReviewboardcomentDto {
         this.reviewboardseq = reviewboardseq;
     }
 
-    public String getUserseq() {
-        return userseq;
-    }
 
-    public void setUserseq(String userseq) {
-        this.userseq = userseq;
-    }
+    public String getUsername() {
+		return username;
+	}
 
-    public String getReviewboardcomentcontent() {
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getReviewboardcomentcontent() {
         return reviewboardcomentcontent;
     }
 

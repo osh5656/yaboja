@@ -103,12 +103,6 @@ public class UserController {
 		
 		return "loginform";
 	}
-	//main
-	@RequestMapping(value="main.do",method = RequestMethod.GET)
-	public String main() {
-		
-		return "main";
-	}
 	//로그아웃
 	@RequestMapping(value="logout.do",method = RequestMethod.GET)
 	public String logout(String userpw, HttpSession session,Model model,HttpServletRequest request) {
@@ -285,7 +279,7 @@ public class UserController {
     //카카오 로그인 시작
 	@RequestMapping(value ="kakaologin.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
 	public String kakaologin(@RequestParam("code") String code,Model model, HttpServletRequest request,HttpServletResponse response, HttpSession session) throws IOException {
-		
+		System.out.println("!!!!");
 		
 		//로그인 후  코드 get		
 		System.out.println("code : "+code);

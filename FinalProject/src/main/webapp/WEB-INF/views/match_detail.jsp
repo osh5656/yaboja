@@ -1,5 +1,14 @@
+<%@page import="com.yaboja.dto.MatchingboardDto"%>
+<%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+	UserDto userDto = (UserDto)session.getAttribute("dto");
+	MatchingboardDto matchingboardDto = (MatchingboardDto)request.getAttribute("matchingboarddto");
+	MatchingboardDto mymatchingboardDto = (MatchingboardDto)request.getAttribute("mymatchingboarddto");
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +21,9 @@
 <meta name="author" content="">
 
 <title>야보자</title>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!-- spring에서 date format을 설정하기위해 필요 -->
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,15 +57,27 @@ body { font-family:'HY나무M'; }
 
 </style>
 <script type="text/javascript">
-	function matching(){
-		//coin>0
-		alert('매칭신청하시겠습니까? 상대방 수락시 1코인이 차감됩니다.');
+	function matchingcheck(){
+		//if coin>0
+// 		var x =document.getElementById('mymatchingboard').value;
+		
+		if(confirm("매칭신청 하시겠습니까? . 상대방 수락시 1코인이 차감되며, 신청중에는 다른신청을 할 수 없습니다")){
+			//매칭페이지로 ㄱㄱ
+			var userseq = document.getElementById('userseq').value;
+			var cinema = document.getElementById('cinema').innerHTML;
+			var movietitle = document.getElementById('movietitle').innerHTML;
+			location.href='matching_insert.do?userseq='+userseq+'&cinema='+cinema+'&movietitle='+movietitle;
+			
+		}else{
+			alert('신청이 취소되었습니다.');
+		}
+		
+		
 		//coin=0
 // 		alert('매칭에 필요한 코인이 부족합니다. 충전화면으로 이동합니다.' );
 // 		location.href='mypage_coin.jsp'
-		
-		
 	}
+
 </script>	
 </head>
 
@@ -68,7 +91,7 @@ body { font-family:'HY나무M'; }
 	<!-- Menu Bar -->
 	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
 		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href="match_list.jsp"><strong>Matching
+		<a href=""><strong>Movie Board</strong></a> <a href="matchingboardlist.do"><strong>Matching
 				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
 				Board</strong></a> <a href=""><strong>My Page</strong></a>
 		<div class="nav-underline"></div>
@@ -78,7 +101,8 @@ body { font-family:'HY나무M'; }
 	<%@ include file="inc/moviesidebar.jsp"%>
 	
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
-	
+	<input type="hidden" id="userseq" value="${ matchingboarddetail1.userseq}"/>
+	<input type = "hidden" id ="mymatchingboard" value ="${mymatchingboarddto }"/>
 	<div class ="container">
 	<br><br>
 	<h1 style="color:black; font-weight: bold;">작성자 프로필</h1>
@@ -86,50 +110,68 @@ body { font-family:'HY나무M'; }
 		
 		<table border = "1" class= "table table-bordered" style="color:black; font-size: 1.2em;">
 			<tr>
-				<td rowspan ="4" width="150px"> 사진(이미지)</td>
+				<td rowspan ="4" width="150px"> <c:out value="${matchingboarddetail2.userprofile }" /></td>
 			</tr>
 			<tr align ="center" >
 				<th width ="200px">이 름</th>
-				<td width ="200px">김민엽</td>
+				<td width ="200px"><c:out value="${matchingboarddetail2.username }" /></td>
 			</tr>
 			<tr align ="center">
 				<th>성 별</th>
-				<td>남 자</td>
+				<td><c:out value="${matchingboarddetail2.usersex }" /></td>
 			</tr>
 			<tr align ="center">
 				<th>연령대</th>
-				<td>20후반</td>
+				<td><c:out value="${matchingboarddetail2.userage }" /></td>
 			</tr>
 		</table>	
 	</div>
 	<table border ="1" class= "table table-bordered" >
 		<tr>
 			<td bgcolor="skyblue">제목</td>
-			<td>같이영화보아아아아요</td>
+			<td><c:out value="${matchingboarddetail1.matchingboardtitle }" /></td>
 			<td bgcolor="skyblue">등록일시</td>
-			<td>2019.01.10</td>
+			<td><fmt:formatDate pattern ="yyyy-MM-dd HH:mm:ss" value="${matchingboarddetail1.matchingboarddate }" /></td>
+			
+			
 		</tr>
 		<tr>
 			<td bgcolor="skyblue">영화명</td>
-			<td>바람과 함께 사라지다</td>
+			<td id="movietitle"><c:out value="${matchingboarddetail3.movietitle }" /></td>
 			<td bgcolor="skyblue">영화관</td>
-			<td>역삼CGV</td>
+			<td id="cinema"><c:out value="${matchingboarddetail4.cinema }" /></td>
 		</tr>
 		<tr>
 			<td bgcolor="skyblue">내용</td>
-			<td colspan="3">1월 11일 오후 7시 30분타임꺼 같이보실분괌
-							영화는 내가 삼 여자만환영 망설이지말고 신청고고
+			<td colspan="3"><c:out value="${matchingboarddetail1.matchingboardcontent }" />
 							<br>
-							<div align ="right"><button onclick="matching()" class ="btn btn default">매칭신청하기</button></div>
+<%
+int user = userDto.getUserseq();
+int boarduser = matchingboardDto.getUserseq();
+
+	if(user != boarduser){
 							
+%>									
+							<div align ="right"><button onclick="matchingcheck()" class ="btn btn default">매칭신청하기</button></div>
+<%
+	}
+%>						
 							</td>
 							
 		</tr>
 
 	</table>	
 		<div align ="center">
-		<button class ="btn btn default" onclick ="location.href='match_update.jsp'">수정</button><!-- 작성자만 -->
-		<button class ="btn btn default" onclick ="location.href='match_list.jsp'">목록</button></div>
+<%
+
+	if(user == boarduser){
+		
+%>		
+		<button class ="btn btn default" onclick ="location.href='match_update.do?matchingboard=${matchingboarddetail1.matchingboard }'">수정</button><!-- 작성자만 -->
+<%
+	}
+%>		
+		<button class ="btn btn default" onclick ="location.href='matchingboardlist.do'">목록</button></div>
 	
 		<br>
 </div>
@@ -137,7 +179,6 @@ body { font-family:'HY나무M'; }
 
 	<!-- Footer -->
 	<%@ include file="inc/footer.jsp"%>
-
 	
 
 </body>

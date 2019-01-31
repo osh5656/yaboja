@@ -15,7 +15,31 @@ public class CinemaBizImpl implements CinemaBiz{
 	CinemaDaoImpl dao;
 
 	@Override
+
 	public List<CinemaDto> selectAll() {
 		return dao.selectAll();
+	}
+	public CinemaDto selectOne(int cinemaseq) {
+		// TODO Auto-generated method stub
+		return dao.selectOne(cinemaseq);
+	}
+
+	@Override
+	public List<CinemaDto> selectList() {
+		// TODO Auto-generated method stub
+		return dao.selectList();
+	}
+
+	@Override
+	public int getCinemaSeq(String cinema) {
+		// TODO Auto-generated method stub
+		return dao.getCinemaSeq(cinema);
+	}
+
+	@Override
+	public String getCinema(int cinemaseq) {
+		// TODO Auto-generated method stub
+		return dao.getCinema(cinemaseq);
+
 	}
 }

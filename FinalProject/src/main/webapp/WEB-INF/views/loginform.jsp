@@ -65,6 +65,7 @@
 				<div class="flex-c p-b-112">
 <!-- 					<a href="#" class="login100-social-item"> -->
 <!-- 						<i class="fa fa-facebook-f"></i> -->
+							<!--  https://kauth.kakao.com/oauth/authorize?client_id=f4bfa5f6b9448b69cd517b0762b28f21&redirect_uri=http://localhost:8787/controller/kakaologin.do&response_type=code&scope=account_email,age_range,gender" class="login100-social-item-->
 <!-- 					</a> -->
 
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=f4bfa5f6b9448b69cd517b0762b28f21&redirect_uri=http://localhost:8787/controller/kakaologin.do&response_type=code&scope=account_email,age_range,gender" class="login100-social-item">

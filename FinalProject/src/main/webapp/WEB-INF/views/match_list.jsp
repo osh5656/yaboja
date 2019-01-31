@@ -12,11 +12,15 @@
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- <!-- Theme CSS --> -->
+<!-- <!-- Theme CSS -->
+-->
 <!-- <link href="css/clean-blog.min.css" rel="stylesheet"> -->
 
 <!-- Custom Fonts -->
@@ -36,31 +40,37 @@
 <!-- Content -->
 <link href="css/index_content.css" rel="stylesheet">
 <!-- jQuery -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	
-	
+<script src="vendor/jquery/jquery.min.js"></script>
+
+
 <style type="text/css">
+body {
+	font-family: 'HY나무M';
+}
 
-body { font-family:'HY나무M'; }
-
-.font-test { font:bold 24pt 'HY나무M'; }
-
+.font-test {
+	font: bold 24pt 'HY나무M';
+}
 </style>
-	
-	
+
+
 
 </head>
 <script type="text/javascript">
-function searchclick(){
-	var x = document.getElementsByName("keyword")[0].value;
-// 	alert(x);
-	if(x=="" || x==" "){
-		alert('검색어를 입력해주세요');
+	function searchclick() {
+		var x = document.getElementsByName("keyword")[0].value;
+		// 	alert(x);
+		if (x == "" || x == " ") {
+			alert('검색어를 입력해주세요');
+		} else {
+			alert('확인');
+		}
+
+		function boardlist() {
+			var x = document.getElementsByName("listsize").value;
+			alert(x);
+		}
 	}
-	else{
-		alert('확인');
-	}
-}
 </script>
 
 <body>
@@ -73,78 +83,129 @@ function searchclick(){
 	<!-- Menu Bar -->
 	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
 		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href="match_list.jsp"><strong>Matching
-				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
-				Board</strong></a> <a href=""><strong>My Page</strong></a>
+
+		<a href=""><strong>Movie Board</strong></a> <a
+			href="matchingboardlist.do"><strong>MatchingBoard</strong></a> <a
+			href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
+				Board</strong></a> <a href="mypage_match_to.do"><strong>My Page</strong></a> 
 		<div class="nav-underline"></div>
 	</nav>
-	
+
 	<!-- moviesidebar -->
 	<%@ include file="inc/moviesidebar.jsp"%>
-	
+
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
 	
-<div id ="context"  class = "container">
-<br>
-<br>
-<h1 style="color:black; font-weight: bold;"> 매칭 게시판 </h1>
-
-<div align ="right">
-
-  <input type= "text" name ="keyword" placeholder="검색어를 입력하세요" ></input>
-  <input onclick ="searchclick()" type="button" value="검색" class="btn btn default" />
-<!--   <input type= "submit" value ="검색" class="btn btn default" onclick ='searchclick()'> -->
-
-<input type="button" value="매칭만들기" class="btn btn default" onclick = "location.href='match_insert.jsp'"/>
-
-
-</div>
-<br>
-     
-<table border = 1 class= "table table-bordered">
-	<tr align ="center">
-		<th width ="100px">작성자</th>
-		<th width ="300px">제 목</th>
-		<th width ="70px">성 별</th>
-		<th width ="70px">연 령</th>
-		<th width ="150px">영화관</th>
-		<th width ="200px">영 화</th>
-		<th width ="100px">날 짜</th>
-		
-	</tr>
-	<tr align = "center">
-		<td>김민엽</td>
-		<td><a href ="match_detail.jsp">같이 영화보아아아아요</a></td>
-		<td>남</td>
-		<td>20초</td>
-		<td>역삼cgv</td>
-		<td>완벽한타인</td>
-		<td>201919</td>
-	</tr>
-	<tr align = "center">
-		<td>이창환</td><td>a</td><td>b</td><td>c</td>
-		<td>2</td><td>a</td><td>b</td>
-	</tr>
-	<tr align = "center">
-		<td>최강일</td><td>A</td><td>B</td><td>C</td>
-		<td>A</td><td>B</td><td>C</td>
-	</tr>
-	<tr align = "center">
-		<td>최진선</td><td>A</td><td>B</td><td>C</td>
-		<td>A</td><td>B</td><td>C</td>
-	</tr>
-</table>
-<nav aria-label="..." style="text-align: center;">
-      <ul class="pagination" id="pasing">페이징</ul>
-   </nav>
-</div>
 	
+
+	<div id="context" class="container">
+		<br> <br>
+		<h1 style="color: black; font-weight: bold;">매칭 게시판</h1>
+
+
+<div class="layout-container">
+		<div id="main">
+			<!-- sidebar를 include해준다. -->
+			<div class="form">
+				<div class="container container-fluid"></div>
+				<div class="container container-fluid">
+
+					<div class="jumbotron jumbotron-fluid">
+						<table>
+							<tr>
+								<th>ID : ${user_name }</th>
+							</tr>
+							<tr>
+								<th>COIN : ${coin } (매칭 당 1코인이 차감됩니다.)</th>
+							</tr>
+							
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<div align="right">
+
+			<input type="text" name="keyword" placeholder="검색어를 입력하세요"></input> <input
+				onclick="searchclick()" type="button" value="검색"
+				class="btn btn default" />
+			<!--   <input type= "submit" value ="검색" class="btn btn default" onclick ='searchclick()'> -->
+
+			<input type="button" value="매칭만들기" class="btn btn default"
+				onclick="location.href='matchingForm.do'" />
+
+
+
+		</div>
+		<br>
+
+		<table border=1 class="table table-bordered">
+			<tr align="center">
+				<th width="100px">작성자</th>
+				<th width="300px">제 목</th>
+				<th width="70px">성 별</th>
+				<th width="70px">연 령</th>
+				<th width="150px">영화관</th>
+				<th width="200px">영 화</th>
+				<th width="100px">날 짜</th>
+
+
+			</tr>
+
+			<c:choose>
+				<c:when test="${empty matchingboardlist1 }">
+					<h3>----등록된 매칭글이 없습니다----</h3>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="i" begin="0" end="${listsize }">
+
+						<tr align="center">
+							<td><c:out value="${matchingboardlist2[i].username }" /></td>
+							<td><a
+								href="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }"><c:out
+										value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
+							<td><c:out value="${matchingboardlist2[i].usersex }" /></td>
+							<td><c:out value="${matchingboardlist2[i].userage }" /></td>
+							<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
+							<td><c:out value="${matchingboardlist3[i].movietitle }" /></td>
+							<td><c:out
+									value="${matchingboardlist1[i].matchingboarddate }" /></td>
+
+						</tr>
+					</c:forEach>
+
+				</c:otherwise>
+
+			</c:choose>
+			<%
+				
+			%>
+		</table>
+		<!-- 페이지 추가 -->
+		<div>
+			<ul style="margin-left: 50%;">
+				<c:if test="${pageMaker.prev}">
+					<a href="matchingboardlist.do?page=${pageMaker.startPage - 1}">이전</a>
+				</c:if>
+
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
+					var="idx">
+					<a href="matchingboardlist.do?page=${idx}">${idx}</a>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<a href="matchingboardlist.do?page=${pageMaker.endPage + 1}">다음</a>
+				</c:if>
+			</ul>
+
+		</div>
+	</div>
+
 
 	<!-- Footer -->
 	<%@ include file="inc/footer.jsp"%>
-
-	
-
 </body>
 
 </html>

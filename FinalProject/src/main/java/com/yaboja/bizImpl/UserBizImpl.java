@@ -11,10 +11,14 @@ import com.yaboja.dto.UserDto;
 @Service
 public class UserBizImpl implements UserBiz {
 
-	@Autowired
-	UserDaoImpl dao;
+   @Autowired
+   UserDaoImpl dao;
+
+
+
 
 	@Override
+
 
 	public UserDto selectOne(String id) {
 		UserDto dto=dao.selectOne(id);
@@ -36,4 +40,31 @@ public class UserBizImpl implements UserBiz {
 	public int updateUser(int userseq, String grade) {
 		return dao.updateUser(userseq,grade);
 	}
+	public UserDto selectOne(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.selectOne(userseq);
+
+	}
+
+
+   @Override
+   public UserDto getLogin(String userid, String userpw) {
+      return dao.getLogin(userid,userpw);
+   }
+
+   @Override
+   public UserDto selectOne1(String userid) {
+      return dao.selectOne1(userid);
+   }
+
+   @Override
+   public int update(UserDto dto) {
+      return dao.update(dto);
+   }
+
+   @Override
+   public int delete(String userid) {
+      return dao.delete(userid);
+   }
 }
+

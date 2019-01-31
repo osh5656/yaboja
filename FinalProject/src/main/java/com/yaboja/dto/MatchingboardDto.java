@@ -23,19 +23,42 @@ public class MatchingboardDto {
     private Date matchingboarddate;
 
     // 영화관 
-    private String cinema;
+    private int cinemaseq;
+    
 
-    // 성별 
-    private String usersex;
+//    // 성별 
+//    private String usersex;
+//
+//    // 프로필사진 
+//    private String userprofile;
+    
+    public MatchingboardDto() {
+    	super();
+        }
+    
+    public MatchingboardDto(int username, int movieseq, int userseq, String matchingboardtitle,
+    		String matchingboardcontent, Date matchingboarddate, int cinemaseq) {
+    	super();
+    	
+    	this.movieseq = movieseq;
+    	this.userseq = userseq;
+    	this.matchingboardtitle = matchingboardtitle;
+    	this.matchingboardcontent = matchingboardcontent;
+    	this.matchingboarddate = matchingboarddate;
+    	this.cinemaseq = cinemaseq;
+    }
+    
+	public MatchingboardDto(String matchingboardtitle, Date matchingboarddate) {
+		super();
+		this.matchingboardtitle = matchingboardtitle;
+		this.matchingboarddate = matchingboarddate;
+	}
 
-    // 프로필사진 
-    private String userprofile;
-
-    public int getMatchingboard() {
+	public int getMatchingboard() {
         return matchingboard;
     }
 
-    public void setMatchingboard(int matchingboard) {
+	public void setMatchingboard(int matchingboard) {
         this.matchingboard = matchingboard;
     }
 
@@ -79,27 +102,27 @@ public class MatchingboardDto {
         this.matchingboarddate = matchingboarddate;
     }
 
-    public String getCinema() {
-        return cinema;
+    public int getCinemaseq() {
+        return cinemaseq;
     }
 
-    public void setCinema(String cinema) {
-        this.cinema = cinema;
+    public void setCinemaseq(int cinemaseq) {
+        this.cinemaseq = cinemaseq;
     }
 
-    public String getUsersex() {
-        return usersex;
-    }
-
-    public void setUsersex(String usersex) {
-        this.usersex = usersex;
-    }
-
-    public String getUserprofile() {
-        return userprofile;
-    }
-
-    public void setUserprofile(String userprofile) {
-        this.userprofile = userprofile;
-    }
+//    public String getUsersex() {
+//        return usersex;
+//    }
+//
+//    public void setUsersex(String usersex) {
+//        this.usersex = usersex;
+//    }
+//
+//    public String getUserprofile() {
+//        return userprofile;
+//    }
+//
+//    public void setUserprofile(String userprofile) {
+//        this.userprofile = userprofile;
+//    }
 }

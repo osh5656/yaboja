@@ -62,14 +62,15 @@
 
 	<!-- 관리자 / 사용자,탈퇴회원들 로 매뉴바 구성 -->
 	<!-- Menu Bar -->
+
 	<c:choose>
 		<c:when test="${dto.usergrade eq 'admin'}">
 			<nav class="nav2">
 			<!-- 메뉴바 -->
 			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href=""><strong>Matching Board</strong></a> 
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
 			<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
-			<a href=""><strong>Q&A Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
 			<a href="adminPreferences.do"><strong>preferences</strong></a>
 			<div class="nav-underline"></div>
 			</nav>		
@@ -78,16 +79,17 @@
 			<nav class="nav2">
 			<!-- 메뉴바 -->
 			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href=""><strong>Matching Board</strong></a> 
-			<a href="reviewBoard.jsp"><strong>Review Board</strong></a> 
-			<a href=""><strong>Q&A Board</strong></a> 
-			<a href="myPage.jsp"><strong>My Page</strong></a>
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
+			<a href="reviewboard.do"><strong>Review Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
+			<a href="mypage.do"><strong>My Page</strong></a>
 			<div class="nav-underline"></div>
 			</nav>		
 		</c:otherwise>
 	</c:choose>
 	
 	
+
 	<!-- Movie List -->
 	
 	<%@ include file="inc/movielist.jsp"%>

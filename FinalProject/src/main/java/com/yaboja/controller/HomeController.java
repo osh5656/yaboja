@@ -1,10 +1,15 @@
 package com.yaboja.controller;
+
+
+import java.io.File;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yaboja.biz.MatchingboardBiz;
 import com.yaboja.biz.UserBiz;
 import com.yaboja.dto.UserDto;
 
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class HomeController {
 
@@ -47,5 +54,25 @@ public class HomeController {
 		return "home";
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	public String getMain() {
+		
+		return "main";
+		
+	}
+
 	
+
+	
+
+	
+	
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	   public String getMypage() {
+	      return "mypage";
+	   }
+
+
 }

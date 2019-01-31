@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+   pageEncoding="UTF-8"%>
+<%
+   String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 
 <head>
@@ -18,13 +21,13 @@
 
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
+   rel="stylesheet" type="text/css">
 <link
-	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
-	rel='stylesheet' type='text/css'>
+   href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+   rel='stylesheet' type='text/css'>
 <link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
+   href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+   rel='stylesheet' type='text/css'>
 
 
 
@@ -33,77 +36,102 @@
 <!-- Content -->
 <link href="css/index_content.css" rel="stylesheet">
 <!-- jQuery -->
-	<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+   src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+   src="<%=ctx%>/resource/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+   var oEditors = [];
+   $(function() {
+      nhn.husky.EZCreator.createInIFrame({
+         oAppRef : oEditors,
+         elPlaceHolder : "ir1", //textarea에서 지정한 id와 일치해야 합니다. 
+         //SmartEditor2Skin.html 파일이 존재하는 경로
+         sSkinURI : "resource/SE2/SmartEditor2Skin.html",
+         htParams : {
+            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseToolbar : true,
+            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseVerticalResizer : true,
+            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseModeChanger : true,
+            fOnBeforeUnload : function() {
+
+            }
+         },
+         fOnAppLoad : function() {
+            //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+            oEditors.getById["ir1"].exec("PASTE_HTML", [ "" ]);
+
+         },
+         fCreator : "createSEditor2"
+      });
+
+      //저장버튼 클릭시 form 전송
+      $("#save").click(function() {
+         oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+
+         $("#frm").submit();
+      });
+   });
+</script>
 
 </head>
 
 <body>
 
 
-	<!-- Navigation -->
-	<%@ include file="inc/topbar.jsp"%>
+   <!-- Navigation -->
+   <%@ include file="inc/topbar.jsp"%>
 
 
-	<!-- Menu Bar -->
-	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href=""><strong>Matching
-				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
-				Board</strong></a> <a href=""><strong>My Page</strong></a>
-		<div class="nav-underline"></div>
-	</nav>
-	
-	<!-- 영화매칭, 마이페이지말고는 여기부터 소스 넣으면 돼!!! -->
+   <!-- Menu Bar -->
+   <nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+      <!-- 메뉴바 -->
+      <a href=""><strong>Movie Board</strong></a> <a href=""><strong>Matching
+            Board</strong></a> <a href="reviewboard.do"><strong>Review Board</strong></a> <a href=""><strong>Q&A
+            Board</strong></a> <a href=""><strong>My Page</strong></a>
+      <div class="nav-underline"></div>
+   </nav>
 
-	<div class="container">
-	<h2>후기게시판(글쓰기)</h2>
-		<form action="#">
-		<select class="form-control form-control-lg" name="point_val">
-						<option value="">영화를 선택해주세요.</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-						<option value="">영화제목</option>
-					</select>
-		<div class="form-group">
-			제목 : <input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요" maxlength="20">
-		</div>
-		<div class="form-group">
-			작성자 : <input type="text" name="username" value="${userDto.user_name }" readonly="readonly" class="form-control">
-		</div>
-		<div class="form-group">
-			내용 : <textarea class="form-control" name="content" placeholder="내용을 입력해주세요" maxlength="2048" style="height: 350px"></textarea>
-		</div>
-			<input type="button" value="취소" class="btn btn-default pull-right" onclick="#">
-			<input type="submit" value="작성" class="btn btn-default pull-right">
-		</form>
-	</div>
-	
-	<!-- Footer -->
-	<%@ include file="inc/footer.jsp"%>
+   <!-- 영화매칭, 마이페이지말고는 여기부터 소스 넣으면 돼!!! -->
 
-	
+   <div class="container">
+      <h2>후기게시판(글쓰기)</h2>
+      <form action="review_Insert.do" id="frm">
+        <input type="hidden" name="userseq" value="${dto.userseq }"/>
+         <table class="table">
+            <tr>
+               <th>영화제목</th>
+               <td><input type="text" id="movietitle" name="movietitle"/></td>
+            </tr>
+            <tr>
+               <th>제목</th>
+               <td><input type="text" id="reviewboardtitle"
+                  name="reviewboardtitle" /></td>
+            </tr>
+            <tr>
+               <th>작성자</th>
+               <td><input type="text"  value="${dto.username }"
+                  readonly="readonly" /></td>
+            </tr>
+            <tr>
+               <th>내용</th>
+               <td><input type="text" id="ir1" name="reviewboardcontent" style="overflow-y : scroll; width: 100%; height: 500px;"/></td>
+            </tr>
+
+         </table>
+         <input type="button" value="취소" class="btn btn-default pull-right"
+            onclick="location.href='reviewboard.do'"> <input
+            type="button" value="작성" id="save" class="btn btn-default pull-right">
+      </form>
+   </div>
+
+   <!-- Footer -->
+   <%@ include file="inc/footer.jsp"%>
+
+
 
 </body>
 

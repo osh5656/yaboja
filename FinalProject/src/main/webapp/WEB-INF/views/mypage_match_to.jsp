@@ -1,5 +1,15 @@
+<%@page import="com.yaboja.dto.MatchingboardDto"%>
+<%@page import="com.yaboja.dto.UserDto"%>
+<%@page import="com.yaboja.dto.MatchingDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	List<MatchingDto> matchingList = (List)request.getAttribute("matchingList");
+	List<UserDto> userList = (List)request.getAttribute("userList");
+	MatchingboardDto boarddto =  (MatchingboardDto)request.getAttribute("boarddto");
+			
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +22,8 @@
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,18 +50,23 @@
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
 
+<script type="text/javascript">
 
+function deletecheck() {
+	if(confirm("신청한 매칭을 삭제하시겠습니까?")){
+		var matchingseq = document.getElementById('matchingseq').value;
+		location.href='matchingdelete.do?matchingseq='+matchingseq;
 
-
-
-
-
-
-
+		alert('삭제되었습니다');
+		
+	}else{
+		alert('잘해보세요');
+	}
+}
+</script>
 </head>
 
 <body>
-
 
 	<!-- Navigation -->
 	<%@ include file="inc/topbar.jsp"%>
@@ -68,72 +85,90 @@
 	<%@ include file="inc/mypagesidebar.jsp"%>
 
 	<!-- 마이페이지 부분 소스는 여기부터 작성!! -->
-	</br>
-	</br>
+	<br/>
+	<br/>
+	<input type="hidden" id="matchingseq" value="${ matchingdto.matchingseq}"/>
 	<div class="container">
 		<div>
 			<h1>마이페이지_매칭관리</h1>
 		</div>
-		</br> </br>
+		<br/> <br/>
 		<div>
 			<h3>신청한 매칭</h3>
 		</div>
+		
+		<c:choose>
+			<c:when test="${empty matchingdto }">
+			<br/>
+			<h4>------------------------------ 신청한 매칭이 없습니다 ------------------------------</h4>
+			</c:when>
+			<c:otherwise>
+		<div align ="center">
+			<h3>-----------------------------------------<fmt:formatDate pattern =" yyyy-MM-dd " value ="${matchingdto.matchingdate}" />-----------------------------------------</h3>
+		</div>
+		<br/>
+		<table border="1" class="table table-hover">
+			<tr>
+				<td style="width: 88px;" rowspan="2"><c:out value="${writerUser.userprofile }" /></td>
+				<td><c:out value="${writerUser.username }" /></td>
+				<td rowspan="2" style="width: 98px;" align="center"><input
+					type="button" value="취소" onclick="deletecheck()" class="btn btn-default"></td>
+			</tr>
+			<tr>
+				<td><c:out value="${matchingboarddto.matchingboardtitle }" /></td>
+			</tr>
+		</table>
+			</c:otherwise>
+		</c:choose>
+		
+		<br/>
+
+		<div>
+			<h3>신청받은 매칭</h3>
+		</div>
+		
 		<div>
 			<h3>-----------------------------------------------2019-01-11----------------------------------------------------------</h3>
 		</div>
 		</br>
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-		</br>
+<%
+		if(matchingList.size() == 0){
+%>			
+		<div>
+			<h3>----------------------------------------------신청 받은 매칭이 없습니다.---------------------------------------------------</h3>
+		</div>
+<%		
+		}else{
+			for(int i = 0 ; i < matchingList.size() ; i++){
+%>	
+				<table border="1" class="table table-hover">
+					<tr>
+						<td style="width: 88px;" rowspan="2"><img alt="" src="<%= userList.get(i).getUserprofile()%>"></td>
+						<td style="font-weight: bold;">신청자</td>
+						<td><%= userList.get(i).getUsername()%></td>
+						<td style="font-weight: bold;">성별</td>
+						<td><%= userList.get(i).getUsersex()%></td>
+						<td style="font-weight: bold;">나이</td>
+						<td><%= userList.get(i).getUserage()%></td>
+						<td rowspan="2" style="width: 98px;" align="center"><input
+							type="button" value="수락" onclick="location.href='acceptance.do?matchingapplicant=<%= userList.get(i).getUserseq()%>'" class="btn btn-default"></td>
+						<td rowspan="2" style="width: 98px;" align="center"><input
+							type="button" value="거절" onclick="location.href='rejectionOne.do?matchingapplicant=<%= userList.get(i).getUserseq()%>'" class="btn btn-default"></td>
+					</tr>
+					<tr>
+						<td colspan ="6"><%= boarddto.getMatchingboardtitle()%></td>
+					</tr>
+			</table>
+<%				
+			}
+		}
+%>
+		
+		<br/>
+	
+		
+		<br/>
 
-
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-		</br>
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-
-		</br>
-		<table border="1" class="table table-hover">
-			<tr>
-				<td style="width: 88px;" rowspan="2">사진</td>
-				<td>사용자명</td>
-				<td rowspan="2" style="width: 98px;" align="center"><input
-					type="button" value="취소" onclick="" class="btn btn-default"></td>
-			</tr>
-			<tr>
-				<td>게시글 명</td>
-			</tr>
-		</table>
-
-		<div align="center">< 1 2 3 4 5 6 7 8 9 10 ></div>
 	</div>
 
 

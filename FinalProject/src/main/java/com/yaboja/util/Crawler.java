@@ -45,8 +45,8 @@ public class Crawler {
 
 	private void setSeqAndState(ArrayList<MovieDto> movies) {
 		for(int i = 0 ; i < movies.size() ; i++) {
-			movies.get(i).setMovieSeq(i);
-			movies.get(i).setMovieState("상영작");
+			movies.get(i).setMovieseq(i);
+			movies.get(i).setMoviestate("상영작");
 		}
 		
 	}
@@ -61,7 +61,7 @@ public class Crawler {
 			if (elements.size() > 1) {
 				for (Element element : elements) {
 					MovieDto movie = new MovieDto();
-					movie.setMovieTitle(element.text());
+					movie.setMovietitle(element.text());
 					movies.add(movie);
 				}
 			} else {
@@ -88,7 +88,7 @@ public class Crawler {
 					String str = element.html();
 					String imgUrl = getImgUrl(str).trim();
 					String movieCode = getMovieCode(str).trim();
-					movies.get(i).setImgUrl(imgUrl);
+					movies.get(i).setImgurl(imgUrl);
 					movies.get(i).setCode(movieCode);
 					i++;
 				}
@@ -154,7 +154,7 @@ public class Crawler {
 					
 					movies.get(i).setGenre(genre);
 					movies.get(i).setTime(time);
-					movies.get(i).setPupDate(pupDate);
+					movies.get(i).setPupdate(pupDate);
 					movies.get(i).setDirector(director);
 					movies.get(i).setActor(actor);
 					i++;

@@ -260,7 +260,7 @@ hr.small {
 						
 				<%
 							if (dto.getUsergrade().equals("admin")) {
-				%>				<a class="navbar-brand" href="logout.do" style="float: right;">Logout</a>
+				%>				<a class="navbar-brand" href="logout.do?userpw=yaboja" style="float: right;">Logout</a>
 								<a class="navbar-brand" href="joincheck.do" style="float: right;">관리자님 </a>
 
 				<%
