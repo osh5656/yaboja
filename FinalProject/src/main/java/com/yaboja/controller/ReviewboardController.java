@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -165,50 +167,102 @@ public class ReviewboardController {
 	}
 
 	@RequestMapping(value = "/review_Insert.do")
-	public void insert(Model model, ReviewboardDto dto, HttpSession session, HttpServletResponse response)
-			throws IOException {
-		UserDto userdto = (UserDto) session.getAttribute("dto");
-		model.addAttribute("reviewboarddto", reviewBiz.insert(dto));
-		model.addAttribute("list", reviewBiz.selectList());
-
-		response.sendRedirect("reviewboard.do");
-
+	public void insert(Model model, HttpSession session, HttpServletResponse response,String userseq, String movietitle,String reviewboardtitle, String reviewboardcontent) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		MovieDto movieDto = null;
+		movieDto = reviewBiz.getmovietitle(movietitle);
+		ReviewboardDto reviewboardDto = new ReviewboardDto();
+		reviewboardDto.setUserseq(Integer.parseInt(userseq));
+		reviewboardDto.setReviewboardcontent(reviewboardcontent);
+		reviewboardDto.setReviewboardtitle(reviewboardtitle);
+		reviewboardDto.setMovietitle(movieDto.getMovieseq());
+		
+		int res = reviewBiz.insert(reviewboardDto);
+		if(res > 0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('글 작성 성공');location.href='reviewboard.do';</script>");
+			out.close();
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('데이터베이스 오류');history.back();</script>");
+			out.close();
+		}
 	}
 
 	@RequestMapping(value = "/review_detail.do")
-	public String detail(int reviewboardseq, Model model, ReviewboardDto dto) {
+	public String detail(int reviewboardseq, Model model) {
 		ReviewboardDto reviewboarddto = reviewBiz.selectOne(reviewboardseq);
 
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
+		MovieDto movieDto = reviewBiz.getMovie(map);
+		System.out.println("detail_movieDto>>>>>>>>" + movieDto);
+
 		model.addAttribute("reviewboarddto", reviewboarddto);
+		model.addAttribute("movieDto",movieDto);
 		model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq())));
 
 		System.out.println("detail : " + reviewboardseq);
+		System.out.println(movieDto.getMovietitle() + "//detail_영화제목");
 		return "review_detail";
 	}
+
 
 	@RequestMapping(value = "/review_updateform.do", method = RequestMethod.POST)
 	public String updateform(Model model, int reviewboardseq) {
 		ReviewboardDto reviewboarddto = reviewBiz.selectOne(reviewboardseq);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
+		MovieDto movieDto = reviewBiz.getMovie(map);
+		model.addAttribute("movieDto",movieDto);
+		
+		System.out.println(movieDto.getMovietitle() + "//updateform_영화제목");
 
-		model.addAttribute("reviewboarddto", reviewboarddto);
-		model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq())));
+		model.addAttribute("reviewboarddto", reviewboarddto); //작성글의 리뷰보드dto
+		model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq()))); //작성글의 작성자 userdto
 		System.out.println("updateform : " + reviewboardseq);
 		return "review_update";
 
 	}
 
-	@RequestMapping(value = "/review_update.do")
-	public String update(Model model, ReviewboardDto dto, int reviewboardseq) {
-		int res = reviewBiz.update(dto);
-		System.out.println(reviewboardseq);
+	@RequestMapping(value = "/review_update.do",method = RequestMethod.POST)
+	public String update(Model model,HttpServletResponse response ,HttpSession session,int reviewboardseq,String reviewboardtitle, String reviewboardcontent) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+	
+		ReviewboardDto reviewboardDto = new ReviewboardDto();
+		ReviewboardDto reviewboarddto = reviewBiz.selectOne(reviewboardseq);
+		reviewboardDto.setReviewboardseq(reviewboardseq);
+		reviewboardDto.setReviewboardtitle(reviewboardtitle);
+		reviewboardDto.setReviewboardcontent(reviewboardcontent);
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
+		
+		
+		int res = reviewBiz.update(reviewboardDto);
+
+		System.out.println("reviewupdate.do확인"+reviewboardseq);
+		MovieDto movieDto = null;
+		
+		movieDto = reviewBiz.getMovie(map);
+		System.out.println("MOVIEDTO확인>>>>>>>>>"+ movieDto);
 
 		if (res > 0) {
 			System.out.println("수정성공");
-			model.addAttribute("reviewboarddto", reviewBiz.selectOne(reviewboardseq));
+			model.addAttribute("reviewboarddto",reviewBiz.selectOne(reviewboardseq));
+			model.addAttribute("movieDto",movieDto);
+			model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq())));
 			return "review_detail";
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('수정실패');history.back();</script>");
+			out.close();
+			System.out.println("수정실패");
+			return null;
 		}
-		System.out.println("수정실패");
-		return "review_update";
+		
 	}
 
 	@RequestMapping(value = "/reviewDelete.do")

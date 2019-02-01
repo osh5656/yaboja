@@ -136,4 +136,22 @@ public class ReviewboardDaoImpl implements ReviewboardDao {
 		return sqlSession.selectOne(namespace + "countSearch", scri);
 	}
 
+	@Override
+	public MovieDto getmovietitle(String movietitle) {
+		MovieDto dto = sqlSession.selectOne(namespace + "movietitle",movietitle); 
+		return dto;
+	}
+
+	@Override
+	public MovieDto getMovie(Map<String,String> map) {
+		MovieDto movieDto = null;
+		try {
+			movieDto = sqlSession.selectOne(namespace+"getMovie",map);
+		} catch(Exception e) {
+			System.out.println("getMovie 에러");
+			e.printStackTrace();
+		}
+		return movieDto;
+	}
+
 }

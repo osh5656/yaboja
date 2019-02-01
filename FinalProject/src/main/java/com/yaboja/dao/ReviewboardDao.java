@@ -1,6 +1,7 @@
 package com.yaboja.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yaboja.dto.Criteria;
 import com.yaboja.dto.MovieDto;
@@ -9,19 +10,16 @@ import com.yaboja.dto.SearchCriteria;
 
 public interface ReviewboardDao {
 	String namespace = "reviewboard.";
-	public List<MovieDto> movieList();
-
 	public List<ReviewboardDto> selectList();
-
+	public List<MovieDto> movieList();
+	public MovieDto getmovietitle(String movietitle);
+	public MovieDto getMovie(Map<String,String> map);
 	public ReviewboardDto selectOne(int reviewboardseq);
-
 	public int insert(ReviewboardDto dto);
-
 	public int update(ReviewboardDto dto);
-
 	public int delete(int reviewboardseq);
-
 	public int viewupdate(int reviewboardseq);
+
 	// 수호 추가
 	public MovieDto selectOne1(int movieseq);
 

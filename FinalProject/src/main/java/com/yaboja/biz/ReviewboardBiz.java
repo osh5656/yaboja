@@ -13,6 +13,10 @@ public interface ReviewboardBiz {
 	// 진선 추가
 	public List<MovieDto> movieList();
 
+	// 영화제목얻어오기
+	public MovieDto getmovietitle(String movietitle);
+	public MovieDto getMovie(Map<String, String> map);
+
 	// 진선 추가
 	public MovieDto selectOne1(int movieseq);
 

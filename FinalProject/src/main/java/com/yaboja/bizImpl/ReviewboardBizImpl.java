@@ -1,6 +1,7 @@
 package com.yaboja.bizImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,6 +97,16 @@ public class ReviewboardBizImpl implements ReviewboardBiz {
 	public int countSearch(SearchCriteria scri) {
 		System.out.println("진선쓰 페이징 2단계 성공 ReviewboardBizlmpl");
 		return dao.countSearch(scri);
+	}
+
+	@Override
+	public MovieDto getmovietitle(String movietitle) {
+		return dao.getmovietitle(movietitle);
+	}
+
+	@Override
+	public MovieDto getMovie(Map<String, String> map) {
+		return dao.getMovie(map);
 	}
 
 }

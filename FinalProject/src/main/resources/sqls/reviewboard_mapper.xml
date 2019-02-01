@@ -16,7 +16,7 @@
   
    <update id="update" parameterType="ReviewboardDto">
    UPDATE REVIEWBOARD SET 
-   MOVIETITLE = #{movietitle}, REVIEWBOARDTITLE = #{reviewboardtitle}, REVIEWBOARDCONTENT = #{reviewboardcontent} 
+   REVIEWBOARDTITLE = #{reviewboardtitle}, REVIEWBOARDCONTENT = #{reviewboardcontent} 
    WHERE REVIEWBOARDSEQ = #{reviewboardseq}
    </update>
   
@@ -33,6 +33,13 @@
    <select id="movieAll" resultType="com.yaboja.dto.MovieDto">
 		SELECT * FROM MOVIE ORDER BY
 		MOVIESEQ DESC
+	</select>
+	
+	<select id="movietitle" parameterType="String" resultType="com.yaboja.dto.MovieDto">
+		SELECT * FROM MOVIE WHERE MOVIETITLE = #{movietitle}
+	</select>
+	<select id="getMovie" parameterType="map" resultType="com.yaboja.dto.MovieDto">
+		SELECT * FROM MOVIE WHERE MOVIESEQ = TO_NUMBER(#{movietitle})
 	</select>
    
    <select id="listPage" resultType="ReviewboardDto"
