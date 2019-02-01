@@ -95,4 +95,16 @@ public class ChattingDaoImpl implements ChattingDao {
 		
 		return res;
 	}
+	@Override
+	public int getAllUnreadChat(int userseq) {
+	      int res = 0;
+	      
+	      try {
+	         res = sqlSession.selectOne(namespace+"getAllUnreadChat",userseq);
+	      }catch(Exception e) {
+	    	  System.out.println("getAllUnreadChat 에러");
+	         e.printStackTrace();
+	      }
+	      return res;
+	   }
 }

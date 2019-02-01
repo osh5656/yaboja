@@ -15,5 +15,7 @@
 	<update id="readChat" parameterType="ChattingDto">
 		 UPDATE CHATTING SET CHATREAD = 1 WHERE (USERSEQ1 = #{userseq2} AND USERSEQ2 = #{userseq1})
 	</update>
-	
+	<select id="getAllUnreadChat" parameterType="int" resultType="int">
+      SELECT COUNT(*) FROM CHATTING WHERE USERSEQ2 = #{userseq} AND CHATREAD = 0
+   	</select>
 </mapper>

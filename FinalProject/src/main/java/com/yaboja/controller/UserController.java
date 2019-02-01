@@ -193,11 +193,24 @@ public class UserController {
         // 저장 경로 설정
 //    	String path=WebUtils.getRealPath(request.getSession().getServletContext(), "/profile");
     	String path="C:\\Users\\shine\\git\\yaboja\\FinalProject\\src\\main\\webapp\\profile";
-//    	String path="/profile";
 //    	String path="./../../../../../src/main/webapp/profile"; 
-//    	String path=System.getProperty("user.dir");
-//    	System.out.println("////sdfadsf///////"+path);
+
+    	File path2 = new File("C:\\Users\\");
+    	File[] fileList = path2.listFiles(); 
+    	String tmp=""; 
     	
+    	if(fileList.length > 0){
+    	    for(int i=0; i < fileList.length; i++){
+    	    	System.out.println(fileList[i]);
+    	    	tmp=fileList[i]+"\\git\\yaboja\\FinalProject\\src\\main\\webapp\\profile";
+    	    	File file= new File(tmp);
+    	    	if(file.isDirectory()) {
+    	    		path=tmp;
+    	    	}
+    	    	
+    	    }
+    	}
+    	System.out.println("!!!!"+path);
         String newFileName = ""; // 업로드 되는 파일명
          
         File dir = new File(path);

@@ -1,4 +1,3 @@
-
 <%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -232,7 +231,39 @@ hr.small {
 	}
 }
 </style>
+	<!-- jQuery -->
+	<script src="vendor/jquery/jquery.min.js"></script>
 
+<%if(session.getAttribute("dto")!=null){ %>
+<script type="text/javascript">
+
+		$(document).ready(function() {
+			getUnread();
+			setInterval(function(){getUnread();} , 4000);
+		});
+
+	</script>
+
+<script type="text/javascript">
+function getUnread(){
+	
+	 $.ajax({
+	       type: "POST",
+	       data:{
+	          userseq: encodeURIComponent(<%= ((UserDto)session.getAttribute("dto")).getUserseq() %>)},
+	       url: "chatUnread.do",
+	       success: function(result){
+	          if(result >= 1){
+	             $('#unread').html(result);
+	          }else{
+	        	  $('#unread').html("0");
+	          }
+	       }
+	    });
+ }
+
+</script>	
+<%} %>	
 </head>
 <!---------------------------------------바디 바디 바디----------------------------------->
 <body>
@@ -253,7 +284,8 @@ hr.small {
 					UserDto dto = (UserDto) session.getAttribute("dto");
 					if (dto == null) {
 				%>
-				<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a> <a class="navbar-brand" href="joincheck.do" style="float: right;">Join</a>
+				<a class="navbar-brand" href="loginform.do" data-toggle="modal" data-target="#myModal" style="float: right;">Login</a> 
+				<a class="navbar-brand" href="joincheck.do" style="float: right;">Join</a>
 				<%
 					} else {
 				%>
@@ -267,7 +299,7 @@ hr.small {
 							} else {
 				%>
 								<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
-								<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">0</span></i> 
+								<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unread"></span></i> 
 								<%if(dto.getUserpw().equals("kakao")){ %>
 								<a class="navbar-brand" href="logout.do?userpw=<%=dto.getUserpw() %>" style="float: right;">Logout</a>
 								<%}else{ %>
@@ -300,8 +332,7 @@ hr.small {
 	</div>
 
 
-	<!-- jQuery -->
-	<script src="vendor/jquery/jquery.min.js"></script>
+
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
