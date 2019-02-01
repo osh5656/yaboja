@@ -82,8 +82,8 @@
          <tr>
             <td><input type="hidden" name="reviewboardseq" value="${reviewboarddto.reviewboardseq }"></td>
          <tr>
-         <tr>
-            <td>영화제목 : <input name="movietitle" value="${reviewboarddto.movietitle}" readonly="readonly">
+           <tr>
+            <td>영화제목 : <input name="movietitle" class="form-control" value="${movieDto.movietitle }" readonly="readonly">
          </tr>
             <tr>
                <td>작성자 : <input type="text" value="${userdto.username }" readonly="readonly"class="form-control">
@@ -105,6 +105,7 @@
             <input type="submit" class="btn btn-default pull-right" value="수정">
             </c:when>
          </c:choose>
+         	<input type="button" class="btn btn-default pull-left" value="뒤로가기" onclick="location.href='reviewboard.do'">
 		</form>
 	</div>
 

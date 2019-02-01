@@ -89,61 +89,37 @@
 
 
    <!-- Menu Bar -->
-   <c:choose>
-		<c:when test="${dto.usergrade eq 'admin'}">
-			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="adminPreferences.do"><strong>preferences</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
-		</c:when>
-		<c:otherwise>
-			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewboard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="mypage.do"><strong>My Page</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
-		</c:otherwise>
-	</c:choose>
+   <nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+      <!-- 메뉴바 -->
+      <a href=""><strong>Movie Board</strong></a> <a href=""><strong>Matching
+            Board</strong></a> <a href="reviewboard.do"><strong>Review Board</strong></a> <a href=""><strong>Q&A
+            Board</strong></a> <a href=""><strong>My Page</strong></a>
+      <div class="nav-underline"></div>
+   </nav>
    
    <!-- 영화매칭, 마이페이지말고는 여기부터 소스 넣으면 돼!!! -->
    <input type="hidden" name="userseq" value="${dto.userseq }"/>
    <div class="container">
    <h2>후기게시판(수정)</h2>
-   <form action="review_update.do" id="frm">
+   <form action="review_update.do" id="frm" method="post">
       <div>
          <input type="hidden" name="reviewboardseq" value="${reviewboarddto.reviewboardseq }">
       </div>
       <div class="form-group">
-         영화제목 : <input type="text" class="form-control" name="movietitle" value="${reviewboarddto.movietitle }" maxlength="20">
+         영화제목 : <input type="text" class="form-control" name="movietitle" value="${movieDto.movietitle }" readonly="readonly">
       </div>
       <div class="form-group">
          제목 : <input type="text" class="form-control" name="reviewboardtitle" value="${reviewboarddto.reviewboardtitle }" maxlength="20">
       </div>
       <div class="form-group">
-         작성자 : <input type="text" value="${userdto.username }" readonly="readonly" class="form-control">
+         작성자 : <input type="text" value="${dto.username }" readonly="readonly" class="form-control">
       </div>
       <div class="form-group">
          내용 : <textarea id="ir1" name="reviewboardcontent" style="overflow-y : scroll; width: 100%; height: 350px;">${reviewboarddto.reviewboardcontent }</textarea>
       </div>
-      <c:choose>
-         <c:when test="${UserDto.userseq == ReviewboardDto.userseq }">
-         <button class="btn btn-default pull-right" onclick="location.href='review_detail.do'">취소</button>
+    
+         <input type="button" value="취소" onclick="location.href='review_detail.do'" class="btn btn-default pull-right">
          <input type="button" value="수정" class="btn btn-default pull-right" id="save">
-         </c:when>
-         <c:when test="${UserDtoUser != ReviewboardDto.userseq }">
-         <input type="hidden" onclick="location.href='review_detail.do'" value="취소">
-         <input type="hidden" value="수정">
-         </c:when>
-      </c:choose>
       </form>
    </div>
    

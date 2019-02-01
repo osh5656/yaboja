@@ -93,16 +93,4 @@ public class HomeController {
 
 	}
 
-
-
-	
-
-	
-	
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	   public String getMypage() {
-	      return "mypage";
-	   }
-
-
 }

@@ -1,5 +1,6 @@
 package com.yaboja.daoImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.yaboja.dao.UserDao;
+import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.dto.UserDto;
 
 @Repository
@@ -31,7 +33,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public UserDto selectOne(int userseq) {
-		// TODO Auto-generated method stub
 		UserDto dto = null;
 
 		try {
@@ -137,6 +138,25 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int delete(String userid) {
 		int res = sqlSession.delete(namespace + "userDelete", userid);
+		return res;
+	}
+	
+	@Override
+	public int gradeUpdate(UserDto dto) {
+		int res = sqlSession.update(namespace + "userDelete",dto);
+		return res;
+	}
+
+	@Override
+	public List<ReviewboardDto> myboardList(int userseq) {
+		List<ReviewboardDto> res = new ArrayList<ReviewboardDto>();
+		try {
+			res = sqlSession.selectList(namespace + "myboard", userseq);
+			
+		} catch (Exception e) {
+			System.out.println("내게시글출력실패");
+			e.printStackTrace();
+		}
 		return res;
 	}
 }

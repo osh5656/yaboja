@@ -75,6 +75,14 @@
          $("#frm").submit();
       });
    });
+   
+
+	function movieSearch() {
+		// window.name = "부모창 이름";
+		
+		window.open("movieSearch.do", "movieSearch",
+				"width=400, height=300, left=100, top=50");
+	}
 </script>
 
 </head>
@@ -120,7 +128,9 @@
          <table class="table">
             <tr>
                <th>영화제목</th>
-               <td><input type="text" id="movietitle" name="movietitle"/></td>
+               	<td><input type="text" name="movietitle" 
+						id="pInput" /> <input type="button" value="검색"
+						class="btn btn-dfault" onclick="movieSearch()" /></td>
             </tr>
             <tr>
                <th>제목</th>
