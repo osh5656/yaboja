@@ -8,8 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<c:redirect url="coin_payment_use.do?point_val_01=500" />
+	
+	
 	
 
 

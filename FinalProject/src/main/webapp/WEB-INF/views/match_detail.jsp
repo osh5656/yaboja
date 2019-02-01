@@ -4,7 +4,10 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	UserDto userDto = (UserDto)session.getAttribute("dto");
+	UserDto userDto = null;
+	if(session.getAttribute("dto") != null){
+		userDto = (UserDto)session.getAttribute("dto");
+	}
 	MatchingboardDto matchingboardDto = (MatchingboardDto)request.getAttribute("matchingboarddto");
 	MatchingboardDto mymatchingboardDto = (MatchingboardDto)request.getAttribute("mymatchingboarddto");
 	
@@ -162,14 +165,16 @@ body { font-family:'HY나무M'; }
 			<td colspan="3"><c:out value="${matchingboarddetail1.matchingboardcontent }" />
 							<br>
 <%
-int user = userDto.getUserseq();
+
 int boarduser = matchingboardDto.getUserseq();
 
-	if(user != boarduser){
+	if(userDto != null){
+		if(userDto.getUserseq() != boarduser){
 							
 %>									
 							<div align ="right"><button onclick="matchingcheck()" class ="btn btn default">매칭신청하기</button></div>
 <%
+		}
 	}
 %>						
 							</td>
@@ -179,12 +184,13 @@ int boarduser = matchingboardDto.getUserseq();
 	</table>	
 		<div align ="center">
 <%
-
-	if(user == boarduser){
-		
+	
+	if(userDto != null){
+		if(userDto.getUserseq() == boarduser){
 %>		
 		<button class ="btn btn default" onclick ="location.href='match_update.do?matchingboard=${matchingboarddetail1.matchingboard }'">수정</button><!-- 작성자만 -->
 <%
+		}
 	}
 %>		
 		<button class ="btn btn default" onclick ="location.href='matchingboardlist.do'">목록</button></div>
