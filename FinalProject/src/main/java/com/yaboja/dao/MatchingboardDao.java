@@ -17,6 +17,7 @@ public interface MatchingboardDao {
 	public int update(Map<String,String> map);
 	public MatchingboardDto getCinemaSeq(Map<String,String> map);
 	public int delete(int userseq);
+	public int deleteMatchingboard(int matchingboard);
 
 	
 	//목록 + 페이징
