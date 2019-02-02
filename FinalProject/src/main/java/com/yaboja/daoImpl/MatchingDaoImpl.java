@@ -55,6 +55,22 @@ public class MatchingDaoImpl implements MatchingDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int matchingcut(int matchingseq) {
+		int res = 0;
+		
+			try {
+				System.out.println("매칭컷1");
+				res = sqlSession.update(namespace+"matchingcut", matchingseq);
+				System.out.println("매칭컷");
+			} catch (Exception e) {
+				System.out.println("matchingCut 에러");
+				e.printStackTrace();
+			}
+		
+		return res;
+	}
 
 	@Override
 	public List<MatchingDto> getMatchingApplicant(int userseq) {
@@ -107,7 +123,6 @@ public class MatchingDaoImpl implements MatchingDao {
 	@Override
 	public MatchingDto matchSuccess(int userseq) {
 		MatchingDto matchingDto = null;
-		
 		try {
 			matchingDto = sqlSession.selectOne(namespace+"matchSuccess",userseq);
 		} catch(Exception e) {

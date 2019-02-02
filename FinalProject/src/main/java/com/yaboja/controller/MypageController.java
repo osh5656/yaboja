@@ -1,7 +1,14 @@
 package com.yaboja.controller;
 
+
 import java.util.List;
 
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yaboja.biz.CinemaBiz;
+import com.yaboja.biz.MatchingBiz;
+import com.yaboja.biz.MatchingboardBiz;
+import com.yaboja.biz.MovieBiz;
 import com.yaboja.biz.UserBiz;
 import com.yaboja.dto.ReviewboardDto;
+import com.yaboja.dto.CinemaDto;
+import com.yaboja.dto.MatchingboardDto;
+import com.yaboja.dto.MovieDto;
+
 import com.yaboja.dto.UserDto;
 
 @Controller
@@ -19,20 +34,75 @@ public class MypageController {
    
    @Autowired
    private UserBiz userBiz;
+   @Autowired
+   private MovieBiz movieBiz;
+   @Autowired
+   private CinemaBiz cinemaBiz;
+   @Autowired
+   private MatchingboardBiz matchingboardBiz;
+//   @Autowired
+//   private MatchingBiz matchingBiz;
    
-   @RequestMapping("/mypage.do")
-	public String mypage(Model model, HttpSession session) {
-		UserDto dto=(UserDto)session.getAttribute("dto");
-		int userseq = dto.getUserseq();
-		List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
-		
-		System.out.println(">>>>>>>내게시글 : " + reviewdto);
 
-		model.addAttribute("boardlist",reviewdto);
-		model.addAttribute("dto",userBiz.selectOne(userseq));
-		System.out.println("mypage : "+ userseq);
-		return "mypage";
-	}
+//   @RequestMapping("/mypage.do")
+//	public String mypage(Model model, HttpSession session) {
+//		UserDto dto=(UserDto)session.getAttribute("dto");
+//		int userseq = dto.getUserseq();
+//		List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+//		
+//		System.out.println(">>>>>>>내게시글 : " + reviewdto);
+//
+//		model.addAttribute("boardlist",reviewdto);
+//		model.addAttribute("dto",userBiz.selectOne(userseq));
+//		System.out.println("mypage : "+ userseq);
+//		return "mypage";
+//	}
+
+   @RequestMapping(value = "/mypage.do")
+   public String mypage(Model model, HttpSession session) {
+      UserDto dto=(UserDto)session.getAttribute("dto"); // 세션정보
+      int userseq = dto.getUserseq();
+      List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+      UserDto userdto = userBiz.selectOne(userseq);
+      MatchingboardDto matchingboarddto = matchingboardBiz.userOne(userdto.getUserseq());
+//      System.out.println("//"+matchingboarddto.getUserseq());
+      if(matchingboarddto ==null) {
+      }else {
+      MovieDto moviedto = movieBiz.selectOne(matchingboarddto.getMovieseq());
+      CinemaDto cinemadto = cinemaBiz.selectOne(matchingboarddto.getCinemaseq());
+      model.addAttribute("moviedto",moviedto);
+      model.addAttribute("cinemadto",cinemadto);
+      model.addAttribute("matchingboarddto", matchingboarddto);
+      }
+      model.addAttribute("boardlist",reviewdto);
+      model.addAttribute("dto",userdto);
+     
+      
+    
+      return "mypage";
+   }
+
+   
+   @RequestMapping(value = "/matchboarddelete.do")
+   public void matchboarddelete(Model model, MatchingboardDto matchingboarddto, HttpServletResponse response,HttpServletRequest request) throws IOException {
+	   
+	   response.setContentType("text/html; charset=utf-8"); 
+	   String matchingboard = request.getParameter("matchingboard");
+	   int res = matchingboardBiz.deleteMatchingboard(Integer.parseInt(matchingboard));
+	   
+	   	  if(res>0) {
+	         System.out.println("삭제성공");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('삭제 성공');location.href='mypage.do';</script>");
+	         out.close();
+	      }else {
+	         System.out.println("삭제실패");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('삭제 실패');location.href='mypage.do';</script>");
+	         out.close();
+	      }
+	   
+   }
    
    //회원정보 수정하러가기
    @RequestMapping("/mypage_updateform.do")

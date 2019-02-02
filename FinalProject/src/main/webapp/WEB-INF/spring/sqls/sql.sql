@@ -167,7 +167,7 @@ ALTER TABLE MATCHINGBOARD
 ALTER TABLE MATCHINGBOARD
    ADD CONSTRAINT UQ_MATCHINGBOARD_USERSEQ UNIQUE (USERSEQ);
 
-        
+SELECT * FROM MATCHINGBOARD;
         
 
    
@@ -306,5 +306,10 @@ delete from matchingboard;
 delete from chatting;
 
 INSERT INTO USERS VALUES(1000,'admin','123','최강일','1','남','20','서울','네이버',null,null,null,'admin');
+<<<<<<< HEAD
 
 delete from MATCHINGBOARD;
+=======
+INSERT INTO USERS VALUES(1000,'user1','123','유저일','1','남','20','서울','네이버',null,null,null,'user');
+
+>>>>>>> refs/heads/keonho

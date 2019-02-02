@@ -141,9 +141,9 @@ body {
 	
 		<div align="right">
 
-			<input type="text" name="keyword" placeholder="검색어를 입력하세요"></input> <input
-				onclick="searchclick()" type="button" value="검색"
-				class="btn btn default" />
+<!-- 			<input type="text" name="keyword" placeholder="검색어를 입력하세요"></input> <input -->
+<!-- 				onclick="searchclick()" type="button" value="검색" -->
+<!-- 				class="btn btn default" /> -->
 			<!--   <input type= "submit" value ="검색" class="btn btn default" onclick ='searchclick()'> -->
 
 			<input type="button" value="매칭만들기" class="btn btn default"
@@ -176,15 +176,13 @@ body {
 
 						<tr align="center">
 							<td><c:out value="${matchingboardlist2[i].username }" /></td>
-							<td><a
-								href="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }"><c:out
-										value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
+							<td><a href="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }">
+							<c:out value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
 							<td><c:out value="${matchingboardlist2[i].usersex }" /></td>
 							<td><c:out value="${matchingboardlist2[i].userage }" /></td>
 							<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
 							<td><c:out value="${matchingboardlist3[i].movietitle }" /></td>
-							<td><c:out
-									value="${matchingboardlist1[i].matchingboarddate }" /></td>
+							<td><fmt:formatDate pattern ="yyyy-MM-dd HH:mm:ss" value="${matchingboardlist1[i].matchingboarddate }" /></td>
 
 						</tr>
 					</c:forEach>
