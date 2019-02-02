@@ -45,9 +45,10 @@
    USERPW = #{userpw}, USERNAME = #{username}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}
    WHERE USERSEQ = #{userseq} 
    </update>
-   <delete id="userDelete">
-   DELETE FROM USERS WHERE USERID = #{userid}
-   </delete>
+   <update id="userDelete" parameterType="UserDto">
+   UPDATE USERS SET
+   USERGRADE = 'drop' WHERE USERSEQ = #{userseq}
+   </update>
    <!-- mypage 끝 -->
 
 

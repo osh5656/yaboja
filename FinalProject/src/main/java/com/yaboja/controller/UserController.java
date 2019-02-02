@@ -190,11 +190,13 @@ public class UserController {
     @RequestMapping(value = "fileUpload.do", method=RequestMethod.POST)
     @ResponseBody
     public String fileUp(String userid,MultipartHttpServletRequest multi, HttpServletRequest request) throws FileNotFoundException {
+
         // 저장 경로 설정	
     	String path="";
     	File file = new File("C:\\Users\\");
     	File[] fileList = file.listFiles(); 
     	String tmp=""; 
+
     	
     	if(fileList.length > 0){
     	    for(int i=0; i < fileList.length; i++){

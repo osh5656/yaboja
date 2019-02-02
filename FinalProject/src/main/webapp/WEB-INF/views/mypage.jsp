@@ -42,7 +42,10 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 <script type="text/javascript">
 	function userDelete() {
 		alert("탈퇴하시겠습니까?");
+		
+		
 		document.location.href = "userDelete.do";
+		
 	}
 </script>
 </head>

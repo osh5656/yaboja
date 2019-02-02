@@ -2,8 +2,14 @@ package com.yaboja.controller;
 
 import java.util.List;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,67 +22,81 @@ import com.yaboja.dto.UserDto;
 
 @Controller
 public class MypageController {
-   
-   @Autowired
-   private UserBiz userBiz;
-   
-   @RequestMapping("/mypage.do")
-	public String mypage(Model model, HttpSession session) {
-		UserDto dto=(UserDto)session.getAttribute("dto");
-		int userseq = dto.getUserseq();
-		List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+
+	@Autowired
+	private UserBiz userBiz;
+
+	@RequestMapping("/mypage.do")
+	public String mypage(Model model, HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		 
 		
-		System.out.println(">>>>>>>내게시글 : " + reviewdto);
+		
+		if (session.getAttribute("dto") == null) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 해주세요.');history.back();</script>");
+			out.close();
+			return null;
+		} else {
+			
+			int userseq = ((UserDto) session.getAttribute("dto")).getUserseq();
+			
+			
+			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
 
-		model.addAttribute("boardlist",reviewdto);
-		model.addAttribute("dto",userBiz.selectOne(userseq));
-		System.out.println("mypage : "+ userseq);
-		return "mypage";
+			System.out.println(">>>>>>>내게시글 : " + reviewdto);
+
+			model.addAttribute("boardlist", reviewdto);
+			model.addAttribute("dto", userBiz.selectOne(userseq));
+			System.out.println("mypage : " + userseq);
+			return "mypage";
+		}
 	}
-   
-   //회원정보 수정하러가기
-   @RequestMapping("/mypage_updateform.do")
-   public String updateform(Model model, HttpSession session) {
-      UserDto dto = (UserDto)session.getAttribute("dto");
-      System.out.println("updateform : " + dto.getUserseq());
-      int userseq = dto.getUserseq();
-      model.addAttribute("dto",userBiz.selectOne(userseq));
-      System.out.println("userid : " + userseq);
-      return "mypage_update";
-   }
-   
- //수정하기
- 	@RequestMapping("/mypage_update.do")
- 	public String update(Model model, UserDto dto, HttpSession session, int userseq) {
 
- 		int res = userBiz.update(dto);
- 		System.out.println("////"+res);
- 		
- 		if(res>0) {
- 			dto = userBiz.selectOne(userseq);
- 			session.setAttribute("dto", dto);
- 			
- 			System.out.println("수정성공");
- 			model.addAttribute("dto",userBiz.selectOne(userseq));
- 			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
- 			
- 			System.out.println(">>>>>>>test : " + reviewdto);
+	// 회원정보 수정하러가기
+	@RequestMapping("/mypage_updateform.do")
+	public String updateform(Model model, HttpSession session) {
+		UserDto dto = (UserDto) session.getAttribute("dto");
+		System.out.println("updateform : " + dto.getUserseq());
+		int userseq = dto.getUserseq();
+		model.addAttribute("dto", userBiz.selectOne(userseq));
+		System.out.println("userid : " + userseq);
+		return "mypage_update";
+	}
 
- 			model.addAttribute("boardlist",reviewdto);
- 			return "mypage";
- 		}
- 			System.out.println("수정실패");
- 			return "mypage_update";
- 	}
-   
- 	@RequestMapping("/userDelete.do")
-	public String gradeUpdate(Model model,UserDto dto, HttpSession session) {
-		dto = (UserDto)session.getAttribute("dto");
-		int res = userBiz.gradeUpdate(dto);
-		if(res>0) {
+	// 수정하기
+	@RequestMapping("/mypage_update.do")
+	public String update(Model model, UserDto dto, HttpSession session, int userseq) {
+
+		int res = userBiz.update(dto);
+		System.out.println("////" + res);
+
+		if (res > 0) {
+			dto = userBiz.selectOne(userseq);
 			session.setAttribute("dto", dto);
+
+			System.out.println("수정성공");
+			model.addAttribute("dto", userBiz.selectOne(userseq));
+			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+
+			System.out.println(">>>>>>>test : " + reviewdto);
+
+			model.addAttribute("boardlist", reviewdto);
+			return "mypage";
+		}
+		System.out.println("수정실패");
+		return "mypage_update";
+	}
+
+	@RequestMapping("/userDelete.do")
+	public String gradeUpdate(Model model, UserDto dto, HttpSession session) {
+		dto = (UserDto) session.getAttribute("dto");
+		int res = userBiz.gradeUpdate(dto);
+		if (res > 0) {
+			session.invalidate();
 			System.out.println("탈퇴처리");
 		}
 		return "main";
+
 	}
 }
