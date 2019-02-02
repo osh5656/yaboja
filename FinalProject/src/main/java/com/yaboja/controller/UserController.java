@@ -192,7 +192,7 @@ public class UserController {
     public String fileUp(String userid,MultipartHttpServletRequest multi, HttpServletRequest request) throws FileNotFoundException {
         // 저장 경로 설정
 //    	String path=WebUtils.getRealPath(request.getSession().getServletContext(), "/profile");
-    	String path="C:\\Users\\shine\\git\\yaboja\\FinalProject\\src\\main\\webapp\\profile";
+    	String path="C:\\Users\\dlckd\\git\\yaboja\\FinalProject\\src\\main\\webapp\\profile";
 //    	String path="/profile";
 //    	String path="./../../../../../src/main/webapp/profile"; 
 //    	String path=System.getProperty("user.dir");

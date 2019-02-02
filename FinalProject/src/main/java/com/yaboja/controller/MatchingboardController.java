@@ -707,17 +707,22 @@ public class MatchingboardController {
 
 		int coin_charge = 0;
 		int coin_use = 0;
+		int coin_use1 = 0;
 		int coin_val = 0;
 
+		if(userdto == null) {
+			
+		}else {
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-		coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
 
 		model.addAttribute("user_name", userdto.getUsername());
 		model.addAttribute("coin", coin_val);
-
+		}
 		////
 		System.out.println("---------------영화관 번호 " + cinemaseq);
 
@@ -746,8 +751,9 @@ public class MatchingboardController {
 //		
 		return "matchingBoard/match_list2";
 
-	}
+		}
 
 	// 민엽 지도 끝
+		
 
 }

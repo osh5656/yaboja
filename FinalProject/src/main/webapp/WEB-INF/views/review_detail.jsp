@@ -100,7 +100,7 @@
             </tr>
          </table>
          <c:choose>
-            <c:when test="${dto.userseq eq reviewboarddto.userseq }">
+            <c:when test="${dto.userseq eq reviewboarddto.userseq or dto.usergrade eq admin}">
             <input type="button" class="btn btn-danger pull-right" value="삭제" onclick="location.href='reviewDelete.do?reviewboardseq=${reviewboarddto.reviewboardseq }'">
             <input type="submit" class="btn btn-default pull-right" value="수정">
             </c:when>

@@ -129,7 +129,7 @@ body { font-family:'HY나무M'; }
 		
 		<table border = "1" class= "table table-bordered" style="color:black; font-size: 1.2em;">
 			<tr>
-				<td rowspan ="4" width="150px"> <c:out value="${matchingboarddetail2.userprofile }" /></td>
+				<td rowspan ="4" width="150px"> <img alt="1234" src="profile/aaa.jpg"></td>
 			</tr>
 			<tr align ="center" >
 				<th width ="200px">이 름</th>
@@ -186,7 +186,7 @@ int boarduser = matchingboardDto.getUserseq();
 <%
 	
 	if(userDto != null){
-		if(userDto.getUserseq() == boarduser){
+		if(userDto.getUserseq() == boarduser || userDto.getUsergrade().equals("admin")){
 %>		
 		<button class ="btn btn default" onclick ="location.href='match_update.do?matchingboard=${matchingboarddetail1.matchingboard }'">수정</button><!-- 작성자만 -->
 <%
