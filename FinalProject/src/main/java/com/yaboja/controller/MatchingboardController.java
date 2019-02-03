@@ -464,13 +464,31 @@ public class MatchingboardController {
 
 		return "mypage_match_to";
 	}
-
-	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
-	public void matchingdelete(Model model, HttpSession session, int matchingseq, HttpServletResponse response)
+//	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/matchingcut.do", method = RequestMethod.GET)
+	public void matchingdelete(Model model, HttpSession session,  HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
-		int res = matchingBiz.delete(matchingseq);
-
-		response.sendRedirect("mypage_match_to.do");
+		System.out.println("매칭컷트 컨트롤러");
+		response.setContentType("text/html; charset=utf-8");
+		UserDto dto=(UserDto)session.getAttribute("dto");
+		String matchingseq = request.getParameter("matchingseq");
+//		MatchingDto matchingdto = matchingBiz.matchSuccess(dto.getUserseq());
+//		matchingseq = matchingdto.getMatchingseq();
+		System.out.println(matchingseq);
+		int res = matchingBiz.matchingcut(Integer.parseInt(matchingseq));
+		System.out.println("///");
+		System.out.println("res : "+res);
+		if(res>0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('매칭이 끊어졌습니다.');location.href='mypage.do';</script>");
+			out.close();
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('끊기 오류');location.href='mypage.do';</script>");
+			out.close();
+		}
+//
+//		response.sendRedirect("mypage_match_to.do");
 	}
 
 	@RequestMapping(value = "/match_update.do", method = RequestMethod.GET)
@@ -606,7 +624,7 @@ public class MatchingboardController {
 		int userseq = ((UserDto) session.getAttribute("dto")).getUserseq();
 		MatchingDto matchingDto = null;
 		matchingDto = matchingBiz.matchSuccess(userseq);
-		if (matchingDto != null) {
+		if (matchingDto != null) { 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("matchingwriter", String.valueOf(matchingDto.getMatchingwriter()));
 			map.put("matchingapplicant", String.valueOf(matchingDto.getMatchingapplicant()));

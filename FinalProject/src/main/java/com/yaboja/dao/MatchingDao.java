@@ -19,4 +19,6 @@ public interface MatchingDao {
 	public MatchingDto insertCheck(int userseq);
 	public MatchingDto userOne(int userseq);
 	
+	public int matchingcut(int matchingseq);
+	
 }

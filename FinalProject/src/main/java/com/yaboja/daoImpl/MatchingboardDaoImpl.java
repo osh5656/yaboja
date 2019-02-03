@@ -147,4 +147,16 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 		
 		return res;
 	}
+
+	@Override
+	public int deleteMatchingboard(int matchingboard) {
+		int res = 0;
+			try {
+				res = sqlSession.delete(namespace+"deleteMatchingboard",matchingboard);
+			} catch (Exception e) {
+				System.out.println("deleteMatchingboard 에러");
+				e.printStackTrace();
+			}
+		return res;
+	}
 }
