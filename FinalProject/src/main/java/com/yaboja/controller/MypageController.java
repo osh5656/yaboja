@@ -42,26 +42,18 @@ public class MypageController {
    private CinemaBiz cinemaBiz;
    @Autowired
    private MatchingboardBiz matchingboardBiz;
-//   @Autowired
-//   private MatchingBiz matchingBiz;
-   
 
-//   @RequestMapping("/mypage.do")
-//	public String mypage(Model model, HttpSession session) {
-//		UserDto dto=(UserDto)session.getAttribute("dto");
-//		int userseq = dto.getUserseq();
-//		List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
-//		
-//		System.out.println(">>>>>>>내게시글 : " + reviewdto);
-//
-//		model.addAttribute("boardlist",reviewdto);
-//		model.addAttribute("dto",userBiz.selectOne(userseq));
-//		System.out.println("mypage : "+ userseq);
-//		return "mypage";
-//	}
 
    @RequestMapping(value = "/mypage.do")
-   public String mypage(Model model, HttpSession session) {
+   public String mypage(Model model, HttpSession session, HttpServletResponse response) throws IOException{
+	  response.setContentType("text/html; charset=UTF-8");
+	  
+	  if (session.getAttribute("dto") == null) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 해주세요.');history.back();</script>");
+			out.close();
+			return null;
+		}else {
       UserDto dto=(UserDto)session.getAttribute("dto"); // 세션정보
       int userseq = dto.getUserseq();
       List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
@@ -78,11 +70,12 @@ public class MypageController {
       }
       model.addAttribute("boardlist",reviewdto);
       model.addAttribute("dto",userdto);
-     
+		}
       
     
       return "mypage";
    }
+
 
    
    @RequestMapping(value = "/matchboarddelete.do")
