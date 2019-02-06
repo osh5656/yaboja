@@ -1,5 +1,12 @@
+<%@page import="com.yaboja.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%
+	int userseq = 0;
+	if(session.getAttribute("dto")!=null){ 
+		userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+	}	
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,18 +40,78 @@ function myAccFunc() {
 }
 
 function myAccFunc1() {
-	  var x = document.getElementById("demoAcc1");
-	  if (x.className.indexOf("w3-show") == -1) {
-	    x.className += " w3-show";
-	    x.previousElementSibling.className += " w3-dark-gray";
-	  } else { 
-	    x.className = x.className.replace(" w3-show", "");
-	    x.previousElementSibling.className = 
-	    x.previousElementSibling.className.replace(" w3-dark-gray", "");
-	  }
-	  
+     var x = document.getElementById("demoAcc1");
+     if (x.className.indexOf("w3-show") == -1) {
+       x.className += " w3-show";
+       x.previousElementSibling.className += " w3-dark-gray";
+     } else { 
+       x.className = x.className.replace(" w3-show", "");
+       x.previousElementSibling.className = 
+       x.previousElementSibling.className.replace(" w3-dark-gray", "");
+     }
+     
+   }
+   
+	function getMatch_unread(){
+	 	$.ajax({
+	       	type: "POST",
+	       	data:{
+	        	  userseq: encodeURIComponent(<%= userseq %>)},
+	      	url: "allUnreadMatching.do",
+	       	success: function(result){
+	          	if(result >= 1){
+	             	$('#match_unread').html(result);
+	          	}else{
+	        	  	$('#match_unread').html("");
+	          	}
+	       	}
+	    });
 	}
-
+	function getSuccess_unread(){
+	 	$.ajax({
+	       	type: "POST",
+	       	data:{
+	        	  userseq: encodeURIComponent(<%= userseq %>)},
+	      	url: "unreadSuccess.do",
+	       	success: function(result){
+	          	if(result >= 1){
+	             	$('#success_unread').html(result);
+	          	}else{
+	        	  	$('#success_unread').html("");
+	          	}
+	       	}
+	    });
+	}
+	function getRequested_unread(){
+	 	$.ajax({
+	       	type: "POST",
+	       	data:{
+	        	  userseq: encodeURIComponent(<%= userseq %>)},
+	      	url: "unreadRequested.do",
+	       	success: function(result){
+	          	if(result >= 1){
+	             	$('#requested_unread').html(result);
+	          	}else{
+	        	  	$('#requested_unread').html("");
+	          	}
+	       	}
+	    });
+	}
+	function getRejection_unread(){
+	 	$.ajax({
+	       	type: "POST",
+	       	data:{
+	        	  userseq: encodeURIComponent(<%= userseq %>)},
+	      	url: "unreadRejection.do",
+	       	success: function(result){
+	          	if(result >= 1){
+	             	$('#rejection_unread').html(result);
+	          	}else{
+	        	  	$('#rejection_unread').html("");
+	          	}
+	       	}
+	    });
+	}
 </script>
 
 
@@ -53,10 +120,10 @@ function myAccFunc1() {
 <body>
 
 
-	<div>
+   <div>
 
 
-	
+   
 
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px; margin-top: 2%;">
   <a href="#" class="w3-bar-item w3-button">내 정보 관리</a>
@@ -69,11 +136,12 @@ function myAccFunc1() {
   </div>
   
   <button class="w3-button w3-block w3-left-align" onclick="myAccFunc1()">
-  매칭관리 <i class="fa fa-caret-down"></i>
+  매칭관리<span class="badge" id="match_unread"></span> <i class="fa fa-caret-down"></i>
   </button>
   <div id="demoAcc1" class="w3-hide w3-white w3-card">
-    <a href="mypage_match_success.do" class="w3-bar-item w3-button">진행중매칭</a>
-    <a href="mypage_match_to.do" class="w3-bar-item w3-button">매칭관리</a>
+    <a href="mypage_match_success.do" class="w3-bar-item w3-button">진행중매칭<span class="badge" id="success_unread"></span></a>
+    <a href="mypage_match_to.do" class="w3-bar-item w3-button">매칭관리<span class="badge" id="requested_unread"></span></a>
+    <a href="match_history.do" class = "w3-bar-item w3-button">매칭기록<span class="badge" id="rejection_unread"></span></a>
 
   </div>
   
@@ -82,7 +150,7 @@ function myAccFunc1() {
   
   <a href="example.do" class="w3-bar-item w3-button">Link 2</a>
   <a href="#" class="w3-bar-item w3-button">Link 3</a>
-	</div>
+   </div>
 
 
 
@@ -91,5 +159,26 @@ function myAccFunc1() {
 
 
 </body>
+
+<%
+if(session.getAttribute("dto")!=null){ 
+%>
+<script type="text/javascript">
+
+		$(document).ready(function() {
+			getMatch_unread();
+			getSuccess_unread();
+			getRequested_unread();
+			getRejection_unread();
+			setInterval(function(){getMatch_unread();} , 4000);
+			setInterval(function(){getSuccess_unread();} , 4000);
+			setInterval(function(){getRequested_unread();} , 4000);
+			setInterval(function(){getRejection_unread();} , 4000);
+		});
+
+</script>
+<%
+}
+%>
 
 </html>

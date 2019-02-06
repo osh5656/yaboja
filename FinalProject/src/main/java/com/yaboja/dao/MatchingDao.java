@@ -21,4 +21,17 @@ public interface MatchingDao {
 	
 	public int matchingcut(int matchingseq);
 	
+	public int getAllUnreadMatching(int userseq);
+	public int readMatchSuccess(int userseq);
+	public int readMatchRequested(int userseq);
+	public int readMatchRejection(int userseq);
+	public int unreadSuccess(int userseq);
+	public int unreadRequested(int userseq);
+	public int unreadRejection(int userseq);
+	public List<MatchingDto> rejectionAll(Map<String,String> map);
+	public List<MatchingDto> history(int userseq);
+	public int autoReject(int userseq);
+	public MatchingDto selectMaxSeq(int userseq);
+	
+	
 }

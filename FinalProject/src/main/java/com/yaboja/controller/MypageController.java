@@ -42,6 +42,9 @@ public class MypageController {
    private CinemaBiz cinemaBiz;
    @Autowired
    private MatchingboardBiz matchingboardBiz;
+   @Autowired
+   private MatchingBiz matchingBiz;
+ 
 
 
    @RequestMapping(value = "/mypage.do")
@@ -49,24 +52,31 @@ public class MypageController {
 	  response.setContentType("text/html; charset=UTF-8");
 	  
 	  if (session.getAttribute("dto") == null) {
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인 해주세요.');history.back();</script>");
-			out.close();
+			
+		  PrintWriter out = response.getWriter();
+		  out.println("<script>alert('로그인 해주세요.');history.back();</script>");
+		  out.close();
 			return null;
-		}else {
-      UserDto dto=(UserDto)session.getAttribute("dto"); // 세션정보
-      int userseq = dto.getUserseq();
-      List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
-      UserDto userdto = userBiz.selectOne(userseq);
+	  }else {
+		  UserDto dto=(UserDto)session.getAttribute("dto"); // 세션정보
+		  int userseq = dto.getUserseq();
+		  List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+		  UserDto userdto = userBiz.selectOne(userseq);
+      
+      
       MatchingboardDto matchingboarddto = matchingboardBiz.userOne(userdto.getUserseq());
-//      System.out.println("//"+matchingboarddto.getUserseq());
+//    System.out.println("//"+matchingboarddto.getUserseq());
+      
       if(matchingboarddto ==null) {
-      }else {
-      MovieDto moviedto = movieBiz.selectOne(matchingboarddto.getMovieseq());
-      CinemaDto cinemadto = cinemaBiz.selectOne(matchingboarddto.getCinemaseq());
-      model.addAttribute("moviedto",moviedto);
-      model.addAttribute("cinemadto",cinemadto);
-      model.addAttribute("matchingboarddto", matchingboarddto);
+      
+      }
+      else {
+      
+    	  MovieDto moviedto = movieBiz.selectOne(matchingboarddto.getMovieseq());      
+    	  CinemaDto cinemadto = cinemaBiz.selectOne(matchingboarddto.getCinemaseq());      
+    	  model.addAttribute("moviedto",moviedto);
+    	  model.addAttribute("cinemadto",cinemadto);
+    	  model.addAttribute("matchingboarddto", matchingboarddto);
       }
       model.addAttribute("boardlist",reviewdto);
       model.addAttribute("dto",userdto);
@@ -79,24 +89,28 @@ public class MypageController {
 
    
    @RequestMapping(value = "/matchboarddelete.do")
-   public void matchboarddelete(Model model, MatchingboardDto matchingboarddto, HttpServletResponse response,HttpServletRequest request) throws IOException {
-	   
-	   response.setContentType("text/html; charset=utf-8"); 
-	   String matchingboard = request.getParameter("matchingboard");
-	   int res = matchingboardBiz.deleteMatchingboard(Integer.parseInt(matchingboard));
-	   
-	   	  if(res>0) {
-	         System.out.println("삭제성공");
-	         PrintWriter out = response.getWriter();
-	         out.println("<script>alert('삭제 성공');location.href='mypage.do';</script>");
-	         out.close();
-	      }else {
-	         System.out.println("삭제실패");
-	         PrintWriter out = response.getWriter();
-	         out.println("<script>alert('삭제 실패');location.href='mypage.do';</script>");
-	         out.close();
-	      }
-	   
+   public void matchboarddelete(Model model, HttpSession session,MatchingboardDto matchingboarddto, HttpServletResponse response,HttpServletRequest request) throws IOException {
+      
+      response.setContentType("text/html; charset=utf-8"); 
+      UserDto userdto=(UserDto)session.getAttribute("dto");
+      String matchingboard = request.getParameter("matchingboard");
+      int res = matchingboardBiz.deleteMatchingboard(Integer.parseInt(matchingboard));
+     
+           if(res>0) {
+              //신청온 매칭신청 
+              // 작성자가 나인 매칭이 여러개 ; p =>E
+            matchingBiz.autoReject(userdto.getUserseq());
+           
+               PrintWriter out = response.getWriter();
+               out.println("<script>alert('삭제 성공');location.href='mypage.do';</script>");
+               out.close();
+         }else {
+            System.out.println("삭제실패");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('삭제 실패');location.href='mypage.do';</script>");
+            out.close();
+         }
+      
    }
    
   

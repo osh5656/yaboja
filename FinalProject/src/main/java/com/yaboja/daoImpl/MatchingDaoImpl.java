@@ -156,5 +156,139 @@ public class MatchingDaoImpl implements MatchingDao {
 		return matchingDto;
 	}
 
+	@Override
+	public int getAllUnreadMatching(int userseq) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.selectOne(namespace+"getAllUnreadMatching",userseq);
+			
+		}catch(Exception e) {
+			System.out.println("getAllUnreadMatching 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int readMatchSuccess(int userseq) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(namespace+"readMatchSuccess",userseq);
+		} catch(Exception e) {
+			System.out.println("readMatchSuccess 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int readMatchRequested(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"readMatchRequested",userseq);
+		} catch(Exception e) {
+			System.out.println("readMatchRequested 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int unreadSuccess(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(namespace+"unreadSuccess",userseq);
+		} catch(Exception e) {
+			System.out.println("unreadSuccess 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int unreadRequested(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(namespace+"unreadRequested",userseq);
+		} catch(Exception e) {
+			System.out.println("unreadRequested 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int unreadRejection(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(namespace+"unreadRejection",userseq);
+		}catch(Exception e) {
+			System.out.println("unreadRejection+ 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int readMatchRejection(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"readMatchRejection",userseq);
+		} catch(Exception e) {
+			System.out.println("readMatchRejection 에러");
+		}
+		return res;
+	}
+
+	@Override
+	public List<MatchingDto> rejectionAll(Map<String, String> map) {
+		List<MatchingDto> list = new ArrayList<MatchingDto>();
+		try {
+			list = sqlSession.selectList(namespace+"rejectionAll",map);
+		} catch(Exception e){
+			System.out.println("rejectionAll 에러");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<MatchingDto> history(int userseq) {
+		List<MatchingDto> list = new ArrayList<MatchingDto>();
+		try {
+			list = sqlSession.selectList(namespace+"history",userseq);
+		} catch(Exception e) {
+			System.out.println("history 에러");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int autoReject(int userseq) {
+		int res = 0;
+		try {
+			res = sqlSession.update(namespace+"autoReject",userseq);
+		} catch(Exception e) {
+			System.out.println("autoReject 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public MatchingDto selectMaxSeq(int userseq) {
+		MatchingDto matchingDto = null;
+		try {
+			matchingDto = sqlSession.selectOne(namespace+"selectMaxSeq",userseq);
+		} catch(Exception e) {
+			System.out.println("selectMaxSeq 에러");
+			e.printStackTrace();
+		}
+		return matchingDto;
+	}
+
 	
 }

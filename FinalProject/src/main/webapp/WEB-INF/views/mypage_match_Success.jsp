@@ -153,12 +153,13 @@
 		</td>
 	</tr>
 </table>
- <div align ="center">
-				<input type="button" class="btn btn-danger pull-right" value="매칭끊기" onclick="location.href='matchingcut.do?matchingseq=${ matchingDto.matchingseq}'"/>
-</div>
+ 
 <%
 	}
 %>
+</div>
+<div align ="center">
+	<input type="button" class="btn btn-danger" value="매칭끊기" onclick="location.href='matchingcut.do?matchingseq=${ matchingDto.matchingseq}'"/>
 </div>
 </div>
 	

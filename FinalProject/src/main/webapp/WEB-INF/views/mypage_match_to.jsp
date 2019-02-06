@@ -112,16 +112,14 @@ function deletecheck() {
 		<div>
 			<h3>신청한 매칭</h3>
 		</div>
-		
+		<br/>
+		<div class="jumbotron jumbotron-fluid">
 		<c:choose>
 			<c:when test="${empty matchingdto }">
-			<br/>
-			<h4>------------------------------ 신청한 매칭이 없습니다 ------------------------------</h4>
+			<h4 style="color:blue;">신청한 매칭이 없습니다. </h4>
 			</c:when>
 			<c:otherwise>
-		<div align ="center">
-			<h3>-----------------------------------------<fmt:formatDate pattern =" yyyy-MM-dd " value ="${matchingdto.matchingdate}" />-----------------------------------------</h3>
-		</div>
+		
 		<br/>
 		<table border="1" class="table table-hover">
 			<tr>
@@ -136,23 +134,21 @@ function deletecheck() {
 		</table>
 			</c:otherwise>
 		</c:choose>
+		</div>
 		
 		<br/>
 
 		<div>
 			<h3>신청받은 매칭</h3>
 		</div>
-		
-		<div>
-			<h3>-----------------------------------------------2019-01-11----------------------------------------------------------</h3>
-		</div>
 		</br>
+		<div class="jumbotron jumbotron-fluid">
 <%
 		if(matchingList.size() == 0){
 %>			
-		<div>
-			<h3>----------------------------------------------신청 받은 매칭이 없습니다.---------------------------------------------------</h3>
-		</div>
+
+		<h4 style="color:blue;">신청 받은 매칭이 없습니다.</h4>
+
 <%		
 		}else{
 			for(int i = 0 ; i < matchingList.size() ; i++){
@@ -179,7 +175,7 @@ function deletecheck() {
 			}
 		}
 %>
-		
+		</div>
 		<br/>
 	
 		

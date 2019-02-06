@@ -107,4 +107,17 @@ public class ChattingDaoImpl implements ChattingDao {
 	      }
 	      return res;
 	   }
+
+	@Override
+	public int delete(int userseq) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.delete(namespace+"delete",userseq);
+		} catch(Exception e) {
+			System.out.println("delete 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
 }

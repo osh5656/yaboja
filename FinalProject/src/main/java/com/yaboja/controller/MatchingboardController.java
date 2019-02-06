@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yaboja.biz.ChattingBiz;
 import com.yaboja.biz.CinemaBiz;
 import com.yaboja.biz.CoinBiz;
 import com.yaboja.biz.MatchingBiz;
@@ -55,6 +56,8 @@ public class MatchingboardController {
 	private MatchingBiz matchingBiz;
 	@Autowired
 	private CoinBiz coinBiz;
+	@Autowired
+	private ChattingBiz chattingBiz;
 
 	private static final Logger logger = LoggerFactory.getLogger(MatchingboardController.class);
 
@@ -166,7 +169,7 @@ public class MatchingboardController {
 
 		matchingboarddto = matchingboardBiz.userOne(userseq);
 
-		matchingdto = matchingBiz.selectOne(userseq);
+		matchingdto = matchingBiz.selectMaxSeq(userseq);
 
 		if(matchingboarddto == null) {//작성한 매칭글이 없을때
 			if(matchingdto == null) { //매칭이 없을 때
@@ -304,6 +307,8 @@ public class MatchingboardController {
 		MatchingDto mymatchingdto = null;
 		mymatchingdto = matchingBiz.insertCheck(userseq);
 		MatchingboardDto mymatchingboarddto = matchingboardBiz.userOne(userseq);
+		MatchingboardDto matchingboardDto = matchingboardBiz.userOne(matchingwriter);
+		
 		int coin_charge = 0;
 		int coin_use = 0;
 		int coin_use1 = 0;
@@ -327,7 +332,8 @@ public class MatchingboardController {
 	         /////
 
 //	      if(matchingdto == null || matchingdto.getMatchingstate().equals("E")) {//매칭테이블이 없거나 매칭결과가 끝났을때 
-	         if (mymatchingboarddto == null) { // 작서
+	         if(matchingboardDto != null) {
+	    	  if (mymatchingboarddto == null) { // 작서
 	            if (mymatchingdto == null) {
 	               int res = matchingBiz.insert(matchingDto);
 	               if (res > 0) {
@@ -371,6 +377,11 @@ public class MatchingboardController {
 	            out.close();
 
 	         }
+	      } else {
+	    	  PrintWriter out = response.getWriter();
+	           out.println("<script>alert('매칭을 신청할 수 없습니다.');location.href='matchingboardlist.do';</script>");
+	           out.close();
+	      }
 	      }
 
 	   }
@@ -447,7 +458,7 @@ public class MatchingboardController {
 		// System.out.println("////"+writerUser.getUsername());
 
 		// System.out.println("////"+writerUser.getUsername());
-
+		matchingBiz.readMatchRequested(userseq);
 		MatchingboardDto boarddto = matchingboardBiz.userOne(userseq);
 		List<MatchingDto> matchingList = matchingBiz.getMatchingApplicant(userseq);
 		List<UserDto> userList = new ArrayList<UserDto>();
@@ -464,7 +475,22 @@ public class MatchingboardController {
 
 		return "mypage_match_to";
 	}
-//	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=utf-8");
+		int matchingseq = Integer.parseInt(request.getParameter("matchingseq"));
+		int res = matchingBiz.delete(matchingseq);
+		
+		if(res > 0) {
+			response.sendRedirect("mypage_match_to.do");
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('데이터베이스 오류');history.back();</script>");
+			out.close();
+		}
+	}
+	
+	
 	@RequestMapping(value = "/matchingcut.do", method = RequestMethod.GET)
 	public void matchingdelete(Model model, HttpSession session,  HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
@@ -479,6 +505,7 @@ public class MatchingboardController {
 		System.out.println("///");
 		System.out.println("res : "+res);
 		if(res>0) {
+			chattingBiz.delete(dto.getUserseq());
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('매칭이 끊어졌습니다.');location.href='mypage.do';</script>");
 			out.close();
@@ -562,7 +589,14 @@ public class MatchingboardController {
 		map.put("matchingapplicant", String.valueOf(matchingapplicant));
 
 		int res1 = matchingBiz.acceptance(map);
-		int res2 = matchingBiz.rejection(map);
+		//int res2 = matchingBiz.rejection(map);
+		List<MatchingDto> list = matchingBiz.rejectionAll(map);
+		if(list.size() != 0) {
+			for(int i = 0 ; i < list.size() ; i++) {
+				map.put("matchingapplicant", String.valueOf(list.get(i).getMatchingapplicant()));
+				matchingBiz.rejectionOne(map);
+			}
+		}
 		
 	///// 창환 코인 작업 /////////////////
 
@@ -629,7 +663,9 @@ public class MatchingboardController {
 			map.put("matchingwriter", String.valueOf(matchingDto.getMatchingwriter()));
 			map.put("matchingapplicant", String.valueOf(matchingDto.getMatchingapplicant()));
 			MatchingboardDto matchingboardDto = matchingboardBiz.getCinemaSeq(map);
-
+			
+			matchingBiz.readMatchSuccess(userseq);
+			
 			String cinema = cinemaBiz.getCinema(matchingDto.getCinemaseq());
 			MovieDto movieDto = movieBiz.selectOne(matchingDto.getMovieseq());
 			UserDto userDto = null;
@@ -646,6 +682,27 @@ public class MatchingboardController {
 		}
 
 		return "mypage_match_Success";
+	}
+	
+	@RequestMapping(value="/match_history.do",method = RequestMethod.GET)
+	public String match_history(HttpSession session, Model model) {
+		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+		List<MatchingDto> matchingList = matchingBiz.history(userseq);
+		List<UserDto> userList = new ArrayList<UserDto>();
+		if(matchingList.size() != 0) {
+			for(int i = 0 ; i < matchingList.size() ; i++) {
+				if(userseq == matchingList.get(i).getMatchingwriter()) {
+					userList.add(userBiz.selectOne(matchingList.get(i).getMatchingapplicant()));
+				}else {
+					userList.add(userBiz.selectOne(matchingList.get(i).getMatchingwriter()));
+				}
+			}
+		}
+		matchingBiz.readMatchRejection(userseq);
+		model.addAttribute("matchingList",matchingList);
+		model.addAttribute("userList",userList);
+		
+		return "match_history";
 	}
 
 	@RequestMapping(value = "/chat.do", method = RequestMethod.GET)

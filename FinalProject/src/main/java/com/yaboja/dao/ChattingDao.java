@@ -12,4 +12,5 @@ public interface ChattingDao {
 	public ArrayList<ChattingDto> getChatListByRecent(String userseq1, String userseq2, int number);
 	public int readChat(String userseq1, String userseq2);
 	public int getAllUnreadChat(int userseq);
+	public int delete(int userseq);
 }

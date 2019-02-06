@@ -18,4 +18,7 @@
 	<select id="getAllUnreadChat" parameterType="int" resultType="int">
       SELECT COUNT(*) FROM CHATTING WHERE USERSEQ2 = #{userseq} AND CHATREAD = 0
    	</select>
+   	<delete id="delete" parameterType="int">
+   		DELETE FROM CHATTING WHERE USERSEQ1 = #{userseq} OR USERSEQ2 = #{userseq}
+   	</delete>
 </mapper>

@@ -239,7 +239,9 @@ hr.small {
 
 		$(document).ready(function() {
 			getUnread();
+			getAllUnreadMatching();
 			setInterval(function(){getUnread();} , 4000);
+			setInterval(function(){getAllUnreadMatching();} , 4000);
 		});
 
 	</script>
@@ -257,6 +259,22 @@ function getUnread(){
 	             $('#unread').html(result);
 	          }else{
 	        	  $('#unread').html("0");
+	          }
+	       }
+	    });
+ }
+ 
+ function getAllUnreadMatching(){
+	 $.ajax({
+	       type: "POST",
+	       data:{
+	          userseq: encodeURIComponent(<%= ((UserDto)session.getAttribute("dto")).getUserseq() %>)},
+	       url: "allUnreadMatching.do",
+	       success: function(result){
+	          if(result >= 1){
+	             $('#unreadMatching').html(result);
+	          }else{
+	        	  $('#unreadMatching').html("0");
 	          }
 	       }
 	    });
@@ -298,7 +316,7 @@ function getUnread(){
 				<%
 							} else {
 				%>
-								<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge">4</span></i>
+								<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unreadMatching"></span></i>
 								<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unread"></span></i> 
 								<%if(dto.getUserpw().equals("kakao")){ %>
 								<a class="navbar-brand" href="logout.do?userpw=<%=dto.getUserpw() %>" style="float: right;">Logout</a>

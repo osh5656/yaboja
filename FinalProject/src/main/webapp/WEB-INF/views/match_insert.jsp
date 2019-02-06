@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.yaboja.dto.MovieDto"%>
 <%@page import="com.yaboja.dto.CinemaDto"%>
 <%@page import="com.yaboja.dto.CoinDto" %>
@@ -13,6 +14,7 @@
 	Date date = new Date();
 	List<CinemaDto> cinemaList = (List)request.getAttribute("cinemaList");
 	List<MovieDto> movieList = (List)request.getAttribute("movieList");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <!DOCTYPE html>
 <!-- <html lang="en"> -->
@@ -150,7 +152,7 @@ function inputConfirm(){
 					
 				</select>
 			</td>
-			<td><%=(date.getYear()+1900)+"-"+((String.valueOf((date.getMonth()+1)).length())<=1?("0"+(date.getMonth()+1)):(date.getMonth()+1)+"")+"-"+date.getDate() %></td>
+			<td><%= dateFormat.format(date) %></td>
 			
 		
 		</tr>
