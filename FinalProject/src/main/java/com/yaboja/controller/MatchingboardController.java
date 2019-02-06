@@ -754,6 +754,64 @@ public class MatchingboardController {
 		}
 
 	// 민엽 지도 끝
+	
+	
+	
+	@RequestMapping("/movie_matching.do")
+	public String listBymovietitle(Model model, HttpSession session, String movieseq) {
+		
+		
+
+		//////
+		UserDto userdto = (UserDto) session.getAttribute("dto");
+
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_use1 = 0;
+		int coin_val = 0;
+
+		if(userdto == null) {
+			
+		}else {
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
+
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
+
+		model.addAttribute("user_name", userdto.getUsername());
+		model.addAttribute("coin", coin_val);
+		}
+		////
+
+
+		List<MatchingboardDto> list = matchingboardBiz.selectListByMovieseq((Integer.parseInt(movieseq)));
+		List<UserDto> userinfo = new ArrayList<UserDto>();
+		List<MovieDto> movieinfo = new ArrayList<MovieDto>();
+		List<CinemaDto> cinemainfo = new ArrayList<CinemaDto>();
+		int listsize = (list.size()) - 1;
+
+
+		for (int i = 0; i < list.size(); i++) {
+			userinfo.add((UserDto) userBiz.selectOne(list.get(i).getUserseq()));
+			movieinfo.add((MovieDto) movieBiz.selectOne(list.get(i).getMovieseq()));
+			cinemainfo.add((CinemaDto) cinemaBiz.selectOne(list.get(i).getCinemaseq()));
+		}
+
+		
+
+		model.addAttribute("matchingboardlist1", list);
+		model.addAttribute("matchingboardlist2", userinfo);
+		model.addAttribute("matchingboardlist3", movieinfo);
+		model.addAttribute("matchingboardlist4", cinemainfo);
+		model.addAttribute("listsize", listsize);
+
+		
+//		
+		return "matchingBoard/match_movie";
+
+		}
 		
 
 }

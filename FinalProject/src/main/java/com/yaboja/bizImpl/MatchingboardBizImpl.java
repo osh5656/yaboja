@@ -77,4 +77,10 @@ public class MatchingboardBizImpl implements MatchingboardBiz {
 		// TODO Auto-generated method stub
 		return dao.selectListByCinema(cinemaseq);
 	}
+
+	@Override
+	public List<MatchingboardDto> selectListByMovieseq(int movieseq) {
+		// TODO Auto-generated method stub
+		return dao.selectListByMovieseq(movieseq);
+	}
 }

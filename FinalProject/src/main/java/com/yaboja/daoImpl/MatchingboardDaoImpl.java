@@ -147,4 +147,19 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 		
 		return res;
 	}
+
+	@Override
+	public List<MatchingboardDto> selectListByMovieseq(int movieseq) {
+		List<MatchingboardDto> res = null;
+		try {
+			
+			res= sqlSession.selectList(namespace + "selectListByMovieseq",movieseq);
+		
+		} catch (Exception e) {
+			System.out.println("matchingboard selectListByMovieseq 에러");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 }

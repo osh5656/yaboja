@@ -144,7 +144,8 @@
 				<tr>
 					<td rowspan="5" style="width: 168px;"><img
 						src="${moviedto.imgurl }" width="300" height="450"></td>
-					<td>장르 : ${moviedto.genre } | 평점 : ${moviedto.rating } <span id="myspan"></span></td>
+					<td>장르 : ${moviedto.genre } | 평점 : ${moviedto.rating } <span
+						id="myspan"></span></td>
 				</tr>
 
 				<tr>
@@ -162,21 +163,27 @@
 
 		</div>
 		${content }
+
 		<div align="right">
-			<input type="button" name="btn1" value="매칭하러가기"
-				class="btn btn-default" />
+			<button class="btn btn default"
+				onclick="location.href='movie_matching.do?movieseq=${moviedto.movieseq }'">매칭하러가기</button>
 		</div>
+
+
 		</br> </br>
 
+		</div>
 
 		<!--  댓글  -->
 		<div class="container">
-			<h1><label for="moviecomentcontent">comment</label></h1>
-			
-			
+			<h1>
+				<label for="moviecomentcontent">comment</label>
+			</h1>
+
+
 			<c:choose>
 				<c:when test="${dto eq null}">
-					<hr>
+					<hr style="border-bottom:2px solid darkgray; margin-bottom: 5px;">
 				</c:when>
 				<c:otherwise>
 
@@ -186,7 +193,7 @@
 							<input type="text" class="form-control" id="moviecomentcontent"
 								name="moviecomentcontent" placeholder="내용을 입력하세요."> <span
 								class="input-group-btn">
-								<button class="btn btn-default" type="button"
+								<button class="btn btn-danger" type="button"
 									name="commentInsertBtn">등록</button>
 							</span>
 						</div>
@@ -207,7 +214,7 @@
 
 
 
-	</div>
+	
 
 	<!-- Footer -->
 	<%@ include file="../inc/footer.jsp"%>
