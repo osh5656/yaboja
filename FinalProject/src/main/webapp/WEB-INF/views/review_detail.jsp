@@ -111,7 +111,16 @@
 
 	<!--  댓글  -->
 	<div class="container">
-		<label for="reviewboardcomentcontent">comment</label>
+		<h1>
+				<label for="moviecomentcontent">comment</label>
+			</h1>
+			
+			
+		<c:choose>
+				<c:when test="${dto eq null}">
+					<hr style="border-bottom:2px solid darkgray; margin-bottom: 5px;">
+				</c:when>
+				<c:otherwise>	
 		<form name="commentInsertForm">
 			<div class="input-group">
 				<input type="hidden" name="reviewboardseq"
@@ -119,11 +128,14 @@
 					class="form-control" id="reviewboardcomentcontent"
 					name="reviewboardcomentcontent" placeholder="내용을 입력하세요."> <span
 					class="input-group-btn">
-					<button class="btn btn-default" type="button"
+					<button class="btn btn-danger" type="button"
 						name="commentInsertBtn">등록</button>
 				</span>
 			</div>
 		</form>
+		</c:otherwise>
+			</c:choose>
+		
 	</div>
 	<br />
 

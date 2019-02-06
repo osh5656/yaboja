@@ -162,4 +162,12 @@ public class MovieDto {
     public void setCode(String code) {
         this.code = code;
     }
+
+	@Override
+	public String toString() {
+		return "MovieDto [movieseq=" + movieseq + ", movietitle=" + movietitle + ", rating=" + rating + ", genre="
+				+ genre + ", time=" + time + ", pupdate=" + pupdate + ", moviestate=" + moviestate + ", director="
+				+ director + ", actor=" + actor + ", imgurl=" + imgurl + ", code=" + code + "]";
+	}
+    
 }

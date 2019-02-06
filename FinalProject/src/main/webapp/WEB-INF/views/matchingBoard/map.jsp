@@ -3,7 +3,7 @@
 <%@page import="org.json.simple.JSONArray"%>
 
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -106,7 +106,7 @@
             
             var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                 
-                message = '<p>님의 접속 위치</p>  ';
+                message = '<p>${dto.userid}님접속 위치</p>  ';
             // 마커와 인포윈도우를 표시합니다
             displayMarker(locPosition, message);
                 

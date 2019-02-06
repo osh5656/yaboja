@@ -28,14 +28,33 @@
 
 
 	<!-- 파일업로드 필요한것 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10000000" />
 	</beans:bean>
 
 
 
-	<context:component-scan base-package="com.yaboja" />
+	<context:component-scan
+		base-package="com.yaboja" />
+
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<bean id="cronTask" class="com.yaboja.util.CronTask" />
+		<task:scheduler id="cronScheduler" pool-size="10" />
+		<task:annotation-driven
+			scheduler="cronScheduler" />
+
+	</beans>
 
 
 
 </beans:beans>
+
+
+
+

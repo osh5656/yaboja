@@ -27,6 +27,7 @@ public interface MatchingboardDao {
 	public int listCount();
 	
 	public List<MatchingboardDto> selectListByCinema(int cinemaseq);
+	public List<MatchingboardDto> selectListByMovieseq(int movieseq);
 
 }
 

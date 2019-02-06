@@ -99,5 +99,11 @@
 		FROM MATCHINGBOARD
 		WHERE CINEMASEQ = #{cinemaseq}
 	</select>
+	
+	<select id="selectListByMovieseq" parameterType="int" resultType="MatchingboardDto">
+		SELECT *
+		FROM MATCHINGBOARD
+		WHERE MOVIESEQ = #{movieseq}
+	</select>
 
 </mapper>

@@ -149,6 +149,19 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 	}
 
 	@Override
+
+	public List<MatchingboardDto> selectListByMovieseq(int movieseq) {
+		List<MatchingboardDto> res = null;
+		try {
+		
+			res= sqlSession.selectList(namespace + "selectListByMovieseq",movieseq);
+		
+		} catch (Exception e) {
+			System.out.println("matchingboard selectListByMovieseq 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
 	public int deleteMatchingboard(int matchingboard) {
 		int res = 0;
 			try {
@@ -157,6 +170,7 @@ public class MatchingboardDaoImpl implements MatchingboardDao {
 				System.out.println("deleteMatchingboard 에러");
 				e.printStackTrace();
 			}
+
 		return res;
 	}
 }

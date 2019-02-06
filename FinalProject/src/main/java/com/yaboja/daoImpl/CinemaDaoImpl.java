@@ -86,4 +86,27 @@ public class CinemaDaoImpl implements CinemaDao {
 		return cinema;
 
 	}
+	@Override
+	public int insertCinema(CinemaDto cinemaDto) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(namespace+"insertCinema",cinemaDto);
+		} catch(Exception e) {
+			System.out.println("insertCinema 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
+	@Override
+	public int deleteCinema(int cinemaseq) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		try {
+			res = sqlSession.delete(namespace+"deleteCinema",cinemaseq);
+		} catch(Exception e) {
+			System.out.println("deleteCinema 에러");
+			e.printStackTrace();
+		}
+		return res;
+	}
 }

@@ -33,8 +33,17 @@ public class CinemaDto {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+    
+    
 
 
+
+	public CinemaDto(String cinema, String latitude, String longitude) {
+		super();
+		this.cinema = cinema;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 
 	public void setCinemaseq(int cinemaseq) {
         this.cinemaseq = cinemaseq;

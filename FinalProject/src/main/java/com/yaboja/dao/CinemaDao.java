@@ -14,5 +14,8 @@ public interface CinemaDao {
 	public List<CinemaDto> selectList();
 	public int getCinemaSeq(String cinema);
 	public String getCinema(int cinemaseq);
+	
+	public int insertCinema(CinemaDto cinemaDto);
+	public int deleteCinema(int cinemaseq);
 
 }

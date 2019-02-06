@@ -2,6 +2,8 @@ package com.yaboja.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,19 +99,19 @@ public class MovieController {
 	
 	@RequestMapping(value = "/loadMovie.do", method = RequestMethod.GET)//영화 크롤링 및 저장
 	@ResponseBody
-	public String savePresentMovie() {
-		
-		
-		System.out.println("loadMovie 잘왔당");
-		
-		int res = biz.insert();
-		if (res > 0) {
-			System.out.println(res +"개 삽입 성공!!");
+	public String savePresentMovie() throws UnsupportedEncodingException {
+		System.out.println("------관리자 수동 크롤링------");
+		int res[] = biz.insert();		
+		if (res[1] > 0) {
+			
+			System.out.println("새로운 상영작" + res[1] +"개 db에 삽입," + res[0] + "개 종영작으로 업데이트! ");
 		}else {
-			System.out.println("삽입 영화 없음");
+			System.out.println("수동 크롤링 결과 네이버 영화 업데이트 없음");
 		}	
+		String ajax = res[1] +" New Movies insert into DB, " + res[0] + " Update to EndMovies! ";
+		URLEncoder.encode(ajax , "UTF-8");
 		
-		return "ok";
+		return ajax;
 	}
 	//영화 상세페이지
 	@RequestMapping(value = "/movieInfo.do", method = RequestMethod.GET)

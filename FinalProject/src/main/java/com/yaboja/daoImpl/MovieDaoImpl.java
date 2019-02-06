@@ -83,7 +83,7 @@ public class MovieDaoImpl implements MovieDao {
 	}
 	
 	@Override
-	public void updateToEnd(List<MovieDto> updateToEndMovies) {
+	public int updateToEnd(List<MovieDto> updateToEndMovies) {
 		int res = 0;
 
 		try {			
@@ -95,6 +95,8 @@ public class MovieDaoImpl implements MovieDao {
 			System.out.println("update 에러");
 			e.printStackTrace();
 		}
+		
+		return res;
 	}
 				
 
