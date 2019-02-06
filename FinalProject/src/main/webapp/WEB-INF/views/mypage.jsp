@@ -7,7 +7,7 @@
 <%
 List<ReviewboardDto> boardlist = (List)request.getAttribute("boardlist");
 UserDto userDto = (UserDto)session.getAttribute("dto");
-List<MovieDto> moviedto = (List)request.getAttribute("moviedto");
+List<MovieDto> movielist = (List)request.getAttribute("movielist");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +117,7 @@ function matchingboardDelete() {
 								<tr>
 								<td rowspan="11" width="150px;" height="170px;" align="center">
 									<label>PROFILE</label>
-									<img alt="프로필 사진" src=${dto.userprofile } style="width: 150px;height: 170px;">
+									<img alt="${dto.userprofile }" src="profile/${dto.userprofile }" style="width: 150px;height: 170px;">
 								</td>
 								</tr>
 								<tr align="center">
@@ -284,7 +284,7 @@ function matchingboardDelete() {
 %>
 							<tr>
 								<td><%= boardlist.get(i).getReviewboardseq()%></td>
-								<td><a href="review_detail.do?reviewboardseq=<%= boardlist.get(i).getReviewboardseq()%>">[<%=moviedto.get(i).getMovietitle() %>] <%=boardlist.get(i).getReviewboardtitle() %></a></td>
+								<td><a href="review_detail.do?reviewboardseq=<%= boardlist.get(i).getReviewboardseq()%>">[<%=movielist.get(i).getMovietitle() %>] <%=boardlist.get(i).getReviewboardtitle() %></a></td>
 								<td><%= dto.getUsername() %></td>
 								<td><%= boardlist.get(i).getReviewboarddate() %></td>
 								<td><%= boardlist.get(i).getReviewboardview() %></td>

@@ -49,7 +49,31 @@
 		}
 	}
 </script>
+<!-- 파일업로드 -->
+<script>
+    function fileSubmit() {
+//     	alert(document.getElementById("id").value);
 
+        var formData = new FormData($("#fileUploadForm")[0]);
+        $.ajax({
+            type : 'post',
+            url : 'fileUpload.do',
+            data : formData,
+            processData : false,
+            contentType : false,
+            success : function(msg) {
+                alert("파일 업로드하였습니다.");
+                document.getElementById("userprofile").value=msg;
+                alert(document.getElementById("userprofile").value);
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+</script>
 </head>
 
 <body>
@@ -76,16 +100,11 @@
 	</br>
 	<div class="container">
 		<h1>MY PAGE</h1>
-		<form action="mypage_update.do" method="post"
-			onsubmit="return PwSameCheck()">
+		<form name="joinform" id="fileUploadForm" action="mypage_update.do" method="post"
+			 enctype="multipart/form-data" onsubmit="return PwSameCheck()">
 			<input type="hidden" name="userseq" value="${dto.userseq }">
 			<div class="row control-group" >
 						<div class="form-group col-xs-12 floating-label-form-group controls">
-				<%-- <tr>
-		<td rowspan="9" width="150px;" height="170px;" align="center">
-		<img alt="프로필 사진" src=${dto.profile } style="width: 150px;height: 170px;">
-		</td>
-	</tr> --%>
 						<label>ID</label>
 					<div>
 						<input name="userid" value="${dto.userid }" readonly="readonly" />
@@ -106,6 +125,13 @@
 						<label>Email</label> 
 					<div>
 						<input name="useremail" value="${dto.useremail }" readonly="readonly" />
+					</div>
+						<label>Profile</label>
+					<div>
+						<input type="file" class="form-control" id="fileUpload" name="fileUpload">
+						<input type="text" id="userprofile" name="userprofile" hidden="">
+						<p class="help-block text-danger"></p>
+						<button type="button" class="btn btn-default" onclick="fileSubmit();" >선택</button>								
 					</div>
 						<label>Sex</label>
 					<div>

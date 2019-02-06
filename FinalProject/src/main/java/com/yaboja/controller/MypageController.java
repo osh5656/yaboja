@@ -63,10 +63,10 @@ public class MypageController {
 			System.out.println(">>>>>프로필사진_" + userprofile);
 			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
 
-			List<MovieDto> moviedto = new ArrayList<MovieDto>();
+			List<MovieDto> movielist = new ArrayList<MovieDto>();
 			for (int i = 0; i < reviewdto.size(); i++) {
-				moviedto.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
-				System.out.println(">>>>>내게시글영화제목test_" + moviedto.get(i).getMovietitle());
+				movielist.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
+				System.out.println(">>>>>내게시글영화제목test_" + movielist.get(i).getMovietitle());
 			}
 			// cinema 출력
 			CinemaDto cinemadto1 = cinemaBiz.selectOne(dto.getUsercinema1());
@@ -75,7 +75,7 @@ public class MypageController {
 			model.addAttribute("cinemadto1", cinemadto1);
 			model.addAttribute("cinemadto2", cinemadto2);
 			model.addAttribute("cinemadto3", cinemadto3);
-			model.addAttribute("moviedto", moviedto);
+			model.addAttribute("movielist", movielist);
 			model.addAttribute("boardlist", reviewdto);
 			model.addAttribute("dto", userBiz.selectOne(userseq));
 			System.out.println("mypage : UserSeq_" + userseq);
@@ -111,10 +111,10 @@ public class MypageController {
 			System.out.println("수정성공");
 			model.addAttribute("dto", userBiz.selectOne(userseq));
 			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
-			List<MovieDto> moviedto = new ArrayList<MovieDto>();
+			List<MovieDto> movielist = new ArrayList<MovieDto>();
 			for (int i = 0; i < reviewdto.size(); i++) {
-				moviedto.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
-				System.out.println(">>>>>내게시글영화제목test_" + moviedto.get(i).getMovietitle());
+				movielist.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
+				System.out.println(">>>>>내게시글영화제목test_" + movielist.get(i).getMovietitle());
 			}
 
 			CinemaDto cinemadto1 = cinemaBiz.selectOne(dto.getUsercinema1());
@@ -124,7 +124,7 @@ public class MypageController {
 			model.addAttribute("cinemadto1", cinemadto1);
 			model.addAttribute("cinemadto2", cinemadto2);
 			model.addAttribute("cinemadto3", cinemadto3);
-			model.addAttribute("moviedto", moviedto);
+			model.addAttribute("movielist", movielist);
 			model.addAttribute("boardlist", reviewdto);
 
 			return "mypage";
