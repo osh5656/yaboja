@@ -83,71 +83,86 @@ body {
 	<c:choose>
 		<c:when test="${dto.usergrade eq 'admin'}">
 			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="adminPreferences.do"><strong>preferences</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
+				<!-- 메뉴바 -->
+				<a href="movieBoard.do"><strong>Movie Board</strong></a> <a
+					href="matchingboardlist.do"><strong>Matching Board</strong></a> <a
+					href="reviewBoard.do"><strong>Review Board</strong></a> <a
+					href="qnaboard.do"><strong>Q&A Board</strong></a> <a
+					href="adminPreferences.do"><strong>preferences</strong></a>
+				<div class="nav-underline"></div>
+			</nav>
 		</c:when>
 		<c:otherwise>
 			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewboard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="mypage.do"><strong>My Page</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
+				<!-- 메뉴바 -->
+				<a href="movieBoard.do"><strong>Movie Board</strong></a> <a
+					href="matchingboardlist.do"><strong>Matching Board</strong></a> <a
+					href="reviewboard.do"><strong>Review Board</strong></a> <a
+					href="qnaboard.do"><strong>Q&A Board</strong></a> <a
+					href="mypage.do"><strong>My Page</strong></a>
+				<div class="nav-underline"></div>
+			</nav>
 		</c:otherwise>
 	</c:choose>
 	<!-- moviesidebar -->
 	<%@ include file="inc/moviesidebar.jsp"%>
 
 	<!-- 영화매칭관련 페이지들 소스는 여기부터 작성!! -->
-	
-	
+
+
 
 	<div id="context" class="container">
 		<br> <br>
 		<h1 style="color: black; font-weight: bold;">매칭 게시판</h1>
 
 
-<div class="layout-container">
-		<div id="main">
-			<!-- sidebar를 include해준다. -->
-			<div class="form">
-				<div class="container container-fluid"></div>
-				<div class="container container-fluid">
+		<div class="layout-container">
+			<div id="main">
+				<!-- sidebar를 include해준다. -->
+				<div class="form">
+					<div class="container container-fluid"></div>
+					<div class="container container-fluid">
 
-					<div class="jumbotron jumbotron-fluid">
-						<table>
-							<tr>
-								<th>ID : ${user_name }</th>
-							</tr>
-							<tr>
-								<th>COIN : ${coin } (매칭 당 1코인이 차감됩니다.)</th>
-							</tr>
-							
-						</table>
+						<div class="jumbotron jumbotron-fluid">
+							<table>
+								<c:choose>
+									<c:when test="${user_name eq null}">
+										<tr>
+											<th>ID : 로그인 해주세요</th>
+										</tr>
+
+									</c:when>
+									<c:otherwise>
+										<tr>
+											<th>ID : ${user_name }</th>
+										</tr>
+										<tr>
+											<th>COIN : ${coin } (매칭 당 1코인이 차감됩니다.)</th>
+										</tr>
+									</c:otherwise>
+								</c:choose>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
+
 		<div align="right">
 
-			<input type="text" name="keyword" placeholder="검색어를 입력하세요"></input> <input
-				onclick="searchclick()" type="button" value="검색"
-				class="btn btn default" />
-			<!--   <input type= "submit" value ="검색" class="btn btn default" onclick ='searchclick()'> -->
+			
+			<c:choose>
+				<c:when test="${user_name eq null}">
 
-			<input type="button" value="매칭만들기" class="btn btn default"
-				onclick="location.href='matchingForm.do'" />
+
+				</c:when>
+				<c:otherwise>
+					<input type="button" value="매칭만들기" class="btn btn default"
+						onclick="location.href='matchingForm.do'" />
+
+				</c:otherwise>
+			</c:choose>
+
 
 
 
@@ -176,15 +191,13 @@ body {
 
 						<tr align="center">
 							<td><c:out value="${matchingboardlist2[i].username }" /></td>
-							<td><a
-								href="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }"><c:out
-										value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
+							<td><a href="matchingboardselectone.do?matchingboard=${matchingboardlist1[i].matchingboard }">
+							<c:out value="${matchingboardlist1[i].matchingboardtitle }" /></a></td>
 							<td><c:out value="${matchingboardlist2[i].usersex }" /></td>
 							<td><c:out value="${matchingboardlist2[i].userage }" /></td>
 							<td><c:out value="${matchingboardlist4[i].cinema }" /></td>
 							<td><c:out value="${matchingboardlist3[i].movietitle }" /></td>
-							<td><c:out
-									value="${matchingboardlist1[i].matchingboarddate }" /></td>
+							<td><fmt:formatDate pattern ="yyyy-MM-dd HH:mm:ss" value="${matchingboardlist1[i].matchingboarddate }" /></td>
 
 						</tr>
 					</c:forEach>

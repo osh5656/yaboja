@@ -37,14 +37,18 @@
    <select id="userOne" parameterType="String" resultType="com.yaboja.dto.UserDto">
    SELECT * FROM USERS WHERE USERSEQ = TO_NUMBER(#{userid})
    </select>
+   <select id="myboard" parameterType="int" resultType="com.yaboja.dto.ReviewboardDto">
+	SELECT * FROM REVIEWBOARD WHERE USERSEQ = #{userseq} ORDER BY REVIEWBOARDSEQ DESC
+	</select>
    <update id="userUpdate2" parameterType="UserDto">
    UPDATE USERS SET 
    USERPW = #{userpw}, USERNAME = #{username}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}
    WHERE USERSEQ = #{userseq} 
    </update>
-   <delete id="userDelete">
-   DELETE FROM USERS WHERE USERID = #{userid}
-   </delete>
+   <update id="userDelete" parameterType="UserDto">
+   UPDATE USERS SET
+   USERGRADE = 'drop' WHERE USERSEQ = #{userseq}
+   </update>
    <!-- mypage 끝 -->
 
 

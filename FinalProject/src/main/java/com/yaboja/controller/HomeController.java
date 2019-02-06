@@ -1,6 +1,5 @@
 package com.yaboja.controller;
 
-
 import java.io.File;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.yaboja.biz.MatchingboardBiz;
 
 import com.yaboja.biz.MovieBiz;
@@ -44,7 +42,7 @@ public class HomeController {
 	UserBiz userBiz;
 	@Autowired
 	private MovieBizImpl biz;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
@@ -64,46 +62,28 @@ public class HomeController {
 		return "home";
 	}
 
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
 
-
 	public String getMain(Model model) {
-		
+
 		System.out.println("main왔당");
-		
-		
+
 		List<MovieDto> movies = biz.selectPresentMovies();
-		
-		if(movies.size()>=10) {
-			movies = movies.subList(0, 10);
-			for(MovieDto movie : movies) {
-				System.out.println(movie);
-			}		
-			
-			model.addAttribute("list", movies);
-			
+		if (movies != null) {
+			if (movies.size() >= 10) {
+				movies = movies.subList(0, 10);
+				for (MovieDto movie : movies) {
+					System.out.println(movie);
+				}
+
+				model.addAttribute("list", movies);
+
+			}
 		}
-		
-				
 
 		return "main";
 
-		
-
 	}
-
-
-
-	
-
-	
-	
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	   public String getMypage() {
-	      return "mypage";
-	   }
-
 
 }

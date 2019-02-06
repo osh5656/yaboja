@@ -104,4 +104,18 @@ public class ChatController {
 		return result.toString();
 		
 	}
+
+	@RequestMapping(value="/chatUnread.do", method=RequestMethod.POST)
+	   @ResponseBody
+	   public void chatUnread(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	      request.setCharacterEncoding("UTF-8");
+	      response.setContentType("text/html;charset=UTF-8");
+	      String userseq = request.getParameter("userseq");
+	      if(userseq == null || userseq.equals("")) {
+	         response.getWriter().write("0");
+	      } else {
+	         userseq = URLDecoder.decode(userseq, "UTF-8");
+	         response.getWriter().write(chattingBiz.getAllUnreadChat(Integer.parseInt(userseq))+"");
+	      }
+	   }
 }

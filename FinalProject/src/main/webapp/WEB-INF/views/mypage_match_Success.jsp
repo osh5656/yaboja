@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	MatchingDto matchingDto = (MatchingDto)request.getAttribute("matchingDto");
-	UserDto userDto = (UserDto)request.getAttribute("userDto");
+	UserDto userDto = (UserDto)request.getAttribute("userDto"); //
 	String cinema = (String)request.getAttribute("cinema");
 	UserDto user = (UserDto)session.getAttribute("dto");
 	String imgurl = (String)request.getAttribute("imgurl");
@@ -153,6 +153,9 @@
 		</td>
 	</tr>
 </table>
+ <div align ="center">
+				<input type="button" class="btn btn-danger pull-right" value="매칭끊기" onclick="location.href='matchingcut.do?matchingseq=${ matchingDto.matchingseq}'"/>
+</div>
 <%
 	}
 %>

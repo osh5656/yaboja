@@ -16,6 +16,7 @@ public interface MatchingboardBiz {
 	public int update(Map<String,String> map);
 	public MatchingboardDto getCinemaSeq(Map<String,String> map);
 	public int delete(int userseq);
+	public int deleteMatchingboard(int matchingboard);
 
 	//목록 + 페이징
 	public List<MatchingboardDto> listPage(Criteria cri);
@@ -23,5 +24,6 @@ public interface MatchingboardBiz {
 	public int listCount();
 	
 	public List<MatchingboardDto> selectListByCinema(int cinemaseq);
+	public List<MatchingboardDto> selectListByMovieseq(int movieseq);
 
 }

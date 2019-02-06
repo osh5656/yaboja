@@ -68,7 +68,7 @@
 			<!-- 메뉴바 -->
 			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
 			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
+			<a href="reviewboard.do"><strong>Review Board</strong></a> 
 			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
 			<a href="adminPreferences.do"><strong>preferences</strong></a>
 			<div class="nav-underline"></div>

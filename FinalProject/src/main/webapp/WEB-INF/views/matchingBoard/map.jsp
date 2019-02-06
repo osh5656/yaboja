@@ -19,6 +19,28 @@
 <meta charset="utf-8">
 <title>영화관 선택하기</title>
 
+<!-- Bootstrap Core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+
+
+
+<!-- Menu Bar -->
+<link href="css/menubar.css" rel="stylesheet">
+<!-- Content -->
+<link href="css/index_content.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="vendor/jquery/jquery.min.js"></script>
 </head>
 <body>
 

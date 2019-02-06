@@ -37,4 +37,10 @@ public class ChattingBizImpl implements ChattingBiz {
 		// TODO Auto-generated method stub
 		return dao.readChat(userseq1,userseq2);
 	}
+	@Override
+	public int getAllUnreadChat(int userseq) {
+		// TODO Auto-generated method stub
+		return dao.getAllUnreadChat(userseq);
+	}
+
 }

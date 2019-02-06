@@ -12,6 +12,8 @@
 		WHERE MATCHINGAPPLICANT = #{userseq}
 	</select>
 	
+	
+	
 	<select id="userOne" parameterType="int" resultType="MatchingDto">
 		SELECT *
 		FROM MATCHING
@@ -21,6 +23,11 @@
 	<delete id="delete" parameterType = "int">
 		DELETE FROM MATCHING WHERE MATCHINGSEQ=#{matchingseq}
 	</delete>
+	<update id="matchingcut" parameterType = "MatchingDto">
+		UPDATE MATCHING
+		SET MATCHINGSTATE ='E'
+		WHERE  MATCHINGSEQ =#{matchingseq} 
+	</update>
 	
 	<select id="getMatchingApplicant" parameterType="int" resultType="MatchingDto">
 		SELECT *

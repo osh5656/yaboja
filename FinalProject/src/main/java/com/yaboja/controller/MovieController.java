@@ -124,7 +124,7 @@ public class MovieController {
 		
 		
 		
-		model.addAttribute("dto", biz.selectOneMovie(Integer.parseInt(movieSeq)));
+		model.addAttribute("moviedto", biz.selectOneMovie(Integer.parseInt(movieSeq)));
 		Crawler crawler = new Crawler();
 		model.addAttribute("content", crawler.getContent(dto.getCode()));
 

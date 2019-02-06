@@ -82,8 +82,8 @@
          <tr>
             <td><input type="hidden" name="reviewboardseq" value="${reviewboarddto.reviewboardseq }"></td>
          <tr>
-         <tr>
-            <td>영화제목 : <input name="movietitle" value="${reviewboarddto.movietitle}" readonly="readonly">
+           <tr>
+            <td>영화제목 : <input name="movietitle" class="form-control" value="${movieDto.movietitle }" readonly="readonly">
          </tr>
             <tr>
                <td>작성자 : <input type="text" value="${userdto.username }" readonly="readonly"class="form-control">
@@ -100,17 +100,27 @@
             </tr>
          </table>
          <c:choose>
-            <c:when test="${dto.userseq eq reviewboarddto.userseq }">
+            <c:when test="${dto.userseq eq reviewboarddto.userseq or dto.usergrade eq 'admin'}">
             <input type="button" class="btn btn-danger pull-right" value="삭제" onclick="location.href='reviewDelete.do?reviewboardseq=${reviewboarddto.reviewboardseq }'">
             <input type="submit" class="btn btn-default pull-right" value="수정">
             </c:when>
          </c:choose>
+         	<input type="button" class="btn btn-default pull-left" value="뒤로가기" onclick="location.href='reviewboard.do'">
 		</form>
 	</div>
 
 	<!--  댓글  -->
 	<div class="container">
-		<label for="reviewboardcomentcontent">comment</label>
+		<h1>
+				<label for="moviecomentcontent">comment</label>
+			</h1>
+			
+			
+		<c:choose>
+				<c:when test="${dto eq null}">
+					<hr style="border-bottom:2px solid darkgray; margin-bottom: 5px;">
+				</c:when>
+				<c:otherwise>	
 		<form name="commentInsertForm">
 			<div class="input-group">
 				<input type="hidden" name="reviewboardseq"
@@ -118,11 +128,14 @@
 					class="form-control" id="reviewboardcomentcontent"
 					name="reviewboardcomentcontent" placeholder="내용을 입력하세요."> <span
 					class="input-group-btn">
-					<button class="btn btn-default" type="button"
+					<button class="btn btn-danger" type="button"
 						name="commentInsertBtn">등록</button>
 				</span>
 			</div>
 		</form>
+		</c:otherwise>
+			</c:choose>
+		
 	</div>
 	<br />
 

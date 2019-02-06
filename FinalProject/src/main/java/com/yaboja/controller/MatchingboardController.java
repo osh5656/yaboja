@@ -71,17 +71,22 @@ public class MatchingboardController {
 
 		int coin_charge = 0;
 		int coin_use = 0;
+		int coin_use1 = 0;
 		int coin_val = 0;
 
+		if(userdto == null) {
+			
+		}else {
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-		coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
 
 		model.addAttribute("user_name", userdto.getUsername());
 		model.addAttribute("coin", coin_val);
-
+		}
 		////
 
 		List<MatchingboardDto> list = matchingboardBiz.listPage(cri);
@@ -124,8 +129,7 @@ public class MatchingboardController {
 	@RequestMapping(value = "/matchingboardselectone.do")
 	public String detail(Model model, int matchingboard, HttpSession session, HttpServletRequest request) { // 값을 담을
 																											// model 과
-																											// 구분할 변수 id
-		int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();																							// 를 파라미터로
+																											// 구분할 변수 id																						// 를 파라미터로
 																											// 담는다.
 		System.out.println("//" + matchingboard);
 		MatchingboardDto matchingboarddto = matchingboardBiz
@@ -232,16 +236,17 @@ public class MatchingboardController {
 
 		int point_val_01 = 0;
 	      
-	      int coin_charge = 0;
-	      int coin_use = 0;
-	      int coin_val = 0;
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_use1 = 0;
+		int coin_val = 0;
 
-	      coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-	      coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
-
-	      coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
 
 	      
 	      if(coin_val < 1) {
@@ -255,8 +260,8 @@ public class MatchingboardController {
 	         if (request.getParameter("point_val_01") != null) {
 	      
 	         point_val_01 = Integer.parseInt(request.getParameter("point_val_01"));
-	         coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "매칭");
-	         System.out.println("매칭완료");
+	         coinBiz.coin_insert(userdto.getUserseq(), point_val_01, "매칭 게시글 작성");
+	         System.out.println("매칭 게시글 작성 완료");
 	         
 	         int res = matchingboardBiz.insert(map);
 	      
@@ -300,14 +305,16 @@ public class MatchingboardController {
 		mymatchingdto = matchingBiz.insertCheck(userseq);
 		MatchingboardDto mymatchingboarddto = matchingboardBiz.userOne(userseq);
 		int coin_charge = 0;
-	      int coin_use = 0;
-	      int coin_val = 0;
+		int coin_use = 0;
+		int coin_use1 = 0;
+		int coin_val = 0;
 
-	      coin_charge = coinBiz.coin(userseq, "충전");
+		coin_charge = coinBiz.coin(userseq, "충전");
 
-	      coin_use = coinBiz.coin(userseq, "매칭");
+		coin_use = coinBiz.coin(userseq, "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userseq, "상대방에게 매칭 신청");
 
-	      coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
 
 	      if (coin_val < 1) {
 
@@ -457,13 +464,31 @@ public class MatchingboardController {
 
 		return "mypage_match_to";
 	}
-
-	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
-	public void matchingdelete(Model model, HttpSession session, int matchingseq, HttpServletResponse response)
+//	@RequestMapping(value = "/matchingdelete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/matchingcut.do", method = RequestMethod.GET)
+	public void matchingdelete(Model model, HttpSession session,  HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
-		int res = matchingBiz.delete(matchingseq);
-
-		response.sendRedirect("mypage_match_to.do");
+		System.out.println("매칭컷트 컨트롤러");
+		response.setContentType("text/html; charset=utf-8");
+		UserDto dto=(UserDto)session.getAttribute("dto");
+		String matchingseq = request.getParameter("matchingseq");
+//		MatchingDto matchingdto = matchingBiz.matchSuccess(dto.getUserseq());
+//		matchingseq = matchingdto.getMatchingseq();
+		System.out.println(matchingseq);
+		int res = matchingBiz.matchingcut(Integer.parseInt(matchingseq));
+		System.out.println("///");
+		System.out.println("res : "+res);
+		if(res>0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('매칭이 끊어졌습니다.');location.href='mypage.do';</script>");
+			out.close();
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('끊기 오류');location.href='mypage.do';</script>");
+			out.close();
+		}
+//
+//		response.sendRedirect("mypage_match_to.do");
 	}
 
 	@RequestMapping(value = "/match_update.do", method = RequestMethod.GET)
@@ -544,19 +569,21 @@ public class MatchingboardController {
 	      int point_val_01 = 0;
 
 	      point_val_01 = 500;
-	      coinBiz.coin_insert(matchingapplicant, point_val_01, "매칭");
-	      System.out.println("매칭완료");
+	      coinBiz.coin_insert(matchingapplicant, point_val_01, "상대방에게 매칭 신청");
+	      System.out.println("매칭 신청 완료");
 
 	      int coin_charge = 0;
-	      int coin_use = 0;
-	      int coin_val = 0;
+			int coin_use = 0;
+			int coin_use1 = 0;
+			int coin_val = 0;
 
-	      coin_charge = coinBiz.coin(matchingapplicant, "충전");
+			coin_charge = coinBiz.coin(userseq, "충전");
 
-	      coin_use = coinBiz.coin(matchingapplicant, "매칭");
+			coin_use = coinBiz.coin(userseq, "매칭 게시글 작성");
+			coin_use1 = coinBiz.coin(userseq, "상대방에게 매칭 신청");
 
-	      coin_val = ((coin_charge - coin_use) / 500);
-		
+			coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
+
 		if (res1 > 0) {
 			matchingboardBiz.delete(userseq);
 			PrintWriter out = response.getWriter();
@@ -597,7 +624,7 @@ public class MatchingboardController {
 		int userseq = ((UserDto) session.getAttribute("dto")).getUserseq();
 		MatchingDto matchingDto = null;
 		matchingDto = matchingBiz.matchSuccess(userseq);
-		if (matchingDto != null) {
+		if (matchingDto != null) { 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("matchingwriter", String.valueOf(matchingDto.getMatchingwriter()));
 			map.put("matchingapplicant", String.valueOf(matchingDto.getMatchingapplicant()));
@@ -698,17 +725,22 @@ public class MatchingboardController {
 
 		int coin_charge = 0;
 		int coin_use = 0;
+		int coin_use1 = 0;
 		int coin_val = 0;
 
+		if(userdto == null) {
+			
+		}else {
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-		coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
 
 		model.addAttribute("user_name", userdto.getUsername());
 		model.addAttribute("coin", coin_val);
-
+		}
 		////
 		System.out.println("---------------영화관 번호 " + cinemaseq);
 
@@ -736,6 +768,7 @@ public class MatchingboardController {
 		
 //		
 		return "matchingBoard/match_list2";
+
 
 	}
 	
@@ -794,6 +827,68 @@ public class MatchingboardController {
 
 	}
 
+		
+
+
 	// 민엽 지도 끝
+	
+	
+	
+	@RequestMapping("/movie_matching.do")
+	public String listBymovietitle(Model model, HttpSession session, String movieseq) {
+		
+		
+
+		//////
+		UserDto userdto = (UserDto) session.getAttribute("dto");
+
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_use1 = 0;
+		int coin_val = 0;
+
+		if(userdto == null) {
+			
+		}else {
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
+
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
+
+		model.addAttribute("user_name", userdto.getUsername());
+		model.addAttribute("coin", coin_val);
+		}
+		////
+
+
+		List<MatchingboardDto> list = matchingboardBiz.selectListByMovieseq((Integer.parseInt(movieseq)));
+		List<UserDto> userinfo = new ArrayList<UserDto>();
+		List<MovieDto> movieinfo = new ArrayList<MovieDto>();
+		List<CinemaDto> cinemainfo = new ArrayList<CinemaDto>();
+		int listsize = (list.size()) - 1;
+
+
+		for (int i = 0; i < list.size(); i++) {
+			userinfo.add((UserDto) userBiz.selectOne(list.get(i).getUserseq()));
+			movieinfo.add((MovieDto) movieBiz.selectOne(list.get(i).getMovieseq()));
+			cinemainfo.add((CinemaDto) cinemaBiz.selectOne(list.get(i).getCinemaseq()));
+		}
+
+		
+
+		model.addAttribute("matchingboardlist1", list);
+		model.addAttribute("matchingboardlist2", userinfo);
+		model.addAttribute("matchingboardlist3", movieinfo);
+		model.addAttribute("matchingboardlist4", cinemainfo);
+		model.addAttribute("listsize", listsize);
+
+		
+//		
+		return "matchingBoard/match_movie";
+
+		}
+		
 
 }

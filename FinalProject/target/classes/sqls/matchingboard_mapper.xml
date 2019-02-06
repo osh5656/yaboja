@@ -53,6 +53,10 @@
 	<delete id="delete" parameterType="int">
 		DELETE FROM MATCHINGBOARD WHERE USERSEQ = #{userseq}
 	</delete>
+	
+	<delete id="deleteMatchingboard" parameterType="int">
+		DELETE FROM MATCHINGBOARD WHERE MATCHINGBOARD = #{matchingboard}
+	</delete>
 
 
 	<!-- <select id="selectList" resultType="MatchingboardDto"> -->
@@ -94,6 +98,12 @@
 		SELECT *
 		FROM MATCHINGBOARD
 		WHERE CINEMASEQ = #{cinemaseq}
+	</select>
+	
+	<select id="selectListByMovieseq" parameterType="int" resultType="MatchingboardDto">
+		SELECT *
+		FROM MATCHINGBOARD
+		WHERE MOVIESEQ = #{movieseq}
 	</select>
 
 </mapper>
