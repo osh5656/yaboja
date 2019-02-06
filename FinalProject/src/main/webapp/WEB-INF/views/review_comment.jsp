@@ -19,6 +19,42 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript"
    src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<style type="text/css">
+
+n{
+font-weight: bold;
+   font-variant:small-caps;
+   color: darkblue;
+   
+   
+   font-family:monospace;
+
+}
+
+.commentInfo{
+   
+   text-shadow: 2px 6px 2px skyblue;
+}
+
+m{
+font-weight: bold;
+   font-variant:small-caps;
+   color: dark;
+   
+   font-size:17px;
+   font-family:"맑은 고딕";
+
+}
+
+
+
+
+
+
+
+</style>
+   
 <script type="text/javascript">
    var reviewboardseq = '${reviewboarddto.reviewboardseq}'; //게시글 번호
 
@@ -47,7 +83,8 @@
                               data,
                               function(key, value) {
                                  coupdate = '';
-                                 if (userseq == value.userseq || usergrade== "admin" ) {
+                                 if (userseq == value.userseq
+                                       || usergrade == "admin") {
 
                                     coupdate = '<div style = "float:right;"><a onclick="commentUpdate('
                                           + value.reviewboardcomentseq
@@ -59,13 +96,13 @@
                                           + ');"> 삭제 </a> </div>';
                                  }
 
-                                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                                 a += '<div class="commentArea" style="border-bottom:2px solid darkgray; margin-bottom: 5px;">';
                                  a += coupdate;
-                                 a += '<div class="commentInfo'+value.reviewboardcomentseq+'"> 작성자 : '
-                                       + value.username + '</div>';
-                                 a += '<div class="commentContent'+value.reviewboardcomentseq+'"> <p> 내용 : '
+                                 a += 'ID : <n class="commentInfo">'
+                                       + value.username + '</n>';
+                                 a += '<div class="commentContent'+value.reviewboardcomentseq+'"><m><p>내용 :  '
                                        + value.reviewboardcomentcontent
-                                       + '</p>';
+                                       + '</p></m>';
                                  a += '</div></div>';
                               });
 

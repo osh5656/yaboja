@@ -60,6 +60,7 @@ public class MatchingBizImpl implements MatchingBiz {
 	@Override
 	public MatchingDto matchSuccess(int userseq) {
 		// TODO Auto-generated method stub
+		
 		return dao.matchSuccess(userseq);
 	}
 
@@ -73,5 +74,11 @@ public class MatchingBizImpl implements MatchingBiz {
 	public MatchingDto userOne(int userseq) {
 		// TODO Auto-generated method stub
 		return dao.userOne(userseq);
+	}
+
+	@Override
+	public int matchingcut(int matchingseq) {
+		// TODO Auto-generated method stub
+		return dao.matchingcut(matchingseq);
 	}
 }

@@ -2,15 +2,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-   int userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+      int userseq = 0;
+   String usergrade="";
+   if(session.getAttribute("dto") != null){
+      userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+      usergrade=((UserDto)session.getAttribute("dto")).getUsergrade();
+      
+   }
+   
+   
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="vendor/jquery/jquery.min.js"></script>
    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+   
+<style type="text/css">
+
+n{
+font-weight: bold;
+   font-variant:small-caps;
+   color: darkblue;
+   
+   
+   font-family:monospace;
+
+}
+
+.commentInfo{
+   
+   text-shadow: 2px 6px 2px skyblue;
+}
+
+m{
+font-weight: bold;
+   font-variant:small-caps;
+   color: dark;
+   
+   font-size:17px;
+   font-family:"맑은 고딕";
+
+}
+</style>   
+   
 <script type="text/javascript">
-var movieseq = '${dto.movieseq}'; //게시글 번호
+var movieseq = '${moviedto.movieseq}'; //게시글 번호
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
@@ -29,16 +66,22 @@ function commentList(){
         success : function(data){
             var a =''; 
            var userseq = document.getElementById("userseq").value;
+           var usergrade = document.getElementById("usergrade").value;
            var coupdate = '';
             $.each(data, function(key, value){
-               if(userseq == value.userseq){
+               coupdate='';
+               if(userseq == value.userseq || usergrade== "admin" ){
+                  
                   coupdate = '<div style = "float:right;"><a onclick="commentUpdate('+value.moviecomentseq+',\''+value.moviecomentcontent+'\');"> 수정 </a>'+'<a onclick="commentDelete('+value.moviecomentseq+');"> 삭제 </a> </div>';
                }
                
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
                 a += coupdate;
-                a += '<div class="commentInfo'+value.moviecomentseq+'"> 작성자 : '+value.username+'</div>';
-                a += '<div class="commentContent'+value.moviecomentseq+'"> <p> 내용 : '+value.moviecomentcontent +'</p>';
+                a += 'ID : <n class="commentInfo">'
+               + value.username + '</n>';
+                a += '<div class="commentContent'+value.moviecomentseq+'"><m><p>내용 :  '
+            + value.moviecomentcontent
+            + '</p></m>';
                 a += '</div></div>';
             });
             
@@ -117,6 +160,6 @@ $(document).ready(function(){
 </head>
 <body>
    <input type="hidden" id="userseq" value="<%= userseq%>"/>
-
+   <input type="hidden" id="usergrade" value="<%= usergrade %>"/>
 </body>
 </html>

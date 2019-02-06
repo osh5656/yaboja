@@ -48,13 +48,16 @@ public class CoinController {
 
 		int coin_charge = 0;
 		int coin_use = 0;
+		int coin_use1 = 0;
 		int coin_val = 0;
 
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-		coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
+
 
 		
 		model.addAttribute("user_name", userdto.getUsername());
@@ -93,13 +96,16 @@ public class CoinController {
 
 		int coin_charge = 0;
 		int coin_use = 0;
+		int coin_use1 = 0;
 		int coin_val = 0;
 
 		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
 
-		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭 게시글 작성");
+		coin_use1 = coinBiz.coin(userdto.getUserseq(), "상대방에게 매칭 신청");
 
-		coin_val = ((coin_charge - coin_use) / 500);
+		coin_val = ((coin_charge - (coin_use+coin_use1)) / 500);
+
 
 		model.addAttribute("coinlist", list);
 		model.addAttribute("coin", coin_val);

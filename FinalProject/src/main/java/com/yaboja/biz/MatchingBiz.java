@@ -17,6 +17,8 @@ public interface MatchingBiz {
 	public MatchingDto matchSuccess(int userseq);
 	public MatchingDto insertCheck(int userseq);
 	public MatchingDto userOne(int userseq);
+	public int matchingcut(int matchingseq);
+
 	
 
 }
