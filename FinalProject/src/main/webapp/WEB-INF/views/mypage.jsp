@@ -19,6 +19,8 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 <meta name="author" content="">
 
 <title>야보자</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -49,20 +51,49 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 	}
 </script>
 </head>
+<script type="text/javascript">
+function matchingboardDelete() {
+	if(confirm("매칭글을 삭제해도 차감된 코인은 환불되지 않습니다. 정말 삭제하시겠습니까??")){
+		//매칭페이지로 ㄱㄱ
+		var userseq = document.getElementById('userseq').value;
+		var seq = document.getElementById('matchingboardseq').value;
+		location.href='matchboarddelete.do?matchingboard='+seq;		
+		}else{
+			alert('취소되었습니다.')
+		};
+}
 
+</script>
 <body>
 
 	<!-- Navigation -->
 	<%@ include file="inc/topbar.jsp"%>
 
 	<!-- Menu Bar -->
-	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-		<!-- 메뉴바 -->
-		<a href=""><strong>Movie Board</strong></a> <a href=""><strong>Matching
-				Board</strong></a> <a href=""><strong>Review Board</strong></a> <a href=""><strong>Q&A
-				Board</strong></a> <a href=""><strong>My Page</strong></a>
-		<div class="nav-underline"></div>
-	</nav>
+   <c:choose>
+		<c:when test="${dto.usergrade eq 'admin'}">
+			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+			<!-- 메뉴바 -->
+			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
+			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
+			<a href="adminPreferences.do"><strong>preferences</strong></a>
+			<div class="nav-underline"></div>
+			</nav>		
+		</c:when>
+		<c:otherwise>
+			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
+			<!-- 메뉴바 -->
+			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
+			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
+			<a href="reviewboard.do"><strong>Review Board</strong></a> 
+			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
+			<a href="mypage.do"><strong>My Page</strong></a>
+			<div class="nav-underline"></div>
+			</nav>		
+		</c:otherwise>
+	</c:choose>
 
 	<!-- mypagesidebar -->
 	<%@ include file="inc/mypagesidebar.jsp"%>
@@ -133,6 +164,80 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 			</div>
 		</div>
 	</div>
+	
+	<hr class="my-4">
+   	<input type="hidden" id="matchingboardseq" value="${matchingboarddto.matchingboard }"/>
+   <div class="layout-container">
+      <div id="main">
+         <div class="form">
+            <div class="container container-fluid">
+               <h2>작성한 매칭</h2>
+            </div>
+            <div class="container container-fluid">
+               <div class="jumbotron jumbotron-fluid">
+               <table border="1" class="table table-hover" style="background: white;">
+         <thead align="center">
+            <tr align="center">
+				<td width="80px">작성자</td>
+				<td width="250px">제 목</td>
+				<td width="60px">성 별</td>
+				<td width="60px">연 령</td>
+				<td width="150px">영화관</td>
+				<td width="200px">영 화</td>
+				<td width="120px">날 짜</td>
+				
+			</tr>
+         </thead>
+         
+         
+            <c:choose>
+				<c:when test="${empty matchingboarddto }">
+				 <tr>
+				 	<td colspan ="7">
+					<h3>----등록된 매칭글이 없습니다----</h3>
+					</td>
+				</tr>
+				</c:when>
+				<c:otherwise>
+					
+
+						<tr align="center">
+							<td><c:out value="${dto.username }" /></td>
+							<td><a href="matchingboardselectone.do?matchingboard=${matchingboarddto.matchingboard }"><c:out
+										value="${matchingboarddto.matchingboardtitle }" /></a></td>
+							<td><c:out value="${dto.usersex }" /></td>
+							<td><c:out value="${dto.userage }" /></td>
+							<td><c:out value="${cinemadto.cinema }" /></td>
+							<td><c:out value="${moviedto.movietitle }" /></td>
+							<td><fmt:formatDate pattern ="yyyy-MM-dd HH:mm" value="${matchingboarddto.matchingboarddate }" /></td>
+							
+					
+						</tr>
+					
+
+				</c:otherwise>
+			</c:choose>
+       
+      </table>
+		<c:if test="${matchingboarddto.matchingboard!=null }">
+     	 <div align ="center">
+				<input type="button" class="btn btn-danger pull-right" value="삭제" onclick="location.href='matchboarddelete.do?matchingboard=${matchingboarddto.matchingboard }'">
+		</div>		
+		</c:if>
+		
+		<c:if test="${matchingboarddto.matchingboard==null }">
+     	 <div align ="center">
+				<input type="button" class="btn btn-danger pull-right" value="매칭게시판으로 가기" onclick="location.href='matchingboardlist.do'"/>
+		</div>		
+		</c:if>
+   
+   
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   
 	<hr class="my-4">
 	<div class="layout-container">
 		<div id="main">
