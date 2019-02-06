@@ -45,7 +45,7 @@ public class MovieController {
 	MovieDto dto;
 		
 	@RequestMapping(value = "/movieBoard.do", method = RequestMethod.GET)
-	public String getPresentMovie(Model model) {
+	public String getPresentMovie(Model model, String movieSeq) {
 		
 		List<MovieDto> movies = biz.selectPresentMovies();
 		
@@ -57,6 +57,8 @@ public class MovieController {
 			model.addAttribute("list", movies);
 			
 		}
+		
+		
 		
 		
 		return "movieBoard/presentMovie";

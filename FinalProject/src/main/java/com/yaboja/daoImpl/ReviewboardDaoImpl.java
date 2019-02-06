@@ -82,7 +82,14 @@ public class ReviewboardDaoImpl implements ReviewboardDao {
 	// 진선 추가
 	@Override
 	public MovieDto selectOne1(int movieseq) {
-		MovieDto dto = sqlSession.selectOne(namespace + "selectOne", movieseq);
+		MovieDto dto=null;
+		try {
+			dto = sqlSession.selectOne(namespace + "titlemovie", movieseq);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("리뷰보드다오 : selectOne1 실패");
+		}
+
 		return dto;
 	}
 

@@ -1,7 +1,9 @@
 package com.yaboja.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import com.yaboja.dto.CinemaDto;
 import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.dto.UserDto;
 
@@ -36,5 +38,5 @@ public interface UserDao {
 
 	// 내게시글보기
 	public List<ReviewboardDto> myboardList(int userseq);
-
+	
 }
