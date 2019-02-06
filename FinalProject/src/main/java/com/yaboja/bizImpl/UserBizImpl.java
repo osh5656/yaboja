@@ -1,12 +1,14 @@
 package com.yaboja.bizImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yaboja.biz.UserBiz;
 import com.yaboja.daoImpl.UserDaoImpl;
+import com.yaboja.dto.CinemaDto;
 import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.dto.UserDto;
 

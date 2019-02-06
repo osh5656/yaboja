@@ -1,3 +1,4 @@
+<%@page import="com.yaboja.dto.MovieDto"%>
 <%@page import="com.yaboja.dto.UserDto"%>
 <%@page import="com.yaboja.dto.ReviewboardDto"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,7 @@
 <%
 List<ReviewboardDto> boardlist = (List)request.getAttribute("boardlist");
 UserDto userDto = (UserDto)session.getAttribute("dto");
+List<MovieDto> moviedto = (List)request.getAttribute("moviedto");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,48 +80,60 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 						<form action="mypage_updateform.do" method="post">
 							<input type="hidden" name="userseq" value="${dto.userseq }" />
 							<table>
-								<%-- <tr>
-								<td rowspan="8" width="150px;" height="170px;" align="center">
-									<img alt="프로필 사진" src=${dto.profile } style="width: 150px;height: 170px;">
+								<tr>
+								<td rowspan="11" width="150px;" height="170px;" align="center">
+									<label>PROFILE</label>
+									<img alt="프로필 사진" src=${dto.userprofile } style="width: 150px;height: 170px;">
 								</td>
-								</tr> --%>
+								</tr>
 								<tr align="center">
-									<td rowspan="9" width="100px"></td>
+									<td rowspan="10" width="100px"></td>
 								</tr>
 								<tr>
+									<th><label>ID</label>
 									<td><input readonly="readonly" name="userid"
 										value="${dto.userid }" class="form-control"></td>
 								</tr>
 								<tr>
+									<th><label>NAME</label>
 									<td><input readonly="readonly" name="username"
 										value="${dto.username }" class="form-control"></td>
 								</tr>
 								<tr>
+									<th><label>EMAIL</label>
 									<td><input readonly="readonly" name="useremail"
 										value="${dto.useremail }" class="form-control"></td>
 								</tr>
 								<tr>
+									<th><label>SEX</label>
 									<td><input readonly="readonly" name="usersex"
 										value="${dto.usersex }" class="form-control"></td>
 								</tr>
 								<tr>
+									<th><label>AGE</label>
 									<td><input readonly="readonly" name="userage"
 										value="${dto.userage }" class="form-control"></td>
 								</tr>
 								<tr>
+									<th><label>ADDRESS</label>
 									<td><input readonly="readonly" name="useraddress"
 										value="${dto.useraddress }" class="form-control"></td>
 								</tr>
-								<%-- <tr>
-								<th>애용관1 ${dto.usercinema1 }
+								<tr>
+									<th><label>CINEMA1</label>
+									<td><input readonly="readonly" name="usercinema1"
+										value="${cinemadto1.cinema }" class="form-control"></td>
 								</tr>
 								<tr>
-									<th>애용관2${dto.usercinema2 }
+									<th><label>CINEMA2</label></th>
+									<td><input readonly="readonly" name="usercinema2"
+										value="${cinemadto2.cinema}" class="form-control"></td>
 								</tr>
 								<tr>
-									<th>애용관3 ${dto.usercineme3 }
+									<th><label>CINEMA3</label>
+									<td><input readonly="readonly" name="usercinema3"
+										value="${cinemadto3.cinema }" class="form-control"></td>
 								</tr>
-							 --%>
 							</table>
 							<input type="button" class="btn btn-danger pull-right" value="탈퇴"
 								onclick="userDelete()"> <input type="submit"
@@ -162,11 +176,10 @@ UserDto userDto = (UserDto)session.getAttribute("dto");
 %>
 							<tr>
 								<td><%= boardlist.get(i).getReviewboardseq()%></td>
-								<td><a
-									href="review_detail.do?reviewboardseq=<%= boardlist.get(i).getReviewboardseq()%>"><%= boardlist.get(i).getReviewboardtitle()%></a></td>
-								<td><%= userDto.getUsername()%></td>
+								<td><a href="review_detail.do?reviewboardseq=<%= boardlist.get(i).getReviewboardseq()%>">[<%=moviedto.get(i).getMovietitle() %>] <%=boardlist.get(i).getReviewboardtitle() %></a></td>
+								<td><%= dto.getUsername() %></td>
 								<td><%= boardlist.get(i).getReviewboarddate() %></td>
-								<td><%= boardlist.get(i).getReviewboardview()%></td>
+								<td><%= boardlist.get(i).getReviewboardview() %></td>
 							</tr>
 <%
 					}

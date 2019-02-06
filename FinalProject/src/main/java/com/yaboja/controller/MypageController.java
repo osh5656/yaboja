@@ -1,6 +1,9 @@
 package com.yaboja.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yaboja.biz.CinemaBiz;
+import com.yaboja.biz.MovieBiz;
+import com.yaboja.biz.ReviewboardBiz;
 import com.yaboja.biz.UserBiz;
+import com.yaboja.dto.CinemaDto;
+import com.yaboja.dto.MovieDto;
 import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.dto.UserDto;
 
@@ -19,18 +27,36 @@ public class MypageController {
    
    @Autowired
    private UserBiz userBiz;
+   @Autowired
+   private CinemaBiz cinemaBiz;
+   
+   @Autowired
+   private ReviewboardBiz reviewBiz;
    
    @RequestMapping("/mypage.do")
 	public String mypage(Model model, HttpSession session) {
 		UserDto dto=(UserDto)session.getAttribute("dto");
 		int userseq = dto.getUserseq();
+		String userprofile = dto.getUserprofile();
+		System.out.println(">>>>>프로필사진_"+userprofile);
 		List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
 		
-		System.out.println(">>>>>>>내게시글 : " + reviewdto);
-
+		List<MovieDto> moviedto = new ArrayList<MovieDto>();
+		for(int i = 0;i<reviewdto.size();i++) {
+			moviedto.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
+			System.out.println(">>>>>내게시글영화제목test_"+moviedto.get(i).getMovietitle());
+		}
+		//cinema 출력
+		CinemaDto cinemadto1 = cinemaBiz.selectOne(dto.getUsercinema1());
+		CinemaDto cinemadto2 = cinemaBiz.selectOne(dto.getUsercinema2());
+		CinemaDto cinemadto3 = cinemaBiz.selectOne(dto.getUsercinema3());
+		model.addAttribute("cinemadto1", cinemadto1);
+		model.addAttribute("cinemadto2", cinemadto2);
+		model.addAttribute("cinemadto3", cinemadto3);
+		model.addAttribute("moviedto",moviedto);
 		model.addAttribute("boardlist",reviewdto);
 		model.addAttribute("dto",userBiz.selectOne(userseq));
-		System.out.println("mypage : "+ userseq);
+		System.out.println("mypage : UserSeq_"+ userseq);
 		return "mypage";
 	}
    
@@ -38,10 +64,10 @@ public class MypageController {
    @RequestMapping("/mypage_updateform.do")
    public String updateform(Model model, HttpSession session) {
       UserDto dto = (UserDto)session.getAttribute("dto");
-      System.out.println("updateform : " + dto.getUserseq());
       int userseq = dto.getUserseq();
+      List<CinemaDto> cinemaList = cinemaBiz.selectAll();
+      model.addAttribute("cinemaList",cinemaList);      
       model.addAttribute("dto",userBiz.selectOne(userseq));
-      System.out.println("userid : " + userseq);
       return "mypage_update";
    }
    
@@ -54,15 +80,21 @@ public class MypageController {
  		
  		if(res>0) {
  			dto = userBiz.selectOne(userseq);
- 			session.setAttribute("dto", dto);
- 			
+ 			session.setAttribute("dto", dto); 
+ 			 			
  			System.out.println("수정성공");
  			model.addAttribute("dto",userBiz.selectOne(userseq));
  			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
  			
- 			System.out.println(">>>>>>>test : " + reviewdto);
-
+ 			CinemaDto cinemadto1 = cinemaBiz.selectOne(dto.getUsercinema1());
+ 			CinemaDto cinemadto2 = cinemaBiz.selectOne(dto.getUsercinema2());
+ 			CinemaDto cinemadto3 = cinemaBiz.selectOne(dto.getUsercinema3());
+ 			
+ 			model.addAttribute("cinemadto1",cinemadto1);
+ 			model.addAttribute("cinemadto2",cinemadto2);
+ 			model.addAttribute("cinemadto3",cinemadto3);
  			model.addAttribute("boardlist",reviewdto);
+ 			
  			return "mypage";
  		}
  			System.out.println("수정실패");

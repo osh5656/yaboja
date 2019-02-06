@@ -1,7 +1,9 @@
 package com.yaboja.biz;
 
 import java.util.List;
+import java.util.Map;
 
+import com.yaboja.dto.CinemaDto;
 import com.yaboja.dto.ReviewboardDto;
 import com.yaboja.dto.UserDto;
 
@@ -32,4 +34,5 @@ public interface UserBiz {
 	public int gradeUpdate(UserDto dto);
 
 	public int delete(String userid);
+	
 }

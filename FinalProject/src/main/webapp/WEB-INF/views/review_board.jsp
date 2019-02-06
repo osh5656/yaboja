@@ -1,3 +1,4 @@
+<%@page import="com.yaboja.dto.MovieDto"%>
 <%@page import="com.yaboja.dto.UserDto"%>
 <%@page import="com.yaboja.dto.ReviewboardDto"%>
 <%@page import="java.util.List"%>
@@ -8,6 +9,7 @@
 <%
    List<ReviewboardDto> reviewboardList = (List)request.getAttribute("reviewboardList");
    List<UserDto> userList = (List)request.getAttribute("userList");
+   List<MovieDto> movieList = (List)request.getAttribute("movieList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +82,6 @@
       <h2>후기게시판</h2>
       <form action="#">
          <div align="right">
-            <input type="text" class="control">
-            <input type="submit" value="검색" class="btn btn-default"/>
             <c:choose>
             <c:when test="${dto.userid ne null }">
                <input type="button" value="글쓰기"class="btn btn-default" onclick="location.href='review_Insertform.do'">
@@ -112,10 +112,10 @@
 %>
                   <tr>
                      <td><%= reviewboardList.get(i).getReviewboardseq()%></td>
-                     <td><a href="review_detail.do?reviewboardseq=<%= reviewboardList.get(i).getReviewboardseq()%>"><%= reviewboardList.get(i).getReviewboardtitle()%></a></td>
+                     <td> <a href="review_detail.do?reviewboardseq=<%= reviewboardList.get(i).getReviewboardseq()%>">[<%= movieList.get(i).getMovietitle()%>] <%= reviewboardList.get(i).getReviewboardtitle()%></a></td>
                      <td><%= userList.get(i).getUsername()%></td>
                      <td><%= reviewboardList.get(i).getReviewboarddate()%></td>
-                     <td><%= reviewboardList.get(i).getReviewboardview()%></td>               
+                     <td><%= reviewboardList.get(i).getReviewboardview()%></td>  
                   </tr>
 <%
                }

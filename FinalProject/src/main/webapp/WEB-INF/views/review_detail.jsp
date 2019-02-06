@@ -78,25 +78,31 @@
 		<!-- 히든으로 reviewboardseq받기 -->
 		<form action="review_updateform.do" method="post">
 			<input type="hidden" name="userseq" value="${dto.userseq }"/>
-         <table style="width: 1140px; height: 400px;">
-         <tr>
-            <td><input type="hidden" name="reviewboardseq" value="${reviewboarddto.reviewboardseq }"></td>
-         <tr>
-           <tr>
-            <td>영화제목 : <input name="movietitle" class="form-control" value="${movieDto.movietitle }" readonly="readonly">
-         </tr>
+         <table style="width: 1140px;">
+	         <tr>
+	            <td><input type="hidden" name="reviewboardseq" value="${reviewboarddto.reviewboardseq }"></td>
+	         <tr>
+	         <tr>
+	         	<td rowspan="5" width="200px;" align="center">
+	         	<img alt="후기영화사진" src="${movieDto.imgurl }"  width="200" height="250"></td>
+	         </tr>
+     		<tr>
+     		<td rowspan="4"width="50px;">
+     		</tr>
             <tr>
-               <td>작성자 : <input type="text" value="${userdto.username }" readonly="readonly"class="form-control">
-            </tr>
-         
-            <tr>
-               <td>제목 : <input type="text" name="reviewboardtitle"value="${reviewboarddto.reviewboardtitle }" readonly="readonly"class="form-control">
-            </tr>
-            <tr>
-               <td>내용 : 
+    	        <td><label>영화제목</label><input name="movietitle" class="form-control" value="${movieDto.movietitle }" readonly="readonly">
             </tr>
             <tr>
-               <td><div class="form-control" style="overflow-y : scroll; width: 100%; height: 500px;">${reviewboarddto.reviewboardcontent }</div></td>
+               <td><label>작성자</label><input type="text" value="${userdto.username }" readonly="readonly"class="form-control">
+            </tr>
+            <tr>
+               <td><label>제목</label><input type="text" name="reviewboardtitle"value="${reviewboarddto.reviewboardtitle }" readonly="readonly"class="form-control">
+            </tr>
+            <tr>
+               <td colspan="3"><label>내용</label> 
+            </tr>
+            <tr>
+               <td colspan="3"><div class="form-control" style="overflow-y : scroll; width: 100%; height: 500px;">${reviewboarddto.reviewboardcontent }</div></td>
             </tr>
          </table>
          <c:choose>
