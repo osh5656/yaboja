@@ -12,7 +12,7 @@ public interface MovieBiz {
 
 	public List<MovieDto> selectEndMovies();
 
-	public int insert();
+	public int[] insert();
 
 	public MovieDto selectOne(int movieseq);
 	public List<MovieDto> selectList();

@@ -41,38 +41,6 @@
 	
 	
 
-	
-	
-<script type="text/javascript">
-
-function loadMovie(){
-	
-$.ajax({
-		
-		url: "loadMovie.do",
-		cache: false,
-		success: function(text){
-			
-			if(text.trim()=="ok"){
-				document.getElementById("ok").innerHTML="ok"
-			}
-			
-		},
-		error:function(){
-			
-		}
-    });
-	
-}
-
-String.prototype.trim = function () { //trim
-	
-    return this.replace(/^\s+|\s+$/g, "");
-
-}
-
-</script>
-
 
 
 </head>
@@ -124,11 +92,7 @@ String.prototype.trim = function () { //trim
 	
 	<%@ include file="../inc/endmovielist.jsp"%>
 	
-	
-	<center>
-	<input type="button" value="개봉작 저장" onClick="loadMovie();"/>
-	<p id="ok"></p>
-	</center>
+
 	
 
 	<!-- Footer -->

@@ -1,23 +1,18 @@
-
-<%@page import="org.json.simple.JSONObject"%>
-<%@page import="org.json.simple.JSONArray"%>
-
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<title>영화관 선택하기</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>야보자</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,58 +29,76 @@
 
 
 
-
 <!-- Menu Bar -->
 <link href="css/menubar.css" rel="stylesheet">
 <!-- Content -->
 <link href="css/index_content.css" rel="stylesheet">
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
+
 </head>
+
+<script type="text/javascript">
+	function map1() {
+		
+		window.open('map1.do', "", "width=1000,height=550");
+	}
+</script>
+
 <body>
 
+	<!-- Navigation -->
 	<%@ include file="../inc/topbar.jsp"%>
-
 
 	<!-- Menu Bar -->
 	<c:choose>
 		<c:when test="${dto.usergrade eq 'admin'}">
 			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewBoard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="adminPreferences.do"><strong>preferences</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
+				<!-- 메뉴바 -->
+				<a href="movieBoard.do"><strong>Movie Board</strong></a> <a
+					href="matchingboardlist.do"><strong>Matching Board</strong></a> <a
+					href="reviewBoard.do"><strong>Review Board</strong></a> <a
+					href="qnaboard.do"><strong>Q&A Board</strong></a> <a
+					href="adminPreferences.do"><strong>preferences</strong></a>
+				<div class="nav-underline"></div>
+			</nav>
 		</c:when>
 		<c:otherwise>
 			<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
-			<!-- 메뉴바 -->
-			<a href="movieBoard.do"><strong>Movie Board</strong></a> 
-			<a href="matchingboardlist.do"><strong>Matching Board</strong></a> 
-			<a href="reviewboard.do"><strong>Review Board</strong></a> 
-			<a href="qnaboard.do"><strong>Q&A Board</strong></a> 
-			<a href="mypage.do"><strong>My Page</strong></a>
-			<div class="nav-underline"></div>
-			</nav>		
+				<!-- 메뉴바 -->
+				<a href="movieBoard.do"><strong>Movie Board</strong></a> <a
+					href="matchingboardlist.do"><strong>Matching Board</strong></a> <a
+					href="reviewboard.do"><strong>Review Board</strong></a> <a
+					href="qnaboard.do"><strong>Q&A Board</strong></a> <a
+					href="mypage.do"><strong>My Page</strong></a>
+				<div class="nav-underline"></div>
+			</nav>
 		</c:otherwise>
 	</c:choose>
-	<!-- moviesidebar -->
-	<%@ include file="../inc/moviesidebar.jsp"%>
+
+
+	<!--adminsidebar -->
+	<%@ include file="../inc/adminSidebar.jsp"%>
+	<!-- 내부jsp -->
 	
+	<br>
+	<br>
+	<br>
 	
-   <center>
+	<h2 style="padding-left: 250px;"> 영화관 등록 및 삭제</h2>
+	
+	<!-- 지도-------------------------------------------- -->
+	
+	   <center>
    <div>
-	<div id="map" style="width: 70%; height: 700px;"></div>
+	<div id="map" style="width: 800px; height: 400px;" ></div>
 
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fcce2df2939bca5734fd756caf9ea252&libraries=clusterer"></script>
 	
-<script src="js/script.js"></script>
+
 	<script>
 	
 
@@ -104,11 +117,11 @@
             var lat = position.coords.latitude, // 위도
                 lon = position.coords.longitude; // 경도
             
-            var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+            var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                 
-                message = '<p>${dto.userid}님접속 위치</p>  ';
+                //message = '<p> 님의 접속 위치</p>  ';
             // 마커와 인포윈도우를 표시합니다
-            displayMarker(locPosition, message);
+            //displayMarker(locPosition, message);
                 
           });
         
@@ -224,11 +237,64 @@
 </script>
 </div>
    </center>
-   
-   
-   
-   <!-- Footer -->
-	<%@ include file="../inc/footer.jsp"%>
+	
+	
+	
+	
+	<!-- /지도-------------------------------------------- -->
+	<br>
+	<div class="container">
+		
+		<form action="#">
+			<div align="right">
+				<button type="button" class="btn btn-default"
+											onclick="map1()">영화관 등록</button>
+			</div>
+			<br>
+			<center>
+			<table border="1" class="table" style="text-align: center;">
+				<thead align="center">
+					<tr>
+						<th style="width: 100px;">영화관 번호
+						<th>영화관
+						<th style="width: 100px;">위도
+						<th style="width: 100px;">경도
+						<th style="width: 100px;">삭제
+					</tr>
+				</thead>
+				<tbody>
+					<c:choose>
+						<c:when test="${empty cinemaList }">
+							<tr>
+								<td colspan="8">사용자가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="i" items="${cinemaList }">
 
+								<tr>
+									<td>${i.cinemaseq }</td>
+									<td>${i.cinema }</td>
+									<td>${i.latitude }</td>
+									<td>${i.longitude }</td>
+									<td>
+										<button type="button" class="btn btn-default"
+											onclick="location.href='deleteCinema.do?cinemaseq=${i.cinemaseq }'">삭제</button>
+									</td>
+
+								</tr>
+
+							</c:forEach>
+
+						</c:otherwise>
+					</c:choose>
+
+				</tbody>
+			</table>
+			</center>
+		</form>
+		<!-- Footer -->
+		<%@ include file="../inc/footer.jsp"%>
 </body>
+
 </html>

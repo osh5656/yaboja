@@ -132,7 +132,7 @@ public class UserController {
 	}
 	//로그인 처리
 	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String login(String userid, String userpw, HttpSession session,HttpServletResponse response) throws IOException {
+	public String login(String userid, String userpw, HttpSession session,HttpServletResponse response,Model model) throws IOException {
 
 		UserDto dto=userbiz.login(userid,userpw);
 		
@@ -158,9 +158,11 @@ public class UserController {
 			System.out.println("로그인 성공!");
 			response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('로그인 성공하였습니다.');</script>"); // history.go(-1);</script>
+//            out.println("<script>alert('로그인 성공하였습니다.');</script>"); // history.go(-1);</script>
             out.flush();
-			return "main";
+    		model.addAttribute("msg", "로그인 성공하였습니다.");
+    		model.addAttribute("view","main");
+			return "inc/msg";
 		}
 		
 		

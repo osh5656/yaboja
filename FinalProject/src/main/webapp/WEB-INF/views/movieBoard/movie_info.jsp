@@ -115,6 +115,7 @@
 
 	<!-- Menu Bar -->
 
+
 	<nav class="nav2" style="margin-top: 60px; margin-bottom: 20px;">
 		<!-- 메뉴바 -->
 		<a href="movieBoard.do"><strong>Movie Board</strong></a> <a
@@ -124,6 +125,7 @@
 				Page</strong></a>
 		<div class="nav-underline"></div>
 	</nav>
+
 
 	<!-- mypagesidebar -->
 	<%@ include file="../inc/moviesidebar2.jsp"%>

@@ -42,4 +42,14 @@ public class CinemaBizImpl implements CinemaBiz{
 		return dao.getCinema(cinemaseq);
 
 	}
+	@Override
+	public int insertCinema(CinemaDto cinemaDto) {
+		// TODO Auto-generated method stub
+		return dao.insertCinema(cinemaDto);
+	}
+	@Override
+	public int deleteCinema(int cinemaseq) {
+		// TODO Auto-generated method stub
+		return dao.deleteCinema(cinemaseq);
+	}
 }

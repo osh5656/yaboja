@@ -83,4 +83,6 @@ ALTER TABLE MOVIECOMENT
 
 INSERT INTO USERS VALUES(6,'a','a','진선1','앙','기','모','찌','하','이','요',9,8,7,'밐');
 
+select * from users;
 
+select * from cinema where cinemaseq in(69,71,59)
