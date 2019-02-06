@@ -240,7 +240,7 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        return path+"/"+fileName;
+        return fileName;
     }
     
 

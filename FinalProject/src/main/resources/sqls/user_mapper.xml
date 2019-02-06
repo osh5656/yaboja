@@ -42,7 +42,7 @@
 	</select>
    <update id="userUpdate2" parameterType="UserDto">
    UPDATE USERS SET 
-   USERPW = #{userpw}, USERNAME = #{username}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}, USERCINEMA1 = #{usercinema1}, USERCINEMA2 = #{usercinema2}, USERCINEMA3 = #{usercinema3}
+   USERPW = #{userpw}, USERNAME = #{username}, USERPROFILE = #{userprofile}, USERSEX = #{usersex}, USERAGE = #{userage}, USERADDRESS = #{useraddress}, USERCINEMA1 = #{usercinema1}, USERCINEMA2 = #{usercinema2}, USERCINEMA3 = #{usercinema3}
    WHERE USERSEQ = #{userseq} 
    </update>
    <update id="userDelete" parameterType="UserDto">

@@ -129,7 +129,7 @@ body { font-family:'HY나무M'; }
 		
 		<table border = "1" class= "table table-bordered" style="color:black; font-size: 1.2em;">
 			<tr>
-				<td rowspan ="4" width="150px"> <img alt="1234" src="profile/aaa.jpg"></td>
+				<td rowspan ="4" width="150px;" height="170px;"> <img alt="${matchingboarddetail2.userprofile }" src="profile/${matchingboarddetail2.userprofile }" style="width: 150px; height: 170px;"></td>
 			</tr>
 			<tr align ="center" >
 				<th width ="200px">이 름</th>

@@ -7,9 +7,7 @@
 <%
 List<ReviewboardDto> boardlist = (List)request.getAttribute("boardlist");
 UserDto userDto = (UserDto)session.getAttribute("dto");
-
 List<MovieDto> movielist = (List)request.getAttribute("movielist");
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +117,7 @@ function matchingboardDelete() {
 								<tr>
 								<td rowspan="11" width="150px;" height="170px;" align="center">
 									<label>PROFILE</label>
-									<img alt="프로필 사진" src=${dto.userprofile } style="width: 150px;height: 170px;">
+									<img alt="${dto.userprofile }" src="profile/${dto.userprofile }" style="width: 150px;height: 170px;">
 								</td>
 								</tr>
 								<tr align="center">

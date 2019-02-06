@@ -123,7 +123,7 @@ function deletecheck() {
 		<br/>
 		<table border="1" class="table table-hover">
 			<tr>
-				<td style="width: 88px;" rowspan="2"><c:out value="${writerUser.userprofile }" /></td>
+				<td style="width: 88px;" rowspan="2"><img alt="${writerUser.userprofile }" src="profile/${writerUser.userprofile }" style="width: 88px;height: 88px;"></td>
 				<td><c:out value="${writerUser.username }" /></td>
 				<td rowspan="2" style="width: 98px;" align="center"><input
 					type="button" value="취소" onclick="deletecheck()" class="btn btn-default"></td>
@@ -155,7 +155,7 @@ function deletecheck() {
 %>	
 				<table border="1" class="table table-hover">
 					<tr>
-						<td style="width: 88px;" rowspan="2"><img alt="" src="<%= userList.get(i).getUserprofile()%>"></td>
+						<td style="width: 88px;" rowspan="2"><img alt="<%= userList.get(i).getUserprofile()%>" src="profile/<%= userList.get(i).getUserprofile()%>" style="width: 88px;height: 88px;"></td>
 						<td style="font-weight: bold;">신청자</td>
 						<td><%= userList.get(i).getUsername()%></td>
 						<td style="font-weight: bold;">성별</td>

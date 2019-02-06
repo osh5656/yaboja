@@ -85,10 +85,10 @@
 				for(var i = 0 ; i < result.length ; i++){
 					if(result[i][0].value == userseq1){
 						result[i][0].value = '나';
-						img = '<%= userImg1%>';
+						img = 'profile/<%= userImg1%>';
 					}else{
 						result[i][0].value = '상대방';
-						img = '<%= userImg2%>';
+						img = 'profile/<%= userImg2%>';
 					}
 					addChat(result[i][0].value,result[i][2].value,result[i][3].value,img);
 				}

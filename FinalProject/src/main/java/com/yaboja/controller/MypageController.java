@@ -77,9 +77,11 @@ public class MypageController {
 			UserDto dto = (UserDto) session.getAttribute("dto");
 			int userseq = dto.getUserseq();
 			String userprofile = dto.getUserprofile();
-			System.out.println(">>>>>프로필사진_" + userprofile);
+//			System.out.println(">>>>>프로필사진_" + userprofile);
 			List<ReviewboardDto> reviewdto = userBiz.myboardList(userseq);
+
 			UserDto userdto = userBiz.selectOne(userseq);
+
 			List<MovieDto> movielist = new ArrayList<MovieDto>();
 			for (int i = 0; i < reviewdto.size(); i++) {
 				movielist.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
@@ -165,7 +167,7 @@ public class MypageController {
 	public String update(Model model, UserDto dto, HttpSession session, int userseq) {
 
 		int res = userBiz.update(dto);
-		System.out.println("////" + res);
+	
 
 		if (res > 0) {
 			dto = userBiz.selectOne(userseq);
@@ -177,7 +179,7 @@ public class MypageController {
 			List<MovieDto> movielist = new ArrayList<MovieDto>();
 			for (int i = 0; i < reviewdto.size(); i++) {
 				movielist.add(reviewBiz.selectOne1(reviewdto.get(i).getMovietitle()));
-				System.out.println(">>>>>내게시글영화제목test_" + movielist.get(i).getMovietitle());
+				
 			}
 
 			CinemaDto cinemadto1 = cinemaBiz.selectOne(dto.getUsercinema1());

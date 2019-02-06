@@ -316,8 +316,8 @@ function getUnread(){
 				<%
 							} else {
 				%>
-								<i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unreadMatching"></span></i>
-								<i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unread"></span></i> 
+								<a href="mypage_match_to.do"><i class="glyphicon glyphicon-bell" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unreadMatching"></span></i></a>
+								<a href="mypage_match_success.do"><i class="glyphicon glyphicon-comment" style="float: right; margin: 20px; cursor: pointer;"><span class="badge" id="unread"></span></i></a> 
 								<%if(dto.getUserpw().equals("kakao")){ %>
 								<a class="navbar-brand" href="logout.do?userpw=<%=dto.getUserpw() %>" style="float: right;">Logout</a>
 								<%}else{ %>

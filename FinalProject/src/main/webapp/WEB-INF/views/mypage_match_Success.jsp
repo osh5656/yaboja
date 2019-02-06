@@ -113,14 +113,17 @@
 	</tr>
 	<tr align = "center"  valign="bottom">	
 		<td style="width:150px; height:200px;">	
-			<img src = "<%= user.getUserprofile()%>" width ="150px" height="200px"/> <!-- 본인 사진사이즈 설정 -->
+<%-- 		<td style="width: 88px;" rowspan="2"><img alt="<%= userList.get(i).getUserprofile()%>" src="profile/<%= userList.get(i).getUserprofile()%>" style="width: 88px;height: 88px;"></td> --%>
+			<img src = "profile/<%= user.getUserprofile()%>" width ="150px" height="200px"/> <!-- 본인 사진사이즈 설정 -->
 		</td>	
+		
+		
 		<td style="width:150px; height:200px;">	
 <!-- 			<span style = "font-size : 20px;"></span><br> -->
 			<img src = "<%= imgurl%>"  width ="150px" height="200px"/>
 		</td>
 		<td>
-			<img src = "<%= userDto.getUserprofile()%>" width ="150px" height="200px"/> <!-- 매칭상대 사진사이즈 설정 -->
+			<img src = "profile/<%= userDto.getUserprofile()%>" width ="150px" height="200px"/> <!-- 매칭상대 사진사이즈 설정 -->
 		</td>
 	</tr>
 	<tr align ="center" valign ="middle">
