@@ -50,7 +50,7 @@
                     <center><div><a href="movieInfo.do?movieSeq=${i.movieseq }"><span style="font-size:15px;" >${i.movietitle }</span></a></div></center>
                     <div>
                     	<button class="btn btn-default" onclick="location.href='https://movie.naver.com/movie/bi/mi/reserve.nhn?${i.code}'"><i class="glyphicon glyphicon-facetime-video"></i> 예매하기</button>
-                    	<button class="btn btn-default" onclick="location.href=''"><i class="glyphicon glyphicon-heart"></i> 매칭하러가기</button>
+                    	<button class="btn btn-default" onclick="location.href='movie_matching.do?movieseq=${i.movieseq }'"><i class="glyphicon glyphicon-heart"></i> 매칭하러가기</button>
                     </div>
                 </div>
 						

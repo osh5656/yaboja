@@ -9,7 +9,9 @@
    <select id="selectOne" resultType="com.yaboja.dto.ReviewboardDto">
    SELECT * FROM REVIEWBOARD WHERE REVIEWBOARDSEQ = #{reviewboardseq}
    </select>
-   
+   <select id="titlemovie" resultType="MovieDto" parameterType="int">
+   SELECT * FROM MOVIE WHERE MOVIESEQ = #{movieseq}
+   </select>
    <insert id="Insert">
    INSERT INTO REVIEWBOARD VALUES(REVIEWBOARD_SEQ.NEXTVAL,#{userseq},#{movietitle},#{reviewboardtitle},#{reviewboardcontent}, SYSDATE,#{reviewboardview}) 
    </insert>

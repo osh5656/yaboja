@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yaboja.biz.CoinBiz;
+import com.yaboja.biz.MovieBiz;
 import com.yaboja.biz.ReviewboardBiz;
 import com.yaboja.biz.ReviewboardcomentBiz;
 import com.yaboja.biz.UserBiz;
@@ -51,7 +52,9 @@ public class ReviewboardController {
 	ReviewboardcomentBiz reviewboardcomentBiz;
 	@Autowired
 	private ReviewboardBiz reviewBiz;
-
+	@Autowired
+	private MovieBiz movieBiz;
+	
 	///////////////// ////////////////// 후기 게시판
 	///////////////// /////////////////////////////////////
 
@@ -61,16 +64,19 @@ public class ReviewboardController {
 	public String reviewboard(Criteria cri, Model model, HttpSession session) {
 		logger.info("글목록 페이징 1번이다.");
 		List<ReviewboardDto> reviewboardList = reviewBiz.listPage(cri);
-
 		List<UserDto> userList = new ArrayList<UserDto>();
+		List<MovieDto> movieList = new ArrayList<MovieDto>();
 
 		for (int i = 0; i < reviewboardList.size(); i++) {
 			userList.add(userBiz.selectOne1(String.valueOf(reviewboardList.get(i).getUserseq())));
+			movieList.add(reviewBiz.selectOne1(reviewboardList.get(i).getMovietitle()));
 		}
+/*		System.out.println(movieList.get(0).getMovietitle());
+		
 		System.out.println("///글제목:" + reviewboardList.size());
-		System.out.println("///유저시퀀스:" + userList.size());
-
+		System.out.println("///유저시퀀스:" + userList.size());*/		
 		model.addAttribute("reviewboardList", reviewboardList);
+		model.addAttribute("movieList",movieList);
 		model.addAttribute("userList", userList);
 
 		// 페이징 추가3
@@ -217,15 +223,16 @@ public class ReviewboardController {
 	      map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
 	      MovieDto movieDto = reviewBiz.getMovie(map);
 	      System.out.println("detail_movieDto>>>>>>>>" + movieDto);
+	      
+	      
+	      movieDto.setImgurl(movieDto.getImgurl().replace("?type=m99_141_2", ""));
 
 	      model.addAttribute("reviewboarddto", reviewboarddto);
 	      model.addAttribute("movieDto",movieDto);
 	      model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq())));
 
-	      System.out.println("detail : " + reviewboardseq);
-	      System.out.println(movieDto.getMovietitle() + "//detail_영화제목");
-	      return "review_detail";
-	   }
+		return "review_detail";
+	}
 
 	@RequestMapping(value = "/review_updateform.do", method = RequestMethod.POST)
 	public String updateform(Model model, int reviewboardseq) {
@@ -234,14 +241,11 @@ public class ReviewboardController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
 		MovieDto movieDto = reviewBiz.getMovie(map);
-		model.addAttribute("movieDto", movieDto);
+		model.addAttribute("movieDto",movieDto);
+		
+		model.addAttribute("reviewboarddto", reviewboarddto); //작성글의 리뷰보드dto
+		model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq()))); //작성글의 작성자 userdto
 
-		System.out.println(movieDto.getMovietitle() + "//updateform_영화제목");
-
-		model.addAttribute("reviewboarddto", reviewboarddto); // 작성글의 리뷰보드dto
-		model.addAttribute("userdto", userBiz.selectOne1(String.valueOf(reviewboarddto.getUserseq()))); // 작성글의 작성자
-																										// userdto
-		System.out.println("updateform : " + reviewboardseq);
 		return "review_update";
 
 	}
@@ -261,8 +265,6 @@ public class ReviewboardController {
 		map.put("movietitle", String.valueOf(reviewboarddto.getMovietitle()));
 
 		int res = reviewBiz.update(reviewboardDto);
-
-		System.out.println("reviewupdate.do확인" + reviewboardseq);
 		MovieDto movieDto = null;
 
 		movieDto = reviewBiz.getMovie(map);

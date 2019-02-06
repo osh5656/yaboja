@@ -2,13 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-   	int userseq = 0;
-	String usergrade="";
-	if(session.getAttribute("dto") != null){
-		userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
-		usergrade=((UserDto)session.getAttribute("dto")).getUsergrade();
-		
-	}
+      int userseq = 0;
+   String usergrade="";
+   if(session.getAttribute("dto") != null){
+      userseq = ((UserDto)session.getAttribute("dto")).getUserseq();
+      usergrade=((UserDto)session.getAttribute("dto")).getUsergrade();
+      
+   }
    
    
 %>
@@ -69,19 +69,19 @@ function commentList(){
            var usergrade = document.getElementById("usergrade").value;
            var coupdate = '';
             $.each(data, function(key, value){
-            	coupdate='';
+               coupdate='';
                if(userseq == value.userseq || usergrade== "admin" ){
-            	   
+                  
                   coupdate = '<div style = "float:right;"><a onclick="commentUpdate('+value.moviecomentseq+',\''+value.moviecomentcontent+'\');"> 수정 </a>'+'<a onclick="commentDelete('+value.moviecomentseq+');"> 삭제 </a> </div>';
                }
                
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
                 a += coupdate;
                 a += 'ID : <n class="commentInfo">'
-					+ value.username + '</n>';
+               + value.username + '</n>';
                 a += '<div class="commentContent'+value.moviecomentseq+'"><m><p>내용 :  '
-				+ value.moviecomentcontent
-				+ '</p></m>';
+            + value.moviecomentcontent
+            + '</p></m>';
                 a += '</div></div>';
             });
             
@@ -160,6 +160,6 @@ $(document).ready(function(){
 </head>
 <body>
    <input type="hidden" id="userseq" value="<%= userseq%>"/>
-	<input type="hidden" id="usergrade" value="<%= usergrade %>"/>
+   <input type="hidden" id="usergrade" value="<%= usergrade %>"/>
 </body>
 </html>

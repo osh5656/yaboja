@@ -126,7 +126,7 @@ function myAccFunc1() {
    
 
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px; margin-top: 2%;">
-  <a href="#" class="w3-bar-item w3-button">내 정보 관리</a>
+  <a href="mypage.do" class="w3-bar-item w3-button">내 정보 관리</a>
   <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
   코      인 <i class="fa fa-caret-down"></i>
   </button>
@@ -147,9 +147,7 @@ function myAccFunc1() {
   
 
   
-  
-  <a href="example.do" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+
    </div>
 
 
