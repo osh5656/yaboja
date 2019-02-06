@@ -17,7 +17,7 @@ public interface MovieDao {
 	public List<MovieDto> selectPresentMovies();
 	public List<MovieDto> selectEndMovies();
 	public int insert(List<MovieDto> movies);
-	public void updateToEnd(List<MovieDto> updateToEndMovies);
+	public int updateToEnd(List<MovieDto> updateToEndMovies);
 
 
 	

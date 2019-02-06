@@ -269,7 +269,7 @@ hr.small {
 	font-weight: 700
 }
 
-.btn, .pager li>a, .pager li>span {
+.pager li>a, .pager li>span {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
 	font-weight: 800;
@@ -356,7 +356,7 @@ form .row:first-child .floating-label-form-group {
 	border-top: 1px solid #eee
 }
 
-.btn {
+/* .btn {
 	font-size: 14px;
 	border-radius: 0;
 	padding: 15px 25px
@@ -372,7 +372,7 @@ form .row:first-child .floating-label-form-group {
 	border: 1px solid #0085A1;
 	color: #fff
 }
-
+ */
 .pager {
 	margin: 20px 0 0
 }

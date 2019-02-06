@@ -663,9 +663,9 @@ public class MatchingboardController {
 
 			CinemaDto dto = list.get(i);
 			String imgSrc = null;
-			if (dto.getCinema().contains("cgv")) {
+			if (dto.getCinema().contains("CGV")) {
 				imgSrc = "img/cgv.png";
-			} else if (dto.getCinema().contains("lotte")) {
+			} else if (dto.getCinema().contains("롯데")) {
 				imgSrc = "img/lotte.png";
 			}
 
@@ -713,6 +713,61 @@ public class MatchingboardController {
 		System.out.println("---------------영화관 번호 " + cinemaseq);
 
 		List<MatchingboardDto> list = matchingboardBiz.selectListByCinema(Integer.parseInt(cinemaseq));
+		List<UserDto> userinfo = new ArrayList<UserDto>();
+		List<MovieDto> movieinfo = new ArrayList<MovieDto>();
+		List<CinemaDto> cinemainfo = new ArrayList<CinemaDto>();
+		int listsize = (list.size()) - 1;
+
+
+		for (int i = 0; i < list.size(); i++) {
+			userinfo.add((UserDto) userBiz.selectOne(list.get(i).getUserseq()));
+			movieinfo.add((MovieDto) movieBiz.selectOne(list.get(i).getMovieseq()));
+			cinemainfo.add((CinemaDto) cinemaBiz.selectOne(list.get(i).getCinemaseq()));
+		}
+
+		
+
+		model.addAttribute("matchingboardlist1", list);
+		model.addAttribute("matchingboardlist2", userinfo);
+		model.addAttribute("matchingboardlist3", movieinfo);
+		model.addAttribute("matchingboardlist4", cinemainfo);
+		model.addAttribute("listsize", listsize);
+
+		
+//		
+		return "matchingBoard/match_list2";
+
+	}
+	
+	@RequestMapping(value = "/mycinema.do", method = RequestMethod.GET)
+	public String listByCinema(Model model, HttpSession session) {
+		
+		
+
+		//////
+		UserDto userdto = (UserDto) session.getAttribute("dto");
+
+		int coin_charge = 0;
+		int coin_use = 0;
+		int coin_val = 0;
+
+		coin_charge = coinBiz.coin(userdto.getUserseq(), "충전");
+
+		coin_use = coinBiz.coin(userdto.getUserseq(), "매칭");
+
+		coin_val = ((coin_charge - coin_use) / 500);
+
+		model.addAttribute("user_name", userdto.getUsername());
+		model.addAttribute("coin", coin_val);
+		
+		int usercinema1 = userdto.getUsercinema1();
+		int usercinema2 = userdto.getUsercinema2();
+		int usercinema3 = userdto.getUsercinema3();	
+
+		List<MatchingboardDto> list = matchingboardBiz.selectListByCinema(usercinema1);
+		list.addAll(matchingboardBiz.selectListByCinema(usercinema2));
+		list.addAll(matchingboardBiz.selectListByCinema(usercinema3));
+		
 		List<UserDto> userinfo = new ArrayList<UserDto>();
 		List<MovieDto> movieinfo = new ArrayList<MovieDto>();
 		List<CinemaDto> cinemainfo = new ArrayList<CinemaDto>();

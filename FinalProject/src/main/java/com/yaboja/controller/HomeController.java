@@ -71,6 +71,7 @@ public class HomeController {
 
 	public String getMain(Model model) {
 		
+		System.out.println("main왔당");
 		
 		
 		List<MovieDto> movies = biz.selectPresentMovies();

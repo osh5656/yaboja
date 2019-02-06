@@ -43,35 +43,7 @@
 
 	
 	
-<script type="text/javascript">
 
-function loadMovie(){
-	
-$.ajax({
-		
-		url: "loadMovie.do",
-		cache: false,
-		success: function(text){
-			
-			if(text.trim()=="ok"){
-				document.getElementById("ok").innerHTML="ok"
-			}
-			
-		},
-		error:function(){
-			
-		}
-    });
-	
-}
-
-String.prototype.trim = function () { //trim
-	
-    return this.replace(/^\s+|\s+$/g, "");
-
-}
-
-</script>
 
 
 
@@ -122,13 +94,6 @@ String.prototype.trim = function () { //trim
 	<h3 class="text-center">현재상영작</h3>
 	
 	<%@ include file="../inc/movielist.jsp"%>
-	
-	
-	<center>
-	<input type="button" value="개봉작 저장" onClick="loadMovie();"/>
-	<p id="ok"></p>
-	</center>
-	
 	
 	
 

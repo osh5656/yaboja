@@ -131,7 +131,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
 				Elements elements = doc.select(".thumb");
-				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				System.out.println("현재 상영작 수 (이미지 및 코드 크롤링)" + elements.size() + "개");
 				if (elements.size() > 1 && (elements.size() == movies.size())) {
 					int i = 0;
 					for (Element element : elements) {
@@ -154,7 +154,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
 				Elements elements = doc.select(".thumb");
-				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				System.out.println("현재 예정작 수(이미지 및 코드 크롤링) " + elements.size() + "개");
 				if (elements.size() > 1 && (elements.size() == movies.size())) {
 					int i = 0;
 					for (Element element : elements) {
@@ -185,7 +185,7 @@ public class Crawler {
 		try {
 			doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
 			Elements elements = doc.select(".info_star .num");
-			System.out.println("현재 상영작 수 " + elements.size() + "개");
+			System.out.println("현재 상영작 수 (평점 크롤링) " + elements.size() + "개");
 			if (elements.size() > 1 && (elements.size() == movies.size())) {
 				int i = 0;
 				for (Element element : elements) {
@@ -210,7 +210,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
 				Elements elements = doc.select(".info_txt1");
-				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				System.out.println("현재 상영작 수 (장르,개봉일,감독,상영시간, 배우 크롤링)" + elements.size() + "개");
 				if (elements.size() > 1 && (elements.size() == movies.size())) {
 					int i = 0;
 					for (Element element : elements) {
@@ -248,7 +248,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
 				Elements elements = doc.select(".info_txt1");
-				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				System.out.println("현재 예정작 수 (장르,개봉일,감독,상영시간, 배우 크롤링)" + elements.size() + "개");
 				if (elements.size() > 1 && (elements.size() == movies.size())) {
 					int i = 0;
 					for (Element element : elements) {
@@ -374,7 +374,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
 				Elements elements = doc.select(".tit a");
-				System.out.println("현재 상영작 수 " + elements.size() + "개");
+				System.out.println("현재 상영작 수 (제목 크롤링)" + elements.size() + "개");
 				if (elements.size() > 1) {
 					for (Element element : elements) {
 						MovieDto movie = new MovieDto();
@@ -392,7 +392,7 @@ public class Crawler {
 			try {
 				doc = Jsoup.connect("https://movie.naver.com/movie/running/premovie.nhn").get();
 				Elements elements = doc.select(".tit a");
-				System.out.println("개봉 예정작 수 " + elements.size() + "개");
+				System.out.println("개봉 예정작 수 (제목 크롤링)" + elements.size() + "개");
 				if (elements.size() > 1) {
 					for (Element element : elements) {
 						MovieDto movie = new MovieDto();

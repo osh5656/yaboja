@@ -13,4 +13,6 @@ public interface CinemaBiz {
 
 
 	public List<CinemaDto> selectAll();
+	public int insertCinema(CinemaDto cinemaDto);
+	public int deleteCinema(int cinemaseq);
 }

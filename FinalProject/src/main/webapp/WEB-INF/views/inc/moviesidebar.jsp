@@ -28,7 +28,7 @@
 	
 
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px; margin-top: 2%;">
-  <a href="#" class="w3-bar-item w3-button">등록 영화관으로 매칭</a>
+  <a href="mycinema.do" class="w3-bar-item w3-button">등록 영화관으로 매칭</a>
   <a href="#" class="w3-bar-item w3-button">가까운 영화관 매칭</a>
   <a href="map.do" class="w3-bar-item w3-button">지도로 영화관 매칭 </a>
 	</div>

@@ -38,9 +38,9 @@ public class MovieBizImpl implements MovieBiz {
 	}
 
 	@Override
-	public int insert() {
+	public int[] insert() {
 
-		int res = 0;
+		int res[] = {0,0};
 		Crawler crawler = new Crawler();
 		List<MovieDto> crawlMovies = crawler.getNaverMovie();
 		/*List<MovieDto> crawlMovies = new ArrayList<MovieDto>();
@@ -50,19 +50,21 @@ public class MovieBizImpl implements MovieBiz {
 		
 		List<MovieDto> dbMovies = dao.selectPresentMovies();
 
-		updateToEndMovie(crawlMovies, dbMovies);
+		res[0] = updateToEndMovie(crawlMovies, dbMovies);
 		List<MovieDto> movies = getInsertMovies(crawlMovies, dbMovies);
 		if(movies.size()>0) {
-			System.out.println("--------새로운 영화 " + movies.size() + "개 삽입 성공 ----");
-			res = dao.insert(movies);
+			System.out.println("--------새로운 영화 " + movies.size() + "개 삽입 시도");
+			res[1] = dao.insert(movies);
+			if(movies.size()==res[1]) {
+				System.out.println(movies.size()+"개 다중 삽입 성공 !!");
+			}
 		}
-		
-
 		return res;
 	}
 
-	public void updateToEndMovie(List<MovieDto> crawlMovies, List<MovieDto> dbMovies) {
+	public int updateToEndMovie(List<MovieDto> crawlMovies, List<MovieDto> dbMovies) {
 		List<MovieDto> updateToEndMovies = new ArrayList<MovieDto>();
+		int res = 0;
 		for (MovieDto dbDto : dbMovies) {
 			int i = 0;// 상영작이 크롤링한 상영작에 없는지 확인하기 위한 변수
 			for (MovieDto crawlDto : crawlMovies) {
@@ -77,8 +79,9 @@ public class MovieBizImpl implements MovieBiz {
 			
 		}
 		if(updateToEndMovies.size()>0) {
-			dao.updateToEnd(updateToEndMovies);			
+			res=dao.updateToEnd(updateToEndMovies);			
 		}
+		return res;
 	}
 
 	public List<MovieDto> getInsertMovies(List<MovieDto> crawlMovies, List<MovieDto> dbMovies) {
