@@ -180,9 +180,7 @@
         $.ajax({
      	   url:"getJson.do",
      	   dataType:"json",
-     	   success:function(msg){
-     		   
-     		 
+     	   success:function(msg){     		 
      		  
      		  var markers = $(msg.positions).map(function(i, position) {
      	            var markers = new daum.maps.Marker({
@@ -197,11 +195,7 @@
      	                
      	                removable : true
      	            });
-     	            infowindow.open(map, markers);
-
-
-     	           
-     	          
+     	            infowindow.open(map, markers);     	          
      	 
      	            return markers;
      	 

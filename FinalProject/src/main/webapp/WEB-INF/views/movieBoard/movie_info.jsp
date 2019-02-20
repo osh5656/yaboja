@@ -46,11 +46,7 @@
 	window.onload = function() {
 
 		var innerHtml = "";
-		var x = $
-		{
-			dto.rating
-		}
-		;
+		var x = ${ moviedto.rating};
 		x = x / 2;
 
 		for (var i = 0; i < 5; i++) {
